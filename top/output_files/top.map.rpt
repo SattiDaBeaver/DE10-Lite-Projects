@@ -1,5 +1,5 @@
 Analysis & Synthesis report for top
-Wed Mar 26 23:43:56 2025
+Thu Mar 27 00:42:26 2025
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -13,10 +13,15 @@ Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. General Register Statistics
-  9. Post-Synthesis Netlist Statistics for Top Partition
- 10. Elapsed Time Per Partition
- 11. Analysis & Synthesis Messages
+  8. Registers Removed During Synthesis
+  9. General Register Statistics
+ 10. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 11. Parameter Settings for User Entity Instance: register_file:RF
+ 12. Port Connectivity Checks: "register_file:RF"
+ 13. Post-Synthesis Netlist Statistics for Top Partition
+ 14. Elapsed Time Per Partition
+ 15. Analysis & Synthesis Messages
+ 16. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -43,15 +48,15 @@ on the Quartus Prime software download page.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Mar 26 23:43:56 2025           ;
+; Analysis & Synthesis Status        ; Successful - Thu Mar 27 00:42:26 2025           ;
 ; Quartus Prime Version              ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
 ; Revision Name                      ; top                                             ;
 ; Top-level Entity Name              ; top                                             ;
 ; Family                             ; MAX 10                                          ;
-; Total logic elements               ; 10                                              ;
-;     Total combinational functions  ; 0                                               ;
-;     Dedicated logic registers      ; 10                                              ;
-; Total registers                    ; 10                                              ;
+; Total logic elements               ; 36                                              ;
+;     Total combinational functions  ; 20                                              ;
+;     Dedicated logic registers      ; 24                                              ;
+; Total registers                    ; 24                                              ;
 ; Total pins                         ; 23                                              ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 0                                               ;
@@ -157,20 +162,22 @@ on the Quartus Prime software download page.
 ; Maximum allowed            ; 14          ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 1           ;
+; Maximum used               ; 14          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
+;     Processors 2-14        ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                  ;
-+----------------------------------+-----------------+------------------------+---------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path    ; Library ;
-+----------------------------------+-----------------+------------------------+---------------------------------+---------+
-; top.v                            ; yes             ; User Verilog HDL File  ; C:/Projects/DE10-Lite/top/top.v ;         ;
-+----------------------------------+-----------------+------------------------+---------------------------------+---------+
++--------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                           ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                       ; Library ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------+---------+
+; top.v                            ; yes             ; User Verilog HDL File        ; C:/Projects/DE10-Lite-Projects/top/top.v           ;         ;
+; register_file.v                  ; yes             ; Auto-Found Verilog HDL File  ; C:/Projects/DE10-Lite-Projects/top/register_file.v ;         ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------------+---------+
 
 
 +--------------------------------------------------------------+
@@ -178,20 +185,20 @@ on the Quartus Prime software download page.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 10             ;
+; Estimated Total logic elements              ; 36             ;
 ;                                             ;                ;
-; Total combinational functions               ; 0              ;
+; Total combinational functions               ; 20             ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 0              ;
-;     -- 3 input functions                    ; 0              ;
+;     -- 4 input functions                    ; 16             ;
+;     -- 3 input functions                    ; 4              ;
 ;     -- <=2 input functions                  ; 0              ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 0              ;
+;     -- normal mode                          ; 20             ;
 ;     -- arithmetic mode                      ; 0              ;
 ;                                             ;                ;
-; Total registers                             ; 10             ;
-;     -- Dedicated logic registers            ; 10             ;
+; Total registers                             ; 24             ;
+;     -- Dedicated logic registers            ; 24             ;
 ;     -- I/O registers                        ; 0              ;
 ;                                             ;                ;
 ; I/O pins                                    ; 23             ;
@@ -199,21 +206,32 @@ on the Quartus Prime software download page.
 ; Embedded Multiplier 9-bit elements          ; 0              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 10             ;
-; Total fan-out                               ; 63             ;
-; Average fan-out                             ; 1.12           ;
+; Maximum fan-out                             ; 24             ;
+; Total fan-out                               ; 179            ;
+; Average fan-out                             ; 1.99           ;
 +---------------------------------------------+----------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------+-------------+--------------+
-; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name ; Entity Name ; Library Name ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------+-------------+--------------+
-; |top                       ; 0 (0)               ; 10 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 23   ; 0            ; 0          ; |top                ; top         ; work         ;
-;    |reg_LED:REGLED|        ; 0 (0)               ; 10 (10)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |top|reg_LED:REGLED ; reg_LED     ; work         ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------+-------------+--------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                    ;
++----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------+---------------+--------------+
+; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name   ; Entity Name   ; Library Name ;
++----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------+---------------+--------------+
+; |top                       ; 20 (0)              ; 24 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 23   ; 0            ; 0          ; |top                  ; top           ; work         ;
+;    |reg_LED:REGLED|        ; 0 (0)               ; 8 (8)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |top|reg_LED:REGLED   ; reg_LED       ; work         ;
+;    |register_file:RF|      ; 20 (20)             ; 16 (16)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |top|register_file:RF ; register_file ; work         ;
++----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------+---------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++--------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                             ;
++---------------------------------------+----------------------------------------+
+; Register name                         ; Reason for Removal                     ;
++---------------------------------------+----------------------------------------+
+; reg_LED:REGLED|LEDR[4,5]              ; Stuck at GND due to stuck port data_in ;
+; Total Number of Removed Registers = 2 ;                                        ;
++---------------------------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -221,28 +239,67 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 10    ;
+; Total registers                              ; 24    ;
 ; Number of registers using Synchronous Clear  ; 0     ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 10    ;
+; Number of registers using Clock Enable       ; 24    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
++-------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                            ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------+
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |top|reg_LED:REGLED|LEDR[0] ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |top|reg_LED:REGLED|LEDR[6] ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------+
+
+
++---------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: register_file:RF ;
++----------------+-------+--------------------------------------+
+; Parameter Name ; Value ; Type                                 ;
++----------------+-------+--------------------------------------+
+; R0             ; 00    ; Unsigned Binary                      ;
+; R1             ; 01    ; Unsigned Binary                      ;
+; R2             ; 10    ; Unsigned Binary                      ;
+; R3             ; 11    ; Unsigned Binary                      ;
++----------------+-------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "register_file:RF"                                                                                                               ;
++-------------+--------+----------+--------------------------------------------------------------------------------------------------------------------------+
+; Port        ; Type   ; Severity ; Details                                                                                                                  ;
++-------------+--------+----------+--------------------------------------------------------------------------------------------------------------------------+
+; dataW[7..4] ; Input  ; Info     ; Stuck at GND                                                                                                             ;
+; dataA       ; Output ; Warning  ; Output or bidir port (8 bits) is wider than the port expression (4 bits) it drives; bit(s) "dataA[7..4]" have no fanouts ;
+; dataB       ; Output ; Warning  ; Output or bidir port (8 bits) is wider than the port expression (4 bits) it drives; bit(s) "dataB[7..4]" have no fanouts ;
++-------------+--------+----------+--------------------------------------------------------------------------------------------------------------------------+
+
+
 +-----------------------------------------------------+
 ; Post-Synthesis Netlist Statistics for Top Partition ;
-+-------------------+---------------------------------+
-; Type              ; Count                           ;
-+-------------------+---------------------------------+
-; boundary_port     ; 23                              ;
-; cycloneiii_ff     ; 10                              ;
-;     ENA           ; 10                              ;
-;                   ;                                 ;
-; Max LUT depth     ; 0.00                            ;
-; Average LUT depth ; 0.00                            ;
-+-------------------+---------------------------------+
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; boundary_port         ; 23                          ;
+; cycloneiii_ff         ; 24                          ;
+;     ENA               ; 24                          ;
+; cycloneiii_lcell_comb ; 21                          ;
+;     normal            ; 21                          ;
+;         0 data inputs ; 1                           ;
+;         3 data inputs ; 4                           ;
+;         4 data inputs ; 16                          ;
+;                       ;                             ;
+; Max LUT depth         ; 2.00                        ;
+; Average LUT depth     ; 1.22                        ;
++-----------------------+-----------------------------+
 
 
 +-------------------------------+
@@ -260,28 +317,40 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Wed Mar 26 23:43:50 2025
+    Info: Processing started: Thu Mar 27 00:42:19 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off top -c top
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
 Info (12021): Found 2 design units, including 2 entities, in source file top.v
-    Info (12023): Found entity 1: top File: C:/Projects/DE10-Lite/top/top.v Line: 1
-    Info (12023): Found entity 2: reg_LED File: C:/Projects/DE10-Lite/top/top.v Line: 14
+    Info (12023): Found entity 1: top File: C:/Projects/DE10-Lite-Projects/top/top.v Line: 1
+    Info (12023): Found entity 2: reg_LED File: C:/Projects/DE10-Lite-Projects/top/top.v Line: 18
 Info (12127): Elaborating entity "top" for the top level hierarchy
-Info (12128): Elaborating entity "reg_LED" for hierarchy "reg_LED:REGLED" File: C:/Projects/DE10-Lite/top/top.v Line: 9
+Warning (12125): Using design file register_file.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: register_file File: C:/Projects/DE10-Lite-Projects/top/register_file.v Line: 1
+Info (12128): Elaborating entity "register_file" for hierarchy "register_file:RF" File: C:/Projects/DE10-Lite-Projects/top/top.v Line: 11
+Info (12128): Elaborating entity "reg_LED" for hierarchy "reg_LED:REGLED" File: C:/Projects/DE10-Lite-Projects/top/top.v Line: 13
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "LEDR[4]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/top/top.v Line: 6
+    Warning (13410): Pin "LEDR[5]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/top/top.v Line: 6
 Info (286030): Timing-Driven Synthesis is running
+Info (144001): Generated suppressed messages file C:/Projects/DE10-Lite-Projects/top/output_files/top.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 1 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "KEY[1]" File: C:/Projects/DE10-Lite/top/top.v Line: 3
-Info (21057): Implemented 33 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 59 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 13 input pins
     Info (21059): Implemented 10 output pins
-    Info (21061): Implemented 10 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 3 warnings
-    Info: Peak virtual memory: 4799 megabytes
-    Info: Processing ended: Wed Mar 26 23:43:56 2025
-    Info: Elapsed time: 00:00:06
+    Info (21061): Implemented 36 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 6 warnings
+    Info: Peak virtual memory: 4852 megabytes
+    Info: Processing ended: Thu Mar 27 00:42:26 2025
+    Info: Elapsed time: 00:00:07
     Info: Total CPU time (on all processors): 00:00:15
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in C:/Projects/DE10-Lite-Projects/top/output_files/top.map.smsg.
 
 

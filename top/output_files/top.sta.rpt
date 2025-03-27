@@ -1,5 +1,5 @@
 Timing Analyzer report for top
-Wed Mar 26 23:44:07 2025
+Thu Mar 27 00:42:38 2025
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -36,16 +36,17 @@ Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
  28. Signal Integrity Metrics (Slow 1200mv 0c Model)
  29. Signal Integrity Metrics (Slow 1200mv 85c Model)
  30. Signal Integrity Metrics (Fast 1200mv 0c Model)
- 31. Clock Transfers
- 32. Report TCCS
- 33. Report RSKM
- 34. Unconstrained Paths Summary
- 35. Clock Status Summary
- 36. Unconstrained Input Ports
- 37. Unconstrained Output Ports
- 38. Unconstrained Input Ports
- 39. Unconstrained Output Ports
- 40. Timing Analyzer Messages
+ 31. Setup Transfers
+ 32. Hold Transfers
+ 33. Report TCCS
+ 34. Report RSKM
+ 35. Unconstrained Paths Summary
+ 36. Clock Status Summary
+ 37. Unconstrained Input Ports
+ 38. Unconstrained Output Ports
+ 39. Unconstrained Input Ports
+ 40. Unconstrained Output Ports
+ 41. Timing Analyzer Messages
 
 
 
@@ -91,12 +92,12 @@ on the Quartus Prime software download page.
 ; Number detected on machine ; 20          ;
 ; Maximum allowed            ; 14          ;
 ;                            ;             ;
-; Average used               ; 1.08        ;
+; Average used               ; 1.09        ;
 ; Maximum used               ; 14          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-14        ;   0.6%      ;
+;     Processors 2-14        ;   0.7%      ;
 +----------------------------+-------------+
 
 
@@ -109,22 +110,32 @@ on the Quartus Prime software download page.
 +------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+--------------+
 
 
---------------------------------------
-; Slow 1200mV 85C Model Fmax Summary ;
---------------------------------------
-No paths to report.
++-----------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Fmax Summary                                                                        ;
++------------+-----------------+------------+---------------------------------------------------------------+
+; Fmax       ; Restricted Fmax ; Clock Name ; Note                                                          ;
++------------+-----------------+------------+---------------------------------------------------------------+
+; 638.16 MHz ; 250.0 MHz       ; CLOCK_50   ; limit due to minimum period restriction (max I/O toggle rate) ;
++------------+-----------------+------------+---------------------------------------------------------------+
+This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
 
----------------------------------------
++-------------------------------------+
 ; Slow 1200mV 85C Model Setup Summary ;
----------------------------------------
-No paths to report.
++----------+--------+-----------------+
+; Clock    ; Slack  ; End Point TNS   ;
++----------+--------+-----------------+
+; CLOCK_50 ; -0.567 ; -3.852          ;
++----------+--------+-----------------+
 
 
---------------------------------------
++------------------------------------+
 ; Slow 1200mV 85C Model Hold Summary ;
---------------------------------------
-No paths to report.
++----------+-------+-----------------+
+; Clock    ; Slack ; End Point TNS   ;
++----------+-------+-----------------+
+; CLOCK_50 ; 0.692 ; 0.000           ;
++----------+-------+-----------------+
 
 
 ------------------------------------------
@@ -144,7 +155,7 @@ No paths to report.
 +----------+--------+-------------------------------+
 ; Clock    ; Slack  ; End Point TNS                 ;
 +----------+--------+-------------------------------+
-; CLOCK_50 ; -3.000 ; -17.030                       ;
+; CLOCK_50 ; -3.000 ; -36.672                       ;
 +----------+--------+-------------------------------+
 
 
@@ -154,22 +165,32 @@ No paths to report.
 No synchronizer chains to report.
 
 
--------------------------------------
-; Slow 1200mV 0C Model Fmax Summary ;
--------------------------------------
-No paths to report.
++-----------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Fmax Summary                                                                         ;
++------------+-----------------+------------+---------------------------------------------------------------+
+; Fmax       ; Restricted Fmax ; Clock Name ; Note                                                          ;
++------------+-----------------+------------+---------------------------------------------------------------+
+; 702.25 MHz ; 250.0 MHz       ; CLOCK_50   ; limit due to minimum period restriction (max I/O toggle rate) ;
++------------+-----------------+------------+---------------------------------------------------------------+
+This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
 
---------------------------------------
++------------------------------------+
 ; Slow 1200mV 0C Model Setup Summary ;
---------------------------------------
-No paths to report.
++----------+--------+----------------+
+; Clock    ; Slack  ; End Point TNS  ;
++----------+--------+----------------+
+; CLOCK_50 ; -0.424 ; -2.813         ;
++----------+--------+----------------+
 
 
--------------------------------------
++-----------------------------------+
 ; Slow 1200mV 0C Model Hold Summary ;
--------------------------------------
-No paths to report.
++----------+-------+----------------+
+; Clock    ; Slack ; End Point TNS  ;
++----------+-------+----------------+
+; CLOCK_50 ; 0.639 ; 0.000          ;
++----------+-------+----------------+
 
 
 -----------------------------------------
@@ -189,7 +210,7 @@ No paths to report.
 +----------+--------+------------------------------+
 ; Clock    ; Slack  ; End Point TNS                ;
 +----------+--------+------------------------------+
-; CLOCK_50 ; -3.000 ; -17.030                      ;
+; CLOCK_50 ; -3.000 ; -36.672                      ;
 +----------+--------+------------------------------+
 
 
@@ -199,16 +220,22 @@ No paths to report.
 No synchronizer chains to report.
 
 
---------------------------------------
++------------------------------------+
 ; Fast 1200mV 0C Model Setup Summary ;
---------------------------------------
-No paths to report.
++----------+-------+-----------------+
+; Clock    ; Slack ; End Point TNS   ;
++----------+-------+-----------------+
+; CLOCK_50 ; 0.345 ; 0.000           ;
++----------+-------+-----------------+
 
 
--------------------------------------
++-----------------------------------+
 ; Fast 1200mV 0C Model Hold Summary ;
--------------------------------------
-No paths to report.
++----------+-------+----------------+
+; Clock    ; Slack ; End Point TNS  ;
++----------+-------+----------------+
+; CLOCK_50 ; 0.269 ; 0.000          ;
++----------+-------+----------------+
 
 
 -----------------------------------------
@@ -228,7 +255,7 @@ No paths to report.
 +----------+--------+------------------------------+
 ; Clock    ; Slack  ; End Point TNS                ;
 +----------+--------+------------------------------+
-; CLOCK_50 ; -3.000 ; -13.340                      ;
+; CLOCK_50 ; -3.000 ; -27.804                      ;
 +----------+--------+------------------------------+
 
 
@@ -238,16 +265,16 @@ No paths to report.
 No synchronizer chains to report.
 
 
-+----------------------------------------------------------------------------+
-; Multicorner Timing Analysis Summary                                        ;
-+------------------+-------+------+----------+---------+---------------------+
-; Clock            ; Setup ; Hold ; Recovery ; Removal ; Minimum Pulse Width ;
-+------------------+-------+------+----------+---------+---------------------+
-; Worst-case Slack ; N/A   ; N/A  ; N/A      ; N/A     ; -3.000              ;
-;  CLOCK_50        ; N/A   ; N/A  ; N/A      ; N/A     ; -3.000              ;
-; Design-wide TNS  ; 0.0   ; 0.0  ; 0.0      ; 0.0     ; -17.03              ;
-;  CLOCK_50        ; N/A   ; N/A  ; N/A      ; N/A     ; -17.030             ;
-+------------------+-------+------+----------+---------+---------------------+
++------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                          ;
++------------------+--------+-------+----------+---------+---------------------+
+; Clock            ; Setup  ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
++------------------+--------+-------+----------+---------+---------------------+
+; Worst-case Slack ; -0.567 ; 0.269 ; N/A      ; N/A     ; -3.000              ;
+;  CLOCK_50        ; -0.567 ; 0.269 ; N/A      ; N/A     ; -3.000              ;
+; Design-wide TNS  ; -3.852 ; 0.0   ; 0.0      ; 0.0     ; -36.672             ;
+;  CLOCK_50        ; -3.852 ; 0.000 ; N/A      ; N/A     ; -36.672             ;
++------------------+--------+-------+----------+---------+---------------------+
 
 
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -274,19 +301,19 @@ No synchronizer chains to report.
 +---------------------+-----------------------+-----------------+-----------------+
 ; Pin                 ; I/O Standard          ; 10-90 Rise Time ; 90-10 Fall Time ;
 +---------------------+-----------------------+-----------------+-----------------+
-; KEY[1]              ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; SW[0]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; SW[7]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; SW[6]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; CLOCK_50            ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; KEY[1]              ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; SW[9]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; SW[8]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; SW[0]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; SW[5]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; SW[4]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; KEY[0]              ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; SW[1]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; SW[2]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; SW[3]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; SW[4]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; SW[5]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; SW[6]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; SW[7]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; SW[8]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; SW[9]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; ~ALTERA_TMS~        ; 2.5 V Schmitt Trigger ; 2000 ps         ; 2000 ps         ;
 ; ~ALTERA_TCK~        ; 2.5 V Schmitt Trigger ; 2000 ps         ; 2000 ps         ;
 ; ~ALTERA_TDI~        ; 2.5 V Schmitt Trigger ; 2000 ps         ; 2000 ps         ;
@@ -354,10 +381,24 @@ No synchronizer chains to report.
 +--------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
 
 
--------------------
-; Clock Transfers ;
--------------------
-Nothing to report.
++-------------------------------------------------------------------+
+; Setup Transfers                                                   ;
++------------+----------+----------+----------+----------+----------+
+; From Clock ; To Clock ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++------------+----------+----------+----------+----------+----------+
+; CLOCK_50   ; CLOCK_50 ; 32       ; 0        ; 0        ; 0        ;
++------------+----------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
++-------------------------------------------------------------------+
+; Hold Transfers                                                    ;
++------------+----------+----------+----------+----------+----------+
+; From Clock ; To Clock ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++------------+----------+----------+----------+----------+----------+
+; CLOCK_50   ; CLOCK_50 ; 32       ; 0        ; 0        ; 0        ;
++------------+----------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
 
 ---------------
@@ -379,10 +420,10 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 +---------------------------------+-------+------+
 ; Illegal Clocks                  ; 0     ; 0    ;
 ; Unconstrained Clocks            ; 0     ; 0    ;
-; Unconstrained Input Ports       ; 11    ; 11   ;
-; Unconstrained Input Port Paths  ; 20    ; 20   ;
-; Unconstrained Output Ports      ; 10    ; 10   ;
-; Unconstrained Output Port Paths ; 10    ; 10   ;
+; Unconstrained Input Ports       ; 12    ; 12   ;
+; Unconstrained Input Port Paths  ; 88    ; 88   ;
+; Unconstrained Output Ports      ; 8     ; 8    ;
+; Unconstrained Output Port Paths ; 8     ; 8    ;
 +---------------------------------+-------+------+
 
 
@@ -401,6 +442,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; Input Port ; Comment                                                                              ;
 +------------+--------------------------------------------------------------------------------------+
 ; KEY[0]     ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; KEY[1]     ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; SW[0]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; SW[1]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; SW[2]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
@@ -423,8 +465,6 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; LEDR[1]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[2]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[3]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
-; LEDR[4]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
-; LEDR[5]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[6]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[7]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[8]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
@@ -438,6 +478,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; Input Port ; Comment                                                                              ;
 +------------+--------------------------------------------------------------------------------------+
 ; KEY[0]     ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; KEY[1]     ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; SW[0]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; SW[1]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; SW[2]      ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
@@ -460,8 +501,6 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; LEDR[1]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[2]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[3]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
-; LEDR[4]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
-; LEDR[5]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[6]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[7]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[8]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
@@ -475,7 +514,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime Timing Analyzer
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Wed Mar 26 23:44:06 2025
+    Info: Processing started: Thu Mar 27 00:42:37 2025
 Info: Command: quartus_sta top -c top
 Info: qsta_default_script.tcl version: #1
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
@@ -487,51 +526,67 @@ Info (332142): No user constrained base clocks found in the design. Calling "der
 Info (332105): Deriving Clocks
     Info (332105): create_clock -period 1.000 -name CLOCK_50 CLOCK_50
 Info (332143): No user constrained clock uncertainty found in the design. Calling "derive_clock_uncertainty"
-Info (332154): The derive_clock_uncertainty command did not apply clock uncertainty to any clock-to-clock transfers.
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
 Info: Found TIMING_ANALYZER_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
 Info: Analyzing Slow 1200mV 85C Model
-Info (332140): No fmax paths to report
 Info: Can't run Report Timing Closure Recommendations. The current device family is not supported.
-Info (332140): No Setup paths to report
-Info (332140): No Hold paths to report
+Critical Warning (332148): Timing requirements not met
+Info (332146): Worst-case setup slack is -0.567
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -0.567              -3.852 CLOCK_50 
+Info (332146): Worst-case hold slack is 0.692
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.692               0.000 CLOCK_50 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
-Critical Warning (332148): Timing requirements not met
 Info (332146): Worst-case minimum pulse width slack is -3.000
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -3.000             -17.030 CLOCK_50 
+    Info (332119):    -3.000             -36.672 CLOCK_50 
 Info: Analyzing Slow 1200mV 0C Model
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Info (332154): The derive_clock_uncertainty command did not apply clock uncertainty to any clock-to-clock transfers.
-Info (332140): No fmax paths to report
-Info (332140): No Setup paths to report
-Info (332140): No Hold paths to report
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Critical Warning (332148): Timing requirements not met
+Info (332146): Worst-case setup slack is -0.424
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -0.424              -2.813 CLOCK_50 
+Info (332146): Worst-case hold slack is 0.639
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.639               0.000 CLOCK_50 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
-Critical Warning (332148): Timing requirements not met
 Info (332146): Worst-case minimum pulse width slack is -3.000
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -3.000             -17.030 CLOCK_50 
+    Info (332119):    -3.000             -36.672 CLOCK_50 
 Info: Analyzing Fast 1200mV 0C Model
-Info (332154): The derive_clock_uncertainty command did not apply clock uncertainty to any clock-to-clock transfers.
-Info (332140): No Setup paths to report
-Info (332140): No Hold paths to report
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info (332146): Worst-case setup slack is 0.345
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.345               0.000 CLOCK_50 
+Info (332146): Worst-case hold slack is 0.269
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.269               0.000 CLOCK_50 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
 Critical Warning (332148): Timing requirements not met
 Info (332146): Worst-case minimum pulse width slack is -3.000
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -3.000             -13.340 CLOCK_50 
+    Info (332119):    -3.000             -27.804 CLOCK_50 
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus Prime Timing Analyzer was successful. 0 errors, 5 warnings
-    Info: Peak virtual memory: 4927 megabytes
-    Info: Processing ended: Wed Mar 26 23:44:07 2025
+    Info: Peak virtual memory: 4951 megabytes
+    Info: Processing ended: Thu Mar 27 00:42:38 2025
     Info: Elapsed time: 00:00:01
-    Info: Total CPU time (on all processors): 00:00:01
+    Info: Total CPU time (on all processors): 00:00:02
 
 
