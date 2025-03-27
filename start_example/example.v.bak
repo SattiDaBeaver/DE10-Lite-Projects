@@ -1,0 +1,16 @@
+module example(LEDR[9:0], KEY[1:0]);
+	input wire [1:0] KEYS;
+	output wire [9:0] LEDR;
+	
+	wire a, b;
+	
+	assign a = KEYS[0];
+	assign b = KEYS[1];
+	
+	assign LEDR[3] = a & b;
+	assign LEDR[4] = a | b;
+	assign LEDR[0] = a;
+	assign LEDR[1] = b;
+	
+	
+endmodule
