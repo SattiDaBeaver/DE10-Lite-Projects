@@ -1,27 +1,59 @@
 |top
-SW[0] => SW[0].IN1
-SW[1] => SW[1].IN1
-SW[2] => SW[2].IN1
-SW[3] => SW[3].IN1
-SW[4] => SW[4].IN1
-SW[5] => SW[5].IN1
-SW[6] => SW[6].IN1
-SW[7] => SW[7].IN1
-SW[8] => SW[8].IN1
-SW[9] => SW[9].IN1
-KEY[0] => _.IN1
+SW[0] => LED_OUT[0].IN2
+SW[1] => LED_OUT[1].IN2
+SW[2] => LED_OUT[2].IN2
+SW[3] => LED_OUT[3].IN2
+SW[4] => regW[0].IN1
+SW[5] => regW[1].IN1
+SW[6] => regB[0].IN1
+SW[7] => regB[1].IN1
+SW[8] => regA[0].IN1
+SW[9] => regA[1].IN1
+KEY[0] => RFWrite.IN1
 KEY[1] => _.IN1
-CLOCK_50 => CLOCK_50.IN2
-LEDR[0] << reg_LED:REGLED.LEDR
-LEDR[1] << reg_LED:REGLED.LEDR
-LEDR[2] << reg_LED:REGLED.LEDR
-LEDR[3] << reg_LED:REGLED.LEDR
-LEDR[4] << reg_LED:REGLED.LEDR
-LEDR[5] << reg_LED:REGLED.LEDR
-LEDR[6] << reg_LED:REGLED.LEDR
-LEDR[7] << reg_LED:REGLED.LEDR
-LEDR[8] << reg_LED:REGLED.LEDR
-LEDR[9] << reg_LED:REGLED.LEDR
+KEY[1] => _.IN1
+KEY[1] => _.IN1
+KEY[1] => _.IN1
+KEY[1] => _.IN1
+HEX3[0] <= reg_HEX:H3.display
+HEX3[1] <= reg_HEX:H3.display
+HEX3[2] <= reg_HEX:H3.display
+HEX3[3] <= reg_HEX:H3.display
+HEX3[4] <= reg_HEX:H3.display
+HEX3[5] <= reg_HEX:H3.display
+HEX3[6] <= reg_HEX:H3.display
+HEX2[0] <= reg_HEX:H2.display
+HEX2[1] <= reg_HEX:H2.display
+HEX2[2] <= reg_HEX:H2.display
+HEX2[3] <= reg_HEX:H2.display
+HEX2[4] <= reg_HEX:H2.display
+HEX2[5] <= reg_HEX:H2.display
+HEX2[6] <= reg_HEX:H2.display
+HEX1[0] <= reg_HEX:H1.display
+HEX1[1] <= reg_HEX:H1.display
+HEX1[2] <= reg_HEX:H1.display
+HEX1[3] <= reg_HEX:H1.display
+HEX1[4] <= reg_HEX:H1.display
+HEX1[5] <= reg_HEX:H1.display
+HEX1[6] <= reg_HEX:H1.display
+HEX0[0] <= reg_HEX:H0.display
+HEX0[1] <= reg_HEX:H0.display
+HEX0[2] <= reg_HEX:H0.display
+HEX0[3] <= reg_HEX:H0.display
+HEX0[4] <= reg_HEX:H0.display
+HEX0[5] <= reg_HEX:H0.display
+HEX0[6] <= reg_HEX:H0.display
+CLOCK_50 => CLOCK_50.IN6
+LEDR[0] <= reg_LED:REGLED.LEDR
+LEDR[1] <= reg_LED:REGLED.LEDR
+LEDR[2] <= reg_LED:REGLED.LEDR
+LEDR[3] <= reg_LED:REGLED.LEDR
+LEDR[4] <= reg_LED:REGLED.LEDR
+LEDR[5] <= reg_LED:REGLED.LEDR
+LEDR[6] <= reg_LED:REGLED.LEDR
+LEDR[7] <= reg_LED:REGLED.LEDR
+LEDR[8] <= reg_LED:REGLED.LEDR
+LEDR[9] <= reg_LED:REGLED.LEDR
 
 
 |top|register_file:RF
@@ -214,5 +246,173 @@ LEDR[6] <= LEDR[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 LEDR[7] <= LEDR[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 LEDR[8] <= LEDR[8]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 LEDR[9] <= LEDR[9]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|reg_HEX:H3
+CLOCK_50 => display[0]~reg0.CLK
+CLOCK_50 => display[1]~reg0.CLK
+CLOCK_50 => display[2]~reg0.CLK
+CLOCK_50 => display[3]~reg0.CLK
+CLOCK_50 => display[4]~reg0.CLK
+CLOCK_50 => display[5]~reg0.CLK
+CLOCK_50 => display[6]~reg0.CLK
+EN => display[0]~reg0.ENA
+EN => display[1]~reg0.ENA
+EN => display[2]~reg0.ENA
+EN => display[3]~reg0.ENA
+EN => display[4]~reg0.ENA
+EN => display[5]~reg0.ENA
+EN => display[6]~reg0.ENA
+hex[0] => hex[0].IN1
+hex[1] => hex[1].IN1
+hex[2] => hex[2].IN1
+hex[3] => hex[3].IN1
+display[0] <= display[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[1] <= display[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[2] <= display[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[3] <= display[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[4] <= display[4]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[5] <= display[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[6] <= display[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|reg_HEX:H3|hex7seg:SEG
+hex[0] => Decoder0.IN3
+hex[1] => Decoder0.IN2
+hex[2] => Decoder0.IN1
+hex[3] => Decoder0.IN0
+display[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+display[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+display[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+display[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+display[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+display[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+display[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|reg_HEX:H2
+CLOCK_50 => display[0]~reg0.CLK
+CLOCK_50 => display[1]~reg0.CLK
+CLOCK_50 => display[2]~reg0.CLK
+CLOCK_50 => display[3]~reg0.CLK
+CLOCK_50 => display[4]~reg0.CLK
+CLOCK_50 => display[5]~reg0.CLK
+CLOCK_50 => display[6]~reg0.CLK
+EN => display[0]~reg0.ENA
+EN => display[1]~reg0.ENA
+EN => display[2]~reg0.ENA
+EN => display[3]~reg0.ENA
+EN => display[4]~reg0.ENA
+EN => display[5]~reg0.ENA
+EN => display[6]~reg0.ENA
+hex[0] => hex[0].IN1
+hex[1] => hex[1].IN1
+hex[2] => hex[2].IN1
+hex[3] => hex[3].IN1
+display[0] <= display[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[1] <= display[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[2] <= display[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[3] <= display[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[4] <= display[4]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[5] <= display[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[6] <= display[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|reg_HEX:H2|hex7seg:SEG
+hex[0] => Decoder0.IN3
+hex[1] => Decoder0.IN2
+hex[2] => Decoder0.IN1
+hex[3] => Decoder0.IN0
+display[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+display[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+display[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+display[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+display[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+display[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+display[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|reg_HEX:H1
+CLOCK_50 => display[0]~reg0.CLK
+CLOCK_50 => display[1]~reg0.CLK
+CLOCK_50 => display[2]~reg0.CLK
+CLOCK_50 => display[3]~reg0.CLK
+CLOCK_50 => display[4]~reg0.CLK
+CLOCK_50 => display[5]~reg0.CLK
+CLOCK_50 => display[6]~reg0.CLK
+EN => display[0]~reg0.ENA
+EN => display[1]~reg0.ENA
+EN => display[2]~reg0.ENA
+EN => display[3]~reg0.ENA
+EN => display[4]~reg0.ENA
+EN => display[5]~reg0.ENA
+EN => display[6]~reg0.ENA
+hex[0] => hex[0].IN1
+hex[1] => hex[1].IN1
+hex[2] => hex[2].IN1
+hex[3] => hex[3].IN1
+display[0] <= display[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[1] <= display[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[2] <= display[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[3] <= display[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[4] <= display[4]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[5] <= display[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[6] <= display[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|reg_HEX:H1|hex7seg:SEG
+hex[0] => Decoder0.IN3
+hex[1] => Decoder0.IN2
+hex[2] => Decoder0.IN1
+hex[3] => Decoder0.IN0
+display[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+display[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+display[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+display[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+display[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+display[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+display[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|reg_HEX:H0
+CLOCK_50 => display[0]~reg0.CLK
+CLOCK_50 => display[1]~reg0.CLK
+CLOCK_50 => display[2]~reg0.CLK
+CLOCK_50 => display[3]~reg0.CLK
+CLOCK_50 => display[4]~reg0.CLK
+CLOCK_50 => display[5]~reg0.CLK
+CLOCK_50 => display[6]~reg0.CLK
+EN => display[0]~reg0.ENA
+EN => display[1]~reg0.ENA
+EN => display[2]~reg0.ENA
+EN => display[3]~reg0.ENA
+EN => display[4]~reg0.ENA
+EN => display[5]~reg0.ENA
+EN => display[6]~reg0.ENA
+hex[0] => hex[0].IN1
+hex[1] => hex[1].IN1
+hex[2] => hex[2].IN1
+hex[3] => hex[3].IN1
+display[0] <= display[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[1] <= display[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[2] <= display[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[3] <= display[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[4] <= display[4]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[5] <= display[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+display[6] <= display[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|top|reg_HEX:H0|hex7seg:SEG
+hex[0] => Decoder0.IN3
+hex[1] => Decoder0.IN2
+hex[2] => Decoder0.IN1
+hex[3] => Decoder0.IN0
+display[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+display[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+display[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+display[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+display[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+display[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+display[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
 
 
