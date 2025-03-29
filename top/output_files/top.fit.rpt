@@ -1,5 +1,5 @@
 Fitter report for top
-Fri Mar 28 22:00:56 2025
+Sat Mar 29 11:36:27 2025
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -67,7 +67,7 @@ on the Quartus Prime software download page.
 +--------------------------------------------------------------------------------------+
 ; Fitter Summary                                                                       ;
 +------------------------------------+-------------------------------------------------+
-; Fitter Status                      ; Successful - Fri Mar 28 22:00:56 2025           ;
+; Fitter Status                      ; Successful - Sat Mar 29 11:36:27 2025           ;
 ; Quartus Prime Version              ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
 ; Revision Name                      ; top                                             ;
 ; Top-level Entity Name              ; top                                             ;
@@ -153,12 +153,12 @@ on the Quartus Prime software download page.
 ; Number detected on machine ; 20          ;
 ; Maximum allowed            ; 14          ;
 ;                            ;             ;
-; Average used               ; 1.13        ;
+; Average used               ; 1.11        ;
 ; Maximum used               ; 14          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-14        ;   1.0%      ;
+;     Processors 2-14        ;   0.8%      ;
 +----------------------------+-------------+
 
 
@@ -1144,7 +1144,7 @@ Note: Pin directions (input, output or bidir) are based on device operating in u
 ; Compilation Hierarchy Node ; Logic Cells ; Dedicated Logic Registers ; I/O Registers ; Memory Bits ; M9Ks ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; ADC blocks ; Full Hierarchy Name         ; Entity Name   ; Library Name ;
 +----------------------------+-------------+---------------------------+---------------+-------------+------+------------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+------------+-----------------------------+---------------+--------------+
 ; |top                       ; 112 (1)     ; 54 (0)                    ; 0 (0)         ; 0           ; 0    ; 1          ; 0            ; 0       ; 0         ; 65   ; 0            ; 58 (1)       ; 4 (0)             ; 50 (0)           ; 0          ; |top                        ; top           ; work         ;
-;    |ALU:alu|               ; 59 (59)     ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 48 (48)      ; 0 (0)             ; 11 (11)          ; 0          ; |top|ALU:alu                ; ALU           ; work         ;
+;    |ALU:ALUx|              ; 59 (59)     ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 48 (48)      ; 0 (0)             ; 11 (11)          ; 0          ; |top|ALU:ALUx               ; ALU           ; work         ;
 ;    |reg_HEX:H0|            ; 7 (7)       ; 7 (7)                     ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 7 (0)            ; 0          ; |top|reg_HEX:H0             ; reg_HEX       ; work         ;
 ;       |hex7seg:SEG|        ; 7 (7)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 7 (7)            ; 0          ; |top|reg_HEX:H0|hex7seg:SEG ; hex7seg       ; work         ;
 ;    |reg_HEX:H2|            ; 7 (7)       ; 7 (7)                     ; 0 (0)         ; 0           ; 0    ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 7 (0)            ; 0          ; |top|reg_HEX:H2             ; reg_HEX       ; work         ;
@@ -1238,53 +1238,53 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Source Pin / Fanout                  ; Pad To Core Index ; Setting ;
 +--------------------------------------+-------------------+---------+
 ; SW[0]                                ;                   ;         ;
-;      - ALU:alu|Add0~14               ; 0                 ; 6       ;
-;      - ALU:alu|Add0~16               ; 0                 ; 6       ;
-;      - ALU:alu|Add0~5                ; 0                 ; 6       ;
+;      - ALU:ALUx|Add0~14              ; 0                 ; 6       ;
+;      - ALU:ALUx|Add0~16              ; 0                 ; 6       ;
+;      - ALU:ALUx|Add0~5               ; 0                 ; 6       ;
 ;      - register_file:RF|r2[0]        ; 0                 ; 6       ;
 ;      - register_file:RF|r1[0]        ; 0                 ; 6       ;
 ;      - register_file:RF|r0[0]        ; 0                 ; 6       ;
 ;      - register_file:RF|r3[0]        ; 0                 ; 6       ;
-;      - ALU:alu|Add0~0                ; 0                 ; 6       ;
-;      - ALU:alu|Add0~1                ; 0                 ; 6       ;
-;      - ALU:alu|Add0~2                ; 0                 ; 6       ;
-;      - ALU:alu|Add0~3                ; 0                 ; 6       ;
-;      - ALU:alu|Mux2~0                ; 0                 ; 6       ;
-;      - ALU:alu|Mux1~0                ; 0                 ; 6       ;
-;      - ALU:alu|Mux0~0                ; 0                 ; 6       ;
-;      - ALU:alu|Mux6~5                ; 0                 ; 6       ;
-;      - ALU:alu|Mux6~7                ; 0                 ; 6       ;
-;      - ALU:alu|Mux6~8                ; 0                 ; 6       ;
-;      - ALU:alu|Mux6~9                ; 0                 ; 6       ;
-;      - ALU:alu|Mux5~3                ; 0                 ; 6       ;
-;      - ALU:alu|Mux3~5                ; 0                 ; 6       ;
+;      - ALU:ALUx|Add0~0               ; 0                 ; 6       ;
+;      - ALU:ALUx|Add0~1               ; 0                 ; 6       ;
+;      - ALU:ALUx|Add0~2               ; 0                 ; 6       ;
+;      - ALU:ALUx|Add0~3               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux2~0               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux1~0               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux0~0               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux6~5               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux6~7               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux6~8               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux6~9               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux5~3               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux3~5               ; 0                 ; 6       ;
 ; SW[1]                                ;                   ;         ;
-;      - ALU:alu|Mux6~4                ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux6~4               ; 0                 ; 6       ;
 ;      - register_file:RF|r1[1]        ; 0                 ; 6       ;
 ;      - register_file:RF|r2[1]        ; 0                 ; 6       ;
 ;      - register_file:RF|r0[1]        ; 0                 ; 6       ;
 ;      - register_file:RF|r3[1]        ; 0                 ; 6       ;
-;      - ALU:alu|Mux2~0                ; 0                 ; 6       ;
-;      - ALU:alu|Mux1~0                ; 0                 ; 6       ;
-;      - ALU:alu|Mux0~0                ; 0                 ; 6       ;
-;      - ALU:alu|Mux6~9                ; 0                 ; 6       ;
-;      - ALU:alu|Mux7~3                ; 0                 ; 6       ;
-;      - ALU:alu|Mux6~12               ; 0                 ; 6       ;
-;      - ALU:alu|Mux5~0                ; 0                 ; 6       ;
-;      - ALU:alu|Mux5~3                ; 0                 ; 6       ;
-;      - ALU:alu|Mux3~5                ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux2~0               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux1~0               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux0~0               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux6~9               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux7~3               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux6~12              ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux5~0               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux5~3               ; 0                 ; 6       ;
+;      - ALU:ALUx|Mux3~5               ; 0                 ; 6       ;
 ; SW[2]                                ;                   ;         ;
-;      - ALU:alu|Mux6~4                ; 1                 ; 6       ;
+;      - ALU:ALUx|Mux6~4               ; 1                 ; 6       ;
 ;      - register_file:RF|r2[2]        ; 1                 ; 6       ;
 ;      - register_file:RF|r3[2]        ; 1                 ; 6       ;
-;      - ALU:alu|Mux2~0                ; 1                 ; 6       ;
-;      - ALU:alu|Mux1~0                ; 1                 ; 6       ;
-;      - ALU:alu|Mux0~0                ; 1                 ; 6       ;
-;      - ALU:alu|Mux6~9                ; 1                 ; 6       ;
-;      - ALU:alu|Mux5~0                ; 1                 ; 6       ;
-;      - ALU:alu|Mux5~3                ; 1                 ; 6       ;
-;      - ALU:alu|Mux3~5                ; 1                 ; 6       ;
-;      - ALU:alu|Mux3~6                ; 1                 ; 6       ;
+;      - ALU:ALUx|Mux2~0               ; 1                 ; 6       ;
+;      - ALU:ALUx|Mux1~0               ; 1                 ; 6       ;
+;      - ALU:ALUx|Mux0~0               ; 1                 ; 6       ;
+;      - ALU:ALUx|Mux6~9               ; 1                 ; 6       ;
+;      - ALU:ALUx|Mux5~0               ; 1                 ; 6       ;
+;      - ALU:ALUx|Mux5~3               ; 1                 ; 6       ;
+;      - ALU:ALUx|Mux3~5               ; 1                 ; 6       ;
+;      - ALU:ALUx|Mux3~6               ; 1                 ; 6       ;
 ;      - register_file:RF|r0[2]~feeder ; 1                 ; 6       ;
 ;      - register_file:RF|r1[2]~feeder ; 1                 ; 6       ;
 ; SW[7]                                ;                   ;         ;
@@ -1901,7 +1901,7 @@ Warning (15705): Ignored locations or region assignments to the following nodes
     Warning (15706): Node "VGA_R[2]" is assigned to location or region, but does not exist in design
     Warning (15706): Node "VGA_R[3]" is assigned to location or region, but does not exist in design
     Warning (15706): Node "VGA_VS" is assigned to location or region, but does not exist in design
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:00
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:01
 Info (14896): Fitter has disabled Advanced Physical Optimization because it is not supported for the current family.
 Info (170189): Fitter placement preparation operations beginning
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:00
@@ -1913,8 +1913,8 @@ Info (170195): Router estimated average interconnect usage is 0% of the availabl
     Info (170196): Router estimated peak interconnect usage is 2% of the available device resources in the region that extends from location X56_Y44 to location X66_Y54
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
-Info (170194): Fitter routing operations ending: elapsed time is 00:00:00
-Info (11888): Total time spent on timing analysis during the Fitter is 0.17 seconds.
+Info (170194): Fitter routing operations ending: elapsed time is 00:00:01
+Info (11888): Total time spent on timing analysis during the Fitter is 0.18 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
@@ -1924,9 +1924,9 @@ Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments 
 Info (144001): Generated suppressed messages file C:/Projects/DE10-Lite-Projects/top/output_files/top.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 126 warnings
     Info: Peak virtual memory: 6503 megabytes
-    Info: Processing ended: Fri Mar 28 22:00:57 2025
-    Info: Elapsed time: 00:00:07
-    Info: Total CPU time (on all processors): 00:00:13
+    Info: Processing ended: Sat Mar 29 11:36:27 2025
+    Info: Elapsed time: 00:00:09
+    Info: Total CPU time (on all processors): 00:00:15
 
 
 +----------------------------+

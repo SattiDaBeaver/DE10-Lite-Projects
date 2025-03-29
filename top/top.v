@@ -13,25 +13,43 @@ module top (
 	);
 	
 	wire [9:0] LED_OUT;
-	wire [7:0] dataA, dataB, dataW;
-	wire [3:0] regA, regB, regW;
-	wire RFWrite;
-	wire N, Z;
-	wire [7:0] ALUout;
 	
 	assign RFWrite = ~KEY[0];
 	assign regA = SW[9:8];
 	assign regB = SW[7:6];
 	assign regW = SW[5:4];
 	assign dataW = {4'b0000, SW[3:0]};
-	
+
+	// FSM Control Wires
+	wire MemRead, MemWrite;		// Memory
+	wire [2:0] ALUop;			// ALU
+	wire RFWrite;				// Register File
+
+	// Other Wires
+	// Memory
+	wire [7:0] ADDR, Data_in, Data_out;
+
+	// ALU
+	wire [7:0] ALU_A, ALU_B, ALUout;
+	wire N, Z;
+
+	// Register File
+	wire [7:0] dataA, dataB, dataW;
+	wire [3:0] regA, regB, regW;
+
+	// Processor Modules
+
 	register_file RF (.CLOCK_50(CLOCK_50), .RFWrite(RFWrite), .regA(regA), .regB(regB),
 							.regW(regW), .dataW(dataW), .dataA(dataA), .dataB(dataB));
 
-	ALU alu(.ALUop(SW[2:0]), .A(dataA), .B(dataB), .N(N), .Z(Z), .ALUout(ALUout));
+	ALU ALUx(.ALUop(SW[2:0]), .A(dataA), .B(dataB), .N(N), .Z(Z), .ALUout(ALUout));
 
+	memory Memory (.CLK(CLOCK_50), .MemRead(MemRead), .MemWrite(MemWrite), .ADDR(ADDR), .Data_in(Data_in), .Data_out(Data_out));
+
+	// I/O Modules
+	
 	assign LED_OUT = {N, Z, dataA[3:0], dataB[3:0]};
-							
+
 	reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(~KEY[1]), .Q(LED_OUT), .LEDR(LEDR[9:0]));
 	
 	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(~KEY[1]), .hex(ALUout[7:4]), .display(HEX5));
