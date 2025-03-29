@@ -1,11 +1,14 @@
 module top (
 	input [9:0] SW,
 	input [1:0] KEY,
+	input CLOCK_50,
+
+	output [6:0] HEX5,
+	output [6:0] HEX4,
 	output [6:0] HEX3,
 	output [6:0] HEX2,
 	output [6:0] HEX1,
 	output [6:0] HEX0,
-	input CLOCK_50,
 	output [9:0] LEDR 
 	);
 	
@@ -13,6 +16,8 @@ module top (
 	wire [7:0] dataA, dataB, dataW;
 	wire [3:0] regA, regB, regW;
 	wire RFWrite;
+	wire N, Z;
+	wire [7:0] ALUout;
 	
 	assign RFWrite = ~KEY[0];
 	assign regA = SW[9:8];
@@ -22,11 +27,15 @@ module top (
 	
 	register_file RF (.CLOCK_50(CLOCK_50), .RFWrite(RFWrite), .regA(regA), .regB(regB),
 							.regW(regW), .dataW(dataW), .dataA(dataA), .dataB(dataB));
-							
-	assign LED_OUT = {dataA[3:0], 2'b00, dataW[3:0]};
+
+	ALU alu(.ALUop(SW[2:0]), .A(dataA), .B(dataB), .N(N), .Z(Z), .ALUout(ALUout));
+
+	assign LED_OUT = {N, Z, dataA[3:0], dataB[3:0]};
 							
 	reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(~KEY[1]), .Q(LED_OUT), .LEDR(LEDR[9:0]));
 	
+	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(~KEY[1]), .hex(ALUout[7:4]), .display(HEX5));
+	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(~KEY[1]), .hex(ALUout[3:0]), .display(HEX4));
 	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(~KEY[1]), .hex(dataA[7:4]), .display(HEX3));
 	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(~KEY[1]), .hex(dataA[3:0]), .display(HEX2));
 	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(~KEY[1]), .hex(dataB[7:4]), .display(HEX1));
