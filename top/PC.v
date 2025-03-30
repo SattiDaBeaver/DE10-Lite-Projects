@@ -1,5 +1,5 @@
 module PC (
-    input CLK;
+    input CLK,
     input [7:0] PCin,
     input PCwrite,
     output reg [7:0] PCout
