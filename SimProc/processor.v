@@ -29,7 +29,12 @@ module processor (
 
 	// Processor Modules
 
-	datapath DATAPATH(.CLOCK_50(CLOCK_50), .PCwrite(PCwrite), .AddrSel(AddrSel), .MemRead(MemRead), .MemWrite(MemWrite), .IRload(IRload), .MDRload(MDRload),
+	datapath DataPath (.CLOCK_50(CLOCK_50), .PCwrite(PCwrite), .AddrSel(AddrSel), .MemRead(MemRead), .MemWrite(MemWrite), .IRload(IRload), .MDRload(MDRload),
+			 .RASel(RASel), .RFWrite(RFWrite), .RegIn(RegIn), .ABLD(ABLD), .ALU_A(ALU_A), .ALU_B(ALU_B), .ALUop(ALUop), .FlagWrite(FlagWrite), .ALUoutLD(ALUoutLD),
+			 .ALUregOut(ALUregOut), .Aout(Aout), .Bout(Bout), .OpCode(OpCode), .N(N), .Z(Z)
+    );
+
+	FSM FiniteStateMachine (.CLOCK_50(CLOCK_50), .PCwrite(PCwrite), .AddrSel(AddrSel), .MemRead(MemRead), .MemWrite(MemWrite), .IRload(IRload), .MDRload(MDRload),
 			 .RASel(RASel), .RFWrite(RFWrite), .RegIn(RegIn), .ABLD(ABLD), .ALU_A(ALU_A), .ALU_B(ALU_B), .ALUop(ALUop), .FlagWrite(FlagWrite), .ALUoutLD(ALUoutLD),
 			 .ALUregOut(ALUregOut), .Aout(Aout), .Bout(Bout), .OpCode(OpCode), .N(N), .Z(Z)
     );
