@@ -13,6 +13,7 @@ module datapath(
     output N, output Z
     );
 
+    // PC Wires
     wire [7:0] PCout;
 
     // Memory Wires
