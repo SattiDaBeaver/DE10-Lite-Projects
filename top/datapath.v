@@ -7,13 +7,12 @@ module datapath(
     input ABLD, input ALU_A, input [2:0] ALU_B,   // ALU and AB load registers/mux
     input [2:0] ALUop, input FlagWrite, input ALUoutLD,  // ALU and NZ Flag
 
-    output reg [7:0] ALUoutReg,    // ALU output
-    output reg [7:0] Aout, output reg [7:0] Bout,    // Register File A and B
-    output reg [7:0] OpCode     // Instruction
+    output [7:0] ALUregOut,    // ALU output
+    output [7:0] Aout, output reg [7:0] Bout,    // Register File A and B
+    output [7:0] OpCode     // Instruction
     );
 
     wire [7:0] PCout;
-    wire [7:0] ALUout;
 
     // Memory Wires
     wire [7:0] ADDR, Data_in, Data_out;
@@ -32,6 +31,11 @@ module datapath(
     // A and B Muxes
     reg [7:0] muxA, muxB;
 
+    // ALU wires
+    wire [7:0] ALUout;
+    wire N, Z;
+    reg Nreg, Zreg;
+    reg [7:0] ALUoutReg;
 
     // PC
     PC progCount(.CLK(CLOCK_50), .PCin(ALUout), .PCwrite(PCwrite), .PCout(PCout));
@@ -96,5 +100,36 @@ module datapath(
             default:    muxB = 8'b00000000;
         endcase
     end
+
+    // ALU
+
+    ALU ALUx(.ALUop(ALUop), .A(dataAreg), .B(dataBreg), .N(N), .Z(Z), .ALUout(ALUout));
+
+    always @ (posedge CLOCK_50) begin
+        if (ALUoutLD) begin
+            ALUoutReg <= ALUout;
+        end
+
+        if (FlagWrite) begin
+            Nreg <= N;
+            Zreg <= Z;
+        end
+    end 
+
+    // RegIn Mux
+    always @ (*) begin
+        if (RegIn) begin
+            dataW = MDRout;
+        end
+        else begin
+            dataW = ALUoutReg;
+        end
+    end
+
+
+    assign ALUregOut = ALUoutReg;
+    assign Aout = dataAreg;
+    assign Bout = dataBreg;
+    assign OpCode = IRout;
 
 endmodule
