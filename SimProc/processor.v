@@ -44,18 +44,18 @@ module processor (
 
 	// I/O Modules
 	
-	assign LED_OUT = {8'b0, N, Z};
+	assign LED_OUT = {PCwrite, AddrSel, MemRead, MemWrite, IRload, MDRload, RASel, RFWrite, RegIn, ALUoutLD};
 	assign enable = 1'b1;
 	assign CLOCK = ~KEY[0];
 
 	reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(enable), .Q(LED_OUT), .LEDR(LEDR[9:0]));
 	
-	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALUregOut[7:4]), .display(HEX5));
-	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALUregOut[3:0]), .display(HEX4));
-	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(muxA[7:4]), .display(HEX3));
-	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(muxA[3:0]), .display(HEX2));
-	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(muxB[7:4]), .display(HEX1));
-	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex(muxB[3:0]), .display(HEX0));
+	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALUregOut[7:4]), .display(HEX1));
+	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALUregOut[3:0]), .display(HEX0));
+	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(muxA[7:4]), .display(HEX5));
+	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(muxA[3:0]), .display(HEX4));
+	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(muxB[7:4]), .display(HEX3));
+	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex(muxB[3:0]), .display(HEX2));
 endmodule
 
 
@@ -198,10 +198,10 @@ module datapath(
         end
     end
 
-    assign Aout = dataAreg;
-    assign Bout = dataBreg;
+    assign Aout = muxA;
+    assign Bout = muxB;
     assign OpCode = IRout;
-    assign ALUregOut = registerALU;
+    assign ALUregOut = ALUout;
 endmodule
 
 module FSM(

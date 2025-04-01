@@ -3,19 +3,19 @@ Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow 1200mV 85C Model Setup 'KEY[0]'
-Slack : -7.937
-TNS   : -11751.100
+Slack : -7.954
+TNS   : -11620.923
 
 Type  : Slow 1200mV 85C Model Setup 'CLOCK_50'
-Slack : -3.738
-TNS   : -117.461
+Slack : -7.575
+TNS   : -258.902
 
 Type  : Slow 1200mV 85C Model Hold 'KEY[0]'
-Slack : 0.574
+Slack : 0.643
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'CLOCK_50'
-Slack : 1.065
+Slack : 1.758
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'KEY[0]'
@@ -24,22 +24,22 @@ TNS   : -3008.226
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK_50'
 Slack : -3.000
-TNS   : -64.732
+TNS   : -75.956
 
 Type  : Slow 1200mV 0C Model Setup 'KEY[0]'
-Slack : -7.314
-TNS   : -10687.933
+Slack : -7.264
+TNS   : -10614.781
 
 Type  : Slow 1200mV 0C Model Setup 'CLOCK_50'
-Slack : -3.409
-TNS   : -105.893
+Slack : -6.947
+TNS   : -237.072
 
 Type  : Slow 1200mV 0C Model Hold 'KEY[0]'
-Slack : 0.533
+Slack : 0.591
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'CLOCK_50'
-Slack : 1.006
+Slack : 1.663
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'KEY[0]'
@@ -48,30 +48,30 @@ TNS   : -3008.226
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
 Slack : -3.000
-TNS   : -64.732
-
-Type  : Fast 1200mV 0C Model Setup 'KEY[0]'
-Slack : -3.105
-TNS   : -4202.727
+TNS   : -75.956
 
 Type  : Fast 1200mV 0C Model Setup 'CLOCK_50'
-Slack : -1.508
-TNS   : -45.638
+Slack : -3.130
+TNS   : -105.475
+
+Type  : Fast 1200mV 0C Model Setup 'KEY[0]'
+Slack : -3.010
+TNS   : -4105.617
 
 Type  : Fast 1200mV 0C Model Hold 'KEY[0]'
-Slack : 0.208
+Slack : 0.255
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'CLOCK_50'
-Slack : 0.842
+Slack : 1.125
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'KEY[0]'
 Slack : -3.000
-TNS   : -2476.809
+TNS   : -2468.633
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
 Slack : -3.000
-TNS   : -48.929
+TNS   : -57.185
 
 ------------------------------------------------------------

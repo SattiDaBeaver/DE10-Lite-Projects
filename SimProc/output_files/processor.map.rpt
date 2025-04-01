@@ -1,5 +1,5 @@
 Analysis & Synthesis report for processor
-Mon Mar 31 23:37:16 2025
+Tue Apr  1 15:43:46 2025
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -52,15 +52,15 @@ on the Quartus Prime software download page.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon Mar 31 23:37:16 2025           ;
+; Analysis & Synthesis Status        ; Successful - Tue Apr  1 15:43:46 2025           ;
 ; Quartus Prime Version              ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
 ; Revision Name                      ; processor                                       ;
 ; Top-level Entity Name              ; processor                                       ;
 ; Family                             ; MAX 10                                          ;
-; Total logic elements               ; 4,014                                           ;
-;     Total combinational functions  ; 1,924                                           ;
-;     Dedicated logic registers      ; 2,186                                           ;
-; Total registers                    ; 2186                                            ;
+; Total logic elements               ; 3,997                                           ;
+;     Total combinational functions  ; 1,912                                           ;
+;     Dedicated logic registers      ; 2,194                                           ;
+; Total registers                    ; 2194                                            ;
 ; Total pins                         ; 65                                              ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 0                                               ;
@@ -173,11 +173,7 @@ on the Quartus Prime software download page.
 ;     Processor 2            ;   0.1%      ;
 ;     Processor 3            ;   0.1%      ;
 ;     Processor 4            ;   0.1%      ;
-;     Processor 5            ;   0.1%      ;
-;     Processor 6            ;   0.1%      ;
-;     Processor 7            ;   0.1%      ;
-;     Processor 8            ;   0.1%      ;
-;     Processors 9-14        ;   0.1%      ;
+;     Processors 5-14        ;   0.1%      ;
 +----------------------------+-------------+
 
 
@@ -195,20 +191,20 @@ on the Quartus Prime software download page.
 +---------------------------------------------+--------------+
 ; Resource                                    ; Usage        ;
 +---------------------------------------------+--------------+
-; Estimated Total logic elements              ; 4,014        ;
+; Estimated Total logic elements              ; 3,997        ;
 ;                                             ;              ;
-; Total combinational functions               ; 1924         ;
+; Total combinational functions               ; 1912         ;
 ; Logic element usage by number of LUT inputs ;              ;
-;     -- 4 input functions                    ; 1817         ;
-;     -- 3 input functions                    ; 89           ;
-;     -- <=2 input functions                  ; 18           ;
+;     -- 4 input functions                    ; 1553         ;
+;     -- 3 input functions                    ; 335          ;
+;     -- <=2 input functions                  ; 24           ;
 ;                                             ;              ;
 ; Logic elements by mode                      ;              ;
-;     -- normal mode                          ; 1910         ;
+;     -- normal mode                          ; 1898         ;
 ;     -- arithmetic mode                      ; 14           ;
 ;                                             ;              ;
-; Total registers                             ; 2186         ;
-;     -- Dedicated logic registers            ; 2186         ;
+; Total registers                             ; 2194         ;
+;     -- Dedicated logic registers            ; 2194         ;
 ;     -- I/O registers                        ; 0            ;
 ;                                             ;              ;
 ; I/O pins                                    ; 65           ;
@@ -217,8 +213,8 @@ on the Quartus Prime software download page.
 ;                                             ;              ;
 ; Maximum fan-out node                        ; KEY[0]~input ;
 ; Maximum fan-out                             ; 2142         ;
-; Total fan-out                               ; 14179        ;
-; Average fan-out                             ; 3.34         ;
+; Total fan-out                               ; 13892        ;
+; Average fan-out                             ; 3.28         ;
 +---------------------------------------------+--------------+
 
 
@@ -227,26 +223,26 @@ on the Quartus Prime software download page.
 +-----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------------------+---------------+--------------+
 ; Compilation Hierarchy Node  ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                           ; Entity Name   ; Library Name ;
 +-----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------------------+---------------+--------------+
-; |processor                  ; 1924 (0)            ; 2186 (0)                  ; 0           ; 0          ; 0            ; 0       ; 0         ; 65   ; 0            ; 0          ; |processor                                    ; processor     ; work         ;
-;    |FSM:FiniteStateMachine| ; 28 (28)             ; 5 (5)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|FSM:FiniteStateMachine             ; FSM           ; work         ;
-;    |datapath:DataPath|      ; 1836 (45)           ; 2137 (41)                 ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath                  ; datapath      ; work         ;
-;       |ALU:ALUx|            ; 97 (97)             ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath|ALU:ALUx         ; ALU           ; work         ;
+; |processor                  ; 1912 (0)            ; 2194 (0)                  ; 0           ; 0          ; 0            ; 0       ; 0         ; 65   ; 0            ; 0          ; |processor                                    ; processor     ; work         ;
+;    |FSM:FiniteStateMachine| ; 30 (30)             ; 5 (5)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|FSM:FiniteStateMachine             ; FSM           ; work         ;
+;    |datapath:DataPath|      ; 1838 (43)           ; 2137 (41)                 ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath                  ; datapath      ; work         ;
+;       |ALU:ALUx|            ; 98 (98)             ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath|ALU:ALUx         ; ALU           ; work         ;
 ;       |PC:progCount|        ; 0 (0)               ; 8 (8)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath|PC:progCount     ; PC            ; work         ;
-;       |memory:Memory|       ; 1658 (1658)         ; 2056 (2056)               ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath|memory:Memory    ; memory        ; work         ;
+;       |memory:Memory|       ; 1661 (1661)         ; 2056 (2056)               ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath|memory:Memory    ; memory        ; work         ;
 ;       |register_file:RF|    ; 36 (36)             ; 32 (32)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath|register_file:RF ; register_file ; work         ;
 ;    |reg_HEX:H0|             ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H0                         ; reg_HEX       ; work         ;
 ;       |hex7seg:SEG|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H0|hex7seg:SEG             ; hex7seg       ; work         ;
 ;    |reg_HEX:H1|             ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H1                         ; reg_HEX       ; work         ;
 ;       |hex7seg:SEG|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H1|hex7seg:SEG             ; hex7seg       ; work         ;
-;    |reg_HEX:H2|             ; 11 (0)              ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H2                         ; reg_HEX       ; work         ;
-;       |hex7seg:SEG|         ; 11 (11)             ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H2|hex7seg:SEG             ; hex7seg       ; work         ;
-;    |reg_HEX:H3|             ; 21 (0)              ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H3                         ; reg_HEX       ; work         ;
-;       |hex7seg:SEG|         ; 21 (21)             ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H3|hex7seg:SEG             ; hex7seg       ; work         ;
+;    |reg_HEX:H2|             ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H2                         ; reg_HEX       ; work         ;
+;       |hex7seg:SEG|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H2|hex7seg:SEG             ; hex7seg       ; work         ;
+;    |reg_HEX:H3|             ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H3                         ; reg_HEX       ; work         ;
+;       |hex7seg:SEG|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H3|hex7seg:SEG             ; hex7seg       ; work         ;
 ;    |reg_HEX:H4|             ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H4                         ; reg_HEX       ; work         ;
 ;       |hex7seg:SEG|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H4|hex7seg:SEG             ; hex7seg       ; work         ;
 ;    |reg_HEX:H5|             ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H5                         ; reg_HEX       ; work         ;
 ;       |hex7seg:SEG|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H5|hex7seg:SEG             ; hex7seg       ; work         ;
-;    |reg_LED:REGLED|         ; 0 (0)               ; 2 (2)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_LED:REGLED                     ; reg_LED       ; work         ;
+;    |reg_LED:REGLED|         ; 2 (2)               ; 10 (10)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_LED:REGLED                     ; reg_LED       ; work         ;
 +-----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------------------+---------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -265,18 +261,17 @@ Encoding Type:  One-Hot
 +------------------+------------------+------------------+------------------+------------------+------------------+
 
 
-+---------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                              ;
-+----------------------------------------+----------------------------------------+
-; Register name                          ; Reason for Removal                     ;
-+----------------------------------------+----------------------------------------+
-; reg_LED:REGLED|LEDR[2..9]              ; Stuck at GND due to stuck port data_in ;
-; datapath:DataPath|registerALU[7]       ; Merged with datapath:DataPath|N        ;
-; FSM:FiniteStateMachine|currState~2     ; Lost fanout                            ;
-; FSM:FiniteStateMachine|currState~3     ; Lost fanout                            ;
-; FSM:FiniteStateMachine|currState~5     ; Lost fanout                            ;
-; Total Number of Removed Registers = 12 ;                                        ;
-+----------------------------------------+----------------------------------------+
++-------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                      ;
++---------------------------------------+---------------------------------+
+; Register name                         ; Reason for Removal              ;
++---------------------------------------+---------------------------------+
+; datapath:DataPath|registerALU[7]      ; Merged with datapath:DataPath|N ;
+; FSM:FiniteStateMachine|currState~2    ; Lost fanout                     ;
+; FSM:FiniteStateMachine|currState~3    ; Lost fanout                     ;
+; FSM:FiniteStateMachine|currState~5    ; Lost fanout                     ;
+; Total Number of Removed Registers = 4 ;                                 ;
++---------------------------------------+---------------------------------+
 
 
 +------------------------------------------------------+
@@ -284,7 +279,7 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 2186  ;
+; Total registers                              ; 2194  ;
 ; Number of registers using Synchronous Clear  ; 0     ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
@@ -299,8 +294,8 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                 ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------+
-; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |processor|datapath:DataPath|dataBreg[1]   ;
-; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |processor|datapath:DataPath|dataAreg[0]   ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |processor|datapath:DataPath|dataBreg[7]   ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |processor|datapath:DataPath|dataAreg[2]   ;
 ; 6:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |processor|datapath:DataPath|Mux0          ;
 ; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |processor|datapath:DataPath|Mux4          ;
 ; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |processor|datapath:DataPath|Mux7          ;
@@ -377,12 +372,11 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 +--------------------------------------------+
 ; Port Connectivity Checks: "reg_LED:REGLED" ;
-+---------+-------+----------+---------------+
-; Port    ; Type  ; Severity ; Details       ;
-+---------+-------+----------+---------------+
-; EN      ; Input ; Info     ; Stuck at VCC  ;
-; Q[9..2] ; Input ; Info     ; Stuck at GND  ;
-+---------+-------+----------+---------------+
++------+-------+----------+------------------+
+; Port ; Type  ; Severity ; Details          ;
++------+-------+----------+------------------+
+; EN   ; Input ; Info     ; Stuck at VCC     ;
++------+-------+----------+------------------+
 
 
 +-----------------------------------------------------+
@@ -391,21 +385,20 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 65                          ;
-; cycloneiii_ff         ; 2186                        ;
+; cycloneiii_ff         ; 2194                        ;
 ;     ENA               ; 2137                        ;
-;     plain             ; 49                          ;
-; cycloneiii_lcell_comb ; 1925                        ;
+;     plain             ; 57                          ;
+; cycloneiii_lcell_comb ; 1912                        ;
 ;     arith             ; 14                          ;
 ;         3 data inputs ; 14                          ;
-;     normal            ; 1911                        ;
-;         0 data inputs ; 1                           ;
-;         1 data inputs ; 10                          ;
-;         2 data inputs ; 8                           ;
-;         3 data inputs ; 75                          ;
-;         4 data inputs ; 1817                        ;
+;     normal            ; 1898                        ;
+;         1 data inputs ; 15                          ;
+;         2 data inputs ; 9                           ;
+;         3 data inputs ; 321                         ;
+;         4 data inputs ; 1553                        ;
 ;                       ;                             ;
 ; Max LUT depth         ; 11.00                       ;
-; Average LUT depth     ; 6.27                        ;
+; Average LUT depth     ; 6.31                        ;
 +-----------------------+-----------------------------+
 
 
@@ -424,7 +417,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Mon Mar 31 23:37:08 2025
+    Info: Processing started: Tue Apr  1 15:43:37 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off processor -c processor
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
@@ -454,15 +447,6 @@ Warning (127007): Memory Initialization File or Hexadecimal (Intel-Format) File 
 Info (276014): Found 1 instances of uninferred RAM logic
     Info (276013): RAM logic "datapath:DataPath|memory:Memory|mem" is uninferred because MIF is not supported for the selected family File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 386
 Warning (127007): Memory Initialization File or Hexadecimal (Intel-Format) File "C:/Projects/DE10-Lite-Projects/SimProc/db/processor.ram0_memory_5896a733.hdl.mif" contains "don't care" values -- overwriting them with 0s
-Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "LEDR[2]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 13
-    Warning (13410): Pin "LEDR[3]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 13
-    Warning (13410): Pin "LEDR[4]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 13
-    Warning (13410): Pin "LEDR[5]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 13
-    Warning (13410): Pin "LEDR[6]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 13
-    Warning (13410): Pin "LEDR[7]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 13
-    Warning (13410): Pin "LEDR[8]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 13
-    Warning (13410): Pin "LEDR[9]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 13
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 3 registers lost all their fanouts during netlist optimizations.
 Info (144001): Generated suppressed messages file C:/Projects/DE10-Lite-Projects/SimProc/output_files/processor.map.smsg
@@ -480,14 +464,14 @@ Warning (21074): Design contains 11 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "SW[8]" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 2
     Warning (15610): No output dependent on input pin "SW[9]" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 2
     Warning (15610): No output dependent on input pin "KEY[1]" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 3
-Info (21057): Implemented 4095 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 4085 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 13 input pins
     Info (21059): Implemented 52 output pins
-    Info (21061): Implemented 4030 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 25 warnings
+    Info (21061): Implemented 4020 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 16 warnings
     Info: Peak virtual memory: 4885 megabytes
-    Info: Processing ended: Mon Mar 31 23:37:16 2025
-    Info: Elapsed time: 00:00:08
+    Info: Processing ended: Tue Apr  1 15:43:46 2025
+    Info: Elapsed time: 00:00:09
     Info: Total CPU time (on all processors): 00:00:17
 
 
