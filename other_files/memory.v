@@ -14,7 +14,7 @@ module memory # (
 
     // Initialization
     initial if (INIT_FILE) begin
-        $readmemh(INIT_FILE, mem);
+        $readmemb(INIT_FILE, mem);
     end
 
     always @ (posedge CLK) begin

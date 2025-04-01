@@ -7,10 +7,10 @@ module datapath(
     input ABLD, input ALU_A, input [2:0] ALU_B,   // ALU and AB load registers/mux
     input [2:0] ALUop, input FlagWrite, input ALUoutLD,  // ALU and NZ Flag
 
-    output [7:0] ALUregOut,    // ALU output
+    output reg [7:0] ALUregOut,    // ALU output
     output [7:0] Aout, output [7:0] Bout,    // Register File A and B
     output [7:0] OpCode,     // Instruction
-    output N, output Z
+    output reg N, output reg Z
     );
 
     // PC Wires
@@ -18,7 +18,7 @@ module datapath(
 
     // Memory Wires
     reg [7:0] ADDR;
-    wire [7:0] Data_in, Data_out;
+    wire [7:0] Data_out;
 
     // Register File Wires
     reg [7:0] dataAreg, dataBreg;
@@ -37,8 +37,6 @@ module datapath(
     // ALU wires
     wire [7:0] ALUout;
     wire Nint, Zint;
-    reg Nreg, Zreg;
-    reg [7:0] ALUoutReg;
 
     // PC
     PC progCount(.CLK(CLOCK_50), .PCin(ALUout), .PCwrite(PCwrite), .PCout(PCout));
@@ -55,7 +53,7 @@ module datapath(
 
     // Memory
     memory #(.INIT_FILE("machine_code.txt")) Memory 
-    (.CLK(CLOCK_50), .MemRead(MemRead), .MemWrite(MemWrite), .ADDR(ADDR), .Data_in(Data_in), .Data_out(Data_out));
+    (.CLK(CLOCK_50), .MemRead(MemRead), .MemWrite(MemWrite), .ADDR(ADDR), .Data_in(dataAreg), .Data_out(Data_out));
 
     // Instruction Register and Memory Data Register
     always @ (posedge CLOCK_50) begin
@@ -69,7 +67,7 @@ module datapath(
 
     // RA Select 
     always @ (*) begin
-        if (RASel) begin
+        if (RASel == 1'b1) begin
             RASelOut = 2'b01;
         end
         else begin
@@ -100,23 +98,23 @@ module datapath(
             3'b001:     muxB = 8'b00000001;
             3'b010:     muxB = {{4{IRout[7]}}, IRout[7:4]};
             3'b011:     muxB = {3'b000, IRout[7:3]};
-            3'b100:     muxB = {6'b000000, IRout[7:6]};
-            default:    muxB = 8'b00000000;
+            3'b100:     muxB = {6'b000000, IRout[4:3]};
+            default:    muxB = dataBreg;
         endcase
     end
 
     // ALU
 
-    ALU ALUx(.ALUop(ALUop), .A(dataAreg), .B(dataBreg), .N(Nint), .Z(Zint), .ALUout(ALUout));
+    ALU ALUx(.ALUop(ALUop), .A(muxA), .B(muxB), .N(Nint), .Z(Zint), .ALUout(ALUout));
 
     always @ (posedge CLOCK_50) begin
         if (ALUoutLD) begin
-            ALUoutReg <= ALUout;
+            ALUregOut <= ALUout;
         end
 
         if (FlagWrite) begin
-            Nreg <= Nint;
-            Zreg <= Zint;
+            N <= Nint;
+            Z <= Zint;
         end
     end 
 
@@ -126,15 +124,11 @@ module datapath(
             dataW = MDRout;
         end
         else begin
-            dataW = ALUoutReg;
+            dataW = ALUregOut;
         end
     end
 
-
-    assign ALUregOut = ALUoutReg;
     assign Aout = dataAreg;
     assign Bout = dataBreg;
     assign OpCode = IRout;
-    assign N = Nreg;
-    assign Z = Zreg;
 endmodule

@@ -1,4 +1,4 @@
-Info (10281): Verilog HDL Declaration information at register_file.v(12): object "r0" differs only in case from object "R0" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProc/register_file.v Line: 12
-Info (10281): Verilog HDL Declaration information at register_file.v(12): object "r1" differs only in case from object "R1" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProc/register_file.v Line: 12
-Info (10281): Verilog HDL Declaration information at register_file.v(12): object "r2" differs only in case from object "R2" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProc/register_file.v Line: 12
-Info (10281): Verilog HDL Declaration information at register_file.v(12): object "r3" differs only in case from object "R3" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProc/register_file.v Line: 12
+Info (10281): Verilog HDL Declaration information at processor.v(414): object "r0" differs only in case from object "R0" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 414
+Info (10281): Verilog HDL Declaration information at processor.v(414): object "r1" differs only in case from object "R1" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 414
+Info (10281): Verilog HDL Declaration information at processor.v(414): object "r2" differs only in case from object "R2" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 414
+Info (10281): Verilog HDL Declaration information at processor.v(414): object "r3" differs only in case from object "R3" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 414

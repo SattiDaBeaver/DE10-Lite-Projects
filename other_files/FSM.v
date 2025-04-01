@@ -4,14 +4,14 @@ module FSM(
     input [7:0] ALUregOut,    // ALU input
     input [7:0] Aout, input [7:0] Bout,    // Register File A and B
     input [7:0] OpCode,     // Instruction
-    input N, input Z
+    input N, input Z,
 
     output reg PCwrite,          // Program Counter
     output reg AddrSel, output reg MemRead, output reg MemWrite,   // Memory
     output reg IRload, output reg MDRload,     // Instruction Register and Memory Data Register
     output reg RASel, output reg RFWrite, output reg RegIn,      // Register File and Register Address
     output reg ABLD, output reg ALU_A, output reg [2:0] ALU_B,   // ALU and AB load registers/mux
-    output reg [2:0] ALUop, output reg FlagWrite, output reg ALUoutLD,  // ALU and NZ Flag
+    output reg [2:0] ALUop, output reg FlagWrite, output reg ALUoutLD  // ALU and NZ Flag
 );
 
     reg [3:0] currState, nextState;
@@ -23,15 +23,12 @@ module FSM(
     parameter CYCLE1 = 4'b0000, CYCLE2 = 4'b0001, CYCLE3 = 4'b0010, CYCLE4 = 4'b0011, CYCLE5 = 4'b0100;
     
     // Instruction OpCodes (ORi, SHIFT are 3 bit)
-    parameter ADD = 4'b0100, SUB = 4'0110, NAND = 4'b1000, ORi = 3'b111, LOAD = 4'b0000;
+    parameter ADD = 4'b0100, SUB = 4'b0110, NAND = 4'b1000, ORi = 3'b111, LOAD = 4'b0000;
     parameter STORE = 4'b0010, BNZ = 4'b0101, BPZ = 4'b1001, BZ = 4'b1010, SHIFT = 3'b011;
     parameter SLEFT = 1'b1, SRIGHT = 1'b0;
+
     initial begin
-        PCwrite = 0;  AddrSel = 0;  MemRead = 0;  
-        MemWrite = 0;  IRload = 0;  MDRload = 0;     
-        RASel = 0;  RFWrite = 0;  RegIn = 0;
-        ABLD = 0;  ALU_A = 0;  ALU_B = 0; 
-        ALUop = 0;  FlagWrite = 0;  ALUoutLD = 0;
+        currState = 0;
     end
 
     // FSM State Codes
@@ -92,7 +89,7 @@ module FSM(
                         ADD: ALUop = 3'b000;
                         SUB: ALUop = 3'b001;
                         NAND: ALUop = 3'b011;
-                        default: ALUop = 0;
+                        default: ALUop = 3'b000;
                     endcase
                 end 
 
@@ -104,7 +101,7 @@ module FSM(
                     case (OpCode[5]) 
                         SLEFT: ALUop = 3'b100;
                         SRIGHT: ALUop = 3'b101;
-                        default: ALUop = 0;
+                        default: ALUop = 3'b100;
                     endcase
                 end 
 
@@ -128,7 +125,7 @@ module FSM(
                         BPZ: if (!N) PCwrite = 1;
                         BZ: if (Z) PCwrite = 1;
                         BNZ: if (!Z) PCwrite = 1;
-                        default: PCwrite = false;
+                        default: PCwrite = 0;
                     endcase
                     done = 1;
                 end

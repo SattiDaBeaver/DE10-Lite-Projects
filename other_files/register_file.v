@@ -12,6 +12,13 @@ module register_file (
 	reg [7:0] r0, r1, r2, r3;
 	parameter R0 = 2'b00, R1 = 2'b01, R2 = 2'b10, R3 = 2'b11;
 
+	initial begin
+		r0 = 0;
+		r1 = 0;
+		r2 = 0;
+		r3 = 0;
+	end	
+
 	always @ (posedge CLOCK_50) begin
 		if (RFWrite) begin
 			case(regW[1:0])
