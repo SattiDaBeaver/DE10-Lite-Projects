@@ -1,8 +1,9 @@
 
 State Machine - |processor|FSM:FiniteStateMachine|currState
-Name currState.CYCLE4 currState.CYCLE3 currState.CYCLE2 currState.CYCLE1 currState.CYCLE5 
-currState.CYCLE1 0 0 0 0 0 
-currState.CYCLE2 0 0 1 1 0 
-currState.CYCLE3 0 1 0 1 0 
-currState.CYCLE4 1 0 0 1 0 
-currState.CYCLE5 0 0 0 1 1 
+Name currState.CYCLE5 currState.CYCLE4 currState.CYCLE3 currState.CYCLE2 currState.CYCLE1 currState.IDLE 
+currState.IDLE 0 0 0 0 0 0 
+currState.CYCLE1 0 0 0 0 1 1 
+currState.CYCLE2 0 0 0 1 0 1 
+currState.CYCLE3 0 0 1 0 0 1 
+currState.CYCLE4 0 1 0 0 0 1 
+currState.CYCLE5 1 0 0 0 0 1 

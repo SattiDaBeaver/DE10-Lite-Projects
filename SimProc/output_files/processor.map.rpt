@@ -1,5 +1,5 @@
 Analysis & Synthesis report for processor
-Tue Apr  1 15:43:46 2025
+Tue Apr  1 19:14:40 2025
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -21,11 +21,13 @@ Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
  13. Parameter Settings for User Entity Instance: datapath:DataPath|register_file:RF
  14. Parameter Settings for User Entity Instance: datapath:DataPath|ALU:ALUx
  15. Parameter Settings for User Entity Instance: FSM:FiniteStateMachine
- 16. Port Connectivity Checks: "reg_LED:REGLED"
- 17. Post-Synthesis Netlist Statistics for Top Partition
- 18. Elapsed Time Per Partition
- 19. Analysis & Synthesis Messages
- 20. Analysis & Synthesis Suppressed Messages
+ 16. Port Connectivity Checks: "reg_HEX:H1"
+ 17. Port Connectivity Checks: "reg_LED:REGLED"
+ 18. Port Connectivity Checks: "datapath:DataPath"
+ 19. Post-Synthesis Netlist Statistics for Top Partition
+ 20. Elapsed Time Per Partition
+ 21. Analysis & Synthesis Messages
+ 22. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -52,15 +54,15 @@ on the Quartus Prime software download page.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Apr  1 15:43:46 2025           ;
+; Analysis & Synthesis Status        ; Successful - Tue Apr  1 19:14:40 2025           ;
 ; Quartus Prime Version              ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
 ; Revision Name                      ; processor                                       ;
 ; Top-level Entity Name              ; processor                                       ;
 ; Family                             ; MAX 10                                          ;
-; Total logic elements               ; 3,997                                           ;
-;     Total combinational functions  ; 1,912                                           ;
-;     Dedicated logic registers      ; 2,194                                           ;
-; Total registers                    ; 2194                                            ;
+; Total logic elements               ; 3,993                                           ;
+;     Total combinational functions  ; 1,898                                           ;
+;     Dedicated logic registers      ; 2,188                                           ;
+; Total registers                    ; 2188                                            ;
 ; Total pins                         ; 65                                              ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 0                                               ;
@@ -173,7 +175,9 @@ on the Quartus Prime software download page.
 ;     Processor 2            ;   0.1%      ;
 ;     Processor 3            ;   0.1%      ;
 ;     Processor 4            ;   0.1%      ;
-;     Processors 5-14        ;   0.1%      ;
+;     Processor 5            ;   0.1%      ;
+;     Processor 6            ;   0.1%      ;
+;     Processors 7-14        ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -191,20 +195,20 @@ on the Quartus Prime software download page.
 +---------------------------------------------+--------------+
 ; Resource                                    ; Usage        ;
 +---------------------------------------------+--------------+
-; Estimated Total logic elements              ; 3,997        ;
+; Estimated Total logic elements              ; 3,993        ;
 ;                                             ;              ;
-; Total combinational functions               ; 1912         ;
+; Total combinational functions               ; 1898         ;
 ; Logic element usage by number of LUT inputs ;              ;
-;     -- 4 input functions                    ; 1553         ;
-;     -- 3 input functions                    ; 335          ;
-;     -- <=2 input functions                  ; 24           ;
+;     -- 4 input functions                    ; 1546         ;
+;     -- 3 input functions                    ; 334          ;
+;     -- <=2 input functions                  ; 18           ;
 ;                                             ;              ;
 ; Logic elements by mode                      ;              ;
-;     -- normal mode                          ; 1898         ;
+;     -- normal mode                          ; 1884         ;
 ;     -- arithmetic mode                      ; 14           ;
 ;                                             ;              ;
-; Total registers                             ; 2194         ;
-;     -- Dedicated logic registers            ; 2194         ;
+; Total registers                             ; 2188         ;
+;     -- Dedicated logic registers            ; 2188         ;
 ;     -- I/O registers                        ; 0            ;
 ;                                             ;              ;
 ; I/O pins                                    ; 65           ;
@@ -212,8 +216,8 @@ on the Quartus Prime software download page.
 ; Embedded Multiplier 9-bit elements          ; 0            ;
 ;                                             ;              ;
 ; Maximum fan-out node                        ; KEY[0]~input ;
-; Maximum fan-out                             ; 2142         ;
-; Total fan-out                               ; 13892        ;
+; Maximum fan-out                             ; 2143         ;
+; Total fan-out                               ; 13837        ;
 ; Average fan-out                             ; 3.28         ;
 +---------------------------------------------+--------------+
 
@@ -223,17 +227,15 @@ on the Quartus Prime software download page.
 +-----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------------------+---------------+--------------+
 ; Compilation Hierarchy Node  ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                           ; Entity Name   ; Library Name ;
 +-----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------------------+---------------+--------------+
-; |processor                  ; 1912 (0)            ; 2194 (0)                  ; 0           ; 0          ; 0            ; 0       ; 0         ; 65   ; 0            ; 0          ; |processor                                    ; processor     ; work         ;
-;    |FSM:FiniteStateMachine| ; 30 (30)             ; 5 (5)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|FSM:FiniteStateMachine             ; FSM           ; work         ;
-;    |datapath:DataPath|      ; 1838 (43)           ; 2137 (41)                 ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath                  ; datapath      ; work         ;
-;       |ALU:ALUx|            ; 98 (98)             ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath|ALU:ALUx         ; ALU           ; work         ;
+; |processor                  ; 1898 (0)            ; 2188 (0)                  ; 0           ; 0          ; 0            ; 0       ; 0         ; 65   ; 0            ; 0          ; |processor                                    ; processor     ; work         ;
+;    |FSM:FiniteStateMachine| ; 32 (32)             ; 6 (6)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|FSM:FiniteStateMachine             ; FSM           ; work         ;
+;    |datapath:DataPath|      ; 1832 (43)           ; 2137 (41)                 ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath                  ; datapath      ; work         ;
+;       |ALU:ALUx|            ; 97 (97)             ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath|ALU:ALUx         ; ALU           ; work         ;
 ;       |PC:progCount|        ; 0 (0)               ; 8 (8)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath|PC:progCount     ; PC            ; work         ;
-;       |memory:Memory|       ; 1661 (1661)         ; 2056 (2056)               ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath|memory:Memory    ; memory        ; work         ;
+;       |memory:Memory|       ; 1656 (1656)         ; 2056 (2056)               ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath|memory:Memory    ; memory        ; work         ;
 ;       |register_file:RF|    ; 36 (36)             ; 32 (32)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:DataPath|register_file:RF ; register_file ; work         ;
-;    |reg_HEX:H0|             ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H0                         ; reg_HEX       ; work         ;
-;       |hex7seg:SEG|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H0|hex7seg:SEG             ; hex7seg       ; work         ;
-;    |reg_HEX:H1|             ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H1                         ; reg_HEX       ; work         ;
-;       |hex7seg:SEG|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H1|hex7seg:SEG             ; hex7seg       ; work         ;
+;    |reg_HEX:H0|             ; 6 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H0                         ; reg_HEX       ; work         ;
+;       |hex7seg:SEG|         ; 6 (6)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H0|hex7seg:SEG             ; hex7seg       ; work         ;
 ;    |reg_HEX:H2|             ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H2                         ; reg_HEX       ; work         ;
 ;       |hex7seg:SEG|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H2|hex7seg:SEG             ; hex7seg       ; work         ;
 ;    |reg_HEX:H3|             ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H3                         ; reg_HEX       ; work         ;
@@ -242,36 +244,40 @@ on the Quartus Prime software download page.
 ;       |hex7seg:SEG|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H4|hex7seg:SEG             ; hex7seg       ; work         ;
 ;    |reg_HEX:H5|             ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H5                         ; reg_HEX       ; work         ;
 ;       |hex7seg:SEG|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H5|hex7seg:SEG             ; hex7seg       ; work         ;
-;    |reg_LED:REGLED|         ; 2 (2)               ; 10 (10)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_LED:REGLED                     ; reg_LED       ; work         ;
+;    |reg_LED:REGLED|         ; 0 (0)               ; 10 (10)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_LED:REGLED                     ; reg_LED       ; work         ;
 +-----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------------------+---------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
 Encoding Type:  One-Hot
-+-----------------------------------------------------------------------------------------------------------------+
-; State Machine - |processor|FSM:FiniteStateMachine|currState                                                     ;
-+------------------+------------------+------------------+------------------+------------------+------------------+
-; Name             ; currState.CYCLE4 ; currState.CYCLE3 ; currState.CYCLE2 ; currState.CYCLE1 ; currState.CYCLE5 ;
-+------------------+------------------+------------------+------------------+------------------+------------------+
-; currState.CYCLE1 ; 0                ; 0                ; 0                ; 0                ; 0                ;
-; currState.CYCLE2 ; 0                ; 0                ; 1                ; 1                ; 0                ;
-; currState.CYCLE3 ; 0                ; 1                ; 0                ; 1                ; 0                ;
-; currState.CYCLE4 ; 1                ; 0                ; 0                ; 1                ; 0                ;
-; currState.CYCLE5 ; 0                ; 0                ; 0                ; 1                ; 1                ;
-+------------------+------------------+------------------+------------------+------------------+------------------+
++----------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |processor|FSM:FiniteStateMachine|currState                                                                      ;
++------------------+------------------+------------------+------------------+------------------+------------------+----------------+
+; Name             ; currState.CYCLE5 ; currState.CYCLE4 ; currState.CYCLE3 ; currState.CYCLE2 ; currState.CYCLE1 ; currState.IDLE ;
++------------------+------------------+------------------+------------------+------------------+------------------+----------------+
+; currState.IDLE   ; 0                ; 0                ; 0                ; 0                ; 0                ; 0              ;
+; currState.CYCLE1 ; 0                ; 0                ; 0                ; 0                ; 1                ; 1              ;
+; currState.CYCLE2 ; 0                ; 0                ; 0                ; 1                ; 0                ; 1              ;
+; currState.CYCLE3 ; 0                ; 0                ; 1                ; 0                ; 0                ; 1              ;
+; currState.CYCLE4 ; 0                ; 1                ; 0                ; 0                ; 0                ; 1              ;
+; currState.CYCLE5 ; 1                ; 0                ; 0                ; 0                ; 0                ; 1              ;
++------------------+------------------+------------------+------------------+------------------+------------------+----------------+
 
 
-+-------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                      ;
-+---------------------------------------+---------------------------------+
-; Register name                         ; Reason for Removal              ;
-+---------------------------------------+---------------------------------+
-; datapath:DataPath|registerALU[7]      ; Merged with datapath:DataPath|N ;
-; FSM:FiniteStateMachine|currState~2    ; Lost fanout                     ;
-; FSM:FiniteStateMachine|currState~3    ; Lost fanout                     ;
-; FSM:FiniteStateMachine|currState~5    ; Lost fanout                     ;
-; Total Number of Removed Registers = 4 ;                                 ;
-+---------------------------------------+---------------------------------+
++---------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                              ;
++----------------------------------------+----------------------------------------+
+; Register name                          ; Reason for Removal                     ;
++----------------------------------------+----------------------------------------+
+; reg_HEX:H1|display[0..5]               ; Stuck at GND due to stuck port data_in ;
+; reg_HEX:H1|display[6]                  ; Stuck at VCC due to stuck port data_in ;
+; datapath:DataPath|registerALU[7]       ; Merged with datapath:DataPath|N        ;
+; FSM:FiniteStateMachine|currState~2     ; Lost fanout                            ;
+; FSM:FiniteStateMachine|currState~3     ; Lost fanout                            ;
+; FSM:FiniteStateMachine|currState~4     ; Lost fanout                            ;
+; FSM:FiniteStateMachine|currState~5     ; Lost fanout                            ;
+; Total Number of Removed Registers = 12 ;                                        ;
++----------------------------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -279,7 +285,7 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 2194  ;
+; Total registers                              ; 2188  ;
 ; Number of registers using Synchronous Clear  ; 0     ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
@@ -294,13 +300,13 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                 ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------+
-; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |processor|datapath:DataPath|dataBreg[7]   ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |processor|datapath:DataPath|dataBreg[0]   ;
 ; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |processor|datapath:DataPath|dataAreg[2]   ;
-; 6:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |processor|datapath:DataPath|Mux0          ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |processor|datapath:DataPath|Mux4          ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |processor|datapath:DataPath|Mux7          ;
-; 13:1               ; 2 bits    ; 16 LEs        ; 12 LEs               ; 4 LEs                  ; No         ; |processor|datapath:DataPath|ALU:ALUx|Mux5 ;
-; 13:1               ; 2 bits    ; 16 LEs        ; 12 LEs               ; 4 LEs                  ; No         ; |processor|datapath:DataPath|ALU:ALUx|Mux3 ;
+; 6:1                ; 3 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; No         ; |processor|datapath:DataPath|Mux2          ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |processor|datapath:DataPath|Mux5          ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 4 LEs                ; 6 LEs                  ; No         ; |processor|datapath:DataPath|Mux6          ;
+; 13:1               ; 2 bits    ; 16 LEs        ; 12 LEs               ; 4 LEs                  ; No         ; |processor|datapath:DataPath|ALU:ALUx|Mux4 ;
+; 13:1               ; 2 bits    ; 16 LEs        ; 12 LEs               ; 4 LEs                  ; No         ; |processor|datapath:DataPath|ALU:ALUx|Mux2 ;
 ; 14:1               ; 2 bits    ; 18 LEs        ; 16 LEs               ; 2 LEs                  ; No         ; |processor|datapath:DataPath|ALU:ALUx|Mux7 ;
 ; 14:1               ; 2 bits    ; 18 LEs        ; 16 LEs               ; 2 LEs                  ; No         ; |processor|datapath:DataPath|ALU:ALUx|Mux1 ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------+
@@ -349,11 +355,12 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+-------+--------------------------------------------+
 ; Parameter Name ; Value ; Type                                       ;
 +----------------+-------+--------------------------------------------+
-; CYCLE1         ; 0000  ; Unsigned Binary                            ;
-; CYCLE2         ; 0001  ; Unsigned Binary                            ;
-; CYCLE3         ; 0010  ; Unsigned Binary                            ;
-; CYCLE4         ; 0011  ; Unsigned Binary                            ;
-; CYCLE5         ; 0100  ; Unsigned Binary                            ;
+; IDLE           ; 0000  ; Unsigned Binary                            ;
+; CYCLE1         ; 0001  ; Unsigned Binary                            ;
+; CYCLE2         ; 0010  ; Unsigned Binary                            ;
+; CYCLE3         ; 0011  ; Unsigned Binary                            ;
+; CYCLE4         ; 0100  ; Unsigned Binary                            ;
+; CYCLE5         ; 0101  ; Unsigned Binary                            ;
 ; ADD            ; 0100  ; Unsigned Binary                            ;
 ; SUB            ; 0110  ; Unsigned Binary                            ;
 ; NAND           ; 1000  ; Unsigned Binary                            ;
@@ -366,8 +373,19 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; SHIFT          ; 011   ; Unsigned Binary                            ;
 ; SLEFT          ; 1     ; Unsigned Binary                            ;
 ; SRIGHT         ; 0     ; Unsigned Binary                            ;
+; J              ; 0001  ; Unsigned Binary                            ;
 +----------------+-------+--------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "reg_HEX:H1"                                                                                                                                                                            ;
++-----------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port      ; Type  ; Severity ; Details                                                                                                                                                                            ;
++-----------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; hex       ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (4 bits) it drives.  The 28 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; hex[3..0] ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
++-----------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +--------------------------------------------+
@@ -379,26 +397,38 @@ Note: In order to hide this table in the UI and the text report file, please set
 +------+-------+----------+------------------+
 
 
++------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "datapath:DataPath"                                                                                            ;
++-----------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; Port      ; Type   ; Severity ; Details                                                                                                  ;
++-----------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; muxA      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                      ;
+; muxB      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                      ;
+; currCycle ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
++-----------+--------+----------+----------------------------------------------------------------------------------------------------------+
+
+
 +-----------------------------------------------------+
 ; Post-Synthesis Netlist Statistics for Top Partition ;
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 65                          ;
-; cycloneiii_ff         ; 2194                        ;
+; cycloneiii_ff         ; 2188                        ;
 ;     ENA               ; 2137                        ;
-;     plain             ; 57                          ;
-; cycloneiii_lcell_comb ; 1912                        ;
+;     plain             ; 51                          ;
+; cycloneiii_lcell_comb ; 1900                        ;
 ;     arith             ; 14                          ;
 ;         3 data inputs ; 14                          ;
-;     normal            ; 1898                        ;
-;         1 data inputs ; 15                          ;
-;         2 data inputs ; 9                           ;
-;         3 data inputs ; 321                         ;
-;         4 data inputs ; 1553                        ;
+;     normal            ; 1886                        ;
+;         0 data inputs ; 2                           ;
+;         1 data inputs ; 7                           ;
+;         2 data inputs ; 11                          ;
+;         3 data inputs ; 320                         ;
+;         4 data inputs ; 1546                        ;
 ;                       ;                             ;
 ; Max LUT depth         ; 11.00                       ;
-; Average LUT depth     ; 6.31                        ;
+; Average LUT depth     ; 6.28                        ;
 +-----------------------+-----------------------------+
 
 
@@ -417,38 +447,51 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Tue Apr  1 15:43:37 2025
+    Info: Processing started: Tue Apr  1 19:14:31 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off processor -c processor
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
 Info (12021): Found 10 design units, including 10 entities, in source file processor.v
     Info (12023): Found entity 1: processor File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 1
-    Info (12023): Found entity 2: datapath File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 63
-    Info (12023): Found entity 3: FSM File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 207
-    Info (12023): Found entity 4: memory File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 374
-    Info (12023): Found entity 5: register_file File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 403
-    Info (12023): Found entity 6: PC File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 452
-    Info (12023): Found entity 7: ALU File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 470
-    Info (12023): Found entity 8: reg_LED File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 499
-    Info (12023): Found entity 9: reg_HEX File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 508
-    Info (12023): Found entity 10: hex7seg File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 519
+    Info (12023): Found entity 2: datapath File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 65
+    Info (12023): Found entity 3: FSM File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 212
+    Info (12023): Found entity 4: memory File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 387
+    Info (12023): Found entity 5: register_file File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 416
+    Info (12023): Found entity 6: PC File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 465
+    Info (12023): Found entity 7: ALU File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 483
+    Info (12023): Found entity 8: reg_LED File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 512
+    Info (12023): Found entity 9: reg_HEX File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 521
+    Info (12023): Found entity 10: hex7seg File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 532
 Info (12127): Elaborating entity "processor" for the top level hierarchy
-Info (12128): Elaborating entity "datapath" for hierarchy "datapath:DataPath" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 38
-Info (12128): Elaborating entity "PC" for hierarchy "datapath:DataPath|PC:progCount" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 107
-Info (12128): Elaborating entity "memory" for hierarchy "datapath:DataPath|memory:Memory" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 121
-Warning (10850): Verilog HDL warning at processor.v(390): number of words (4) in memory file does not match the number of elements in the address range [0:255] File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 390
-Info (12128): Elaborating entity "register_file" for hierarchy "datapath:DataPath|register_file:RF" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 145
-Info (12128): Elaborating entity "ALU" for hierarchy "datapath:DataPath|ALU:ALUx" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 173
-Info (12128): Elaborating entity "FSM" for hierarchy "FSM:FiniteStateMachine" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 43
-Info (12128): Elaborating entity "reg_LED" for hierarchy "reg_LED:REGLED" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 51
-Info (12128): Elaborating entity "reg_HEX" for hierarchy "reg_HEX:H5" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 53
-Info (12128): Elaborating entity "hex7seg" for hierarchy "reg_HEX:H5|hex7seg:SEG" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 510
+Info (12128): Elaborating entity "datapath" for hierarchy "datapath:DataPath" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 39
+Warning (10034): Output port "currCycle" at processor.v(81) has no driver File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 81
+Info (12128): Elaborating entity "PC" for hierarchy "datapath:DataPath|PC:progCount" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 111
+Info (12128): Elaborating entity "memory" for hierarchy "datapath:DataPath|memory:Memory" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 125
+Warning (10850): Verilog HDL warning at processor.v(403): number of words (2) in memory file does not match the number of elements in the address range [0:255] File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 403
+Info (12128): Elaborating entity "register_file" for hierarchy "datapath:DataPath|register_file:RF" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 149
+Info (12128): Elaborating entity "ALU" for hierarchy "datapath:DataPath|ALU:ALUx" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 177
+Info (12128): Elaborating entity "FSM" for hierarchy "FSM:FiniteStateMachine" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 45
+Warning (10270): Verilog HDL Case Statement warning at processor.v(338): incomplete case statement has no default case item File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 338
+Warning (10270): Verilog HDL Case Statement warning at processor.v(276): incomplete case statement has no default case item File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 276
+Info (10264): Verilog HDL Case Statement information at processor.v(276): all case item expressions in this case statement are onehot File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 276
+Info (12128): Elaborating entity "reg_LED" for hierarchy "reg_LED:REGLED" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 53
+Info (12128): Elaborating entity "reg_HEX" for hierarchy "reg_HEX:H5" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 55
+Info (12128): Elaborating entity "hex7seg" for hierarchy "reg_HEX:H5|hex7seg:SEG" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 523
 Warning (127007): Memory Initialization File or Hexadecimal (Intel-Format) File "C:/Projects/DE10-Lite-Projects/SimProc/db/processor.ram0_memory_5896a733.hdl.mif" contains "don't care" values -- overwriting them with 0s
 Info (276014): Found 1 instances of uninferred RAM logic
-    Info (276013): RAM logic "datapath:DataPath|memory:Memory|mem" is uninferred because MIF is not supported for the selected family File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 386
+    Info (276013): RAM logic "datapath:DataPath|memory:Memory|mem" is uninferred because MIF is not supported for the selected family File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 399
 Warning (127007): Memory Initialization File or Hexadecimal (Intel-Format) File "C:/Projects/DE10-Lite-Projects/SimProc/db/processor.ram0_memory_5896a733.hdl.mif" contains "don't care" values -- overwriting them with 0s
+Warning (12241): 2 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "HEX1[0]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 10
+    Warning (13410): Pin "HEX1[1]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 10
+    Warning (13410): Pin "HEX1[2]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 10
+    Warning (13410): Pin "HEX1[3]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 10
+    Warning (13410): Pin "HEX1[4]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 10
+    Warning (13410): Pin "HEX1[5]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 10
+    Warning (13410): Pin "HEX1[6]" is stuck at VCC File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 10
 Info (286030): Timing-Driven Synthesis is running
-Info (17049): 3 registers lost all their fanouts during netlist optimizations.
+Info (17049): 4 registers lost all their fanouts during netlist optimizations.
 Info (144001): Generated suppressed messages file C:/Projects/DE10-Lite-Projects/SimProc/output_files/processor.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
@@ -464,13 +507,13 @@ Warning (21074): Design contains 11 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "SW[8]" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 2
     Warning (15610): No output dependent on input pin "SW[9]" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 2
     Warning (15610): No output dependent on input pin "KEY[1]" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 3
-Info (21057): Implemented 4085 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 4082 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 13 input pins
     Info (21059): Implemented 52 output pins
-    Info (21061): Implemented 4020 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 16 warnings
+    Info (21061): Implemented 4017 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 28 warnings
     Info: Peak virtual memory: 4885 megabytes
-    Info: Processing ended: Tue Apr  1 15:43:46 2025
+    Info: Processing ended: Tue Apr  1 19:14:40 2025
     Info: Elapsed time: 00:00:09
     Info: Total CPU time (on all processors): 00:00:17
 

@@ -14,7 +14,8 @@ module processor (
 	
 	wire [9:0] LED_OUT;
 	wire enable, CLOCK;
-    wire [7:0] muxA, muxB;
+    wire [7:0] muxA, muxB, PCoutWire;
+    wire [3:0] currCycle;
 
 	// Datapath and FSM Wires
 	// Memory
@@ -34,12 +35,13 @@ module processor (
 	datapath DataPath (.CLOCK_50(CLOCK), .PCwrite(PCwrite), .AddrSel(AddrSel), .MemRead(MemRead), .MemWrite(MemWrite), .IRload(IRload), .MDRload(MDRload),
 			 .RASel(RASel), .RFWrite(RFWrite), .RegIn(RegIn), .ABLD(ABLD), .ALU_A(ALU_A), .ALU_B(ALU_B), .ALUop(ALUop), .FlagWrite(FlagWrite), .ALUoutLD(ALUoutLD),
 			 .ALUregOut(ALUregOut), .Aout(Aout), .Bout(Bout), .OpCode(OpCode), .N(N), .Z(Z),
-             .muxA(muxA), .muxB(muxB)
+             .muxA(muxA), .muxB(muxB), .PCoutWire(PCoutWire)
     );
 
 	FSM FiniteStateMachine (.CLOCK_50(CLOCK), .PCwrite(PCwrite), .AddrSel(AddrSel), .MemRead(MemRead), .MemWrite(MemWrite), .IRload(IRload), .MDRload(MDRload),
 			 .RASel(RASel), .RFWrite(RFWrite), .RegIn(RegIn), .ABLD(ABLD), .ALU_A(ALU_A), .ALU_B(ALU_B), .ALUop(ALUop), .FlagWrite(FlagWrite), .ALUoutLD(ALUoutLD),
-			 .ALUregOut(ALUregOut), .Aout(Aout), .Bout(Bout), .OpCode(OpCode), .N(N), .Z(Z)
+			 .ALUregOut(ALUregOut), .Aout(Aout), .Bout(Bout), .OpCode(OpCode), .N(N), .Z(Z),
+             .currCycle(currCycle)
     );
 
 	// I/O Modules
@@ -50,12 +52,12 @@ module processor (
 
 	reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(enable), .Q(LED_OUT), .LEDR(LEDR[9:0]));
 	
-	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALUregOut[7:4]), .display(HEX1));
-	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALUregOut[3:0]), .display(HEX0));
-	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(muxA[7:4]), .display(HEX5));
-	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(muxA[3:0]), .display(HEX4));
-	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(muxB[7:4]), .display(HEX3));
-	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex(muxB[3:0]), .display(HEX2));
+	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALUregOut[7:4]), .display(HEX5));
+	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALUregOut[3:0]), .display(HEX4));
+	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PCoutWire[7:4]), .display(HEX3));
+	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PCoutWire[3:0]), .display(HEX2));
+	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(0), .display(HEX1));
+	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex(currCycle), .display(HEX0));
 endmodule
 
 
@@ -73,7 +75,9 @@ module datapath(
     output [7:0] Aout, output [7:0] Bout,    // Register File A and B
     output [7:0] OpCode,     // Instruction
     output reg N, output reg Z,
-    output reg [7:0] muxA, output reg [7:0] muxB
+    output reg [7:0] muxA, output reg [7:0] muxB,
+    output wire [7:0] PCoutWire,
+    output wire [3:0] currCycle
     );
 
     // PC Wires
@@ -201,7 +205,8 @@ module datapath(
     assign Aout = muxA;
     assign Bout = muxB;
     assign OpCode = IRout;
-    assign ALUregOut = ALUout;
+    assign ALUregOut = registerALU;
+    assign PCoutWire = PCout;
 endmodule
 
 module FSM(
@@ -217,7 +222,8 @@ module FSM(
     output reg IRload, output reg MDRload,     // Instruction Register and Memory Data Register
     output reg RASel, output reg RFWrite, output reg RegIn,      // Register File and Register Address
     output reg ABLD, output reg ALU_A, output reg [2:0] ALU_B,   // ALU and AB load registers/mux
-    output reg [2:0] ALUop, output reg FlagWrite, output reg ALUoutLD  // ALU and NZ Flag
+    output reg [2:0] ALUop, output reg FlagWrite, output reg ALUoutLD,  // ALU and NZ Flag
+    output [3:0] currCycle
 	);
 
     reg [3:0] currState, nextState;
@@ -226,16 +232,21 @@ module FSM(
 
     assign instruction = OpCode[3:0];
 
-    parameter CYCLE1 = 4'b0000, CYCLE2 = 4'b0001, CYCLE3 = 4'b0010, CYCLE4 = 4'b0011, CYCLE5 = 4'b0100;
+    parameter IDLE = 4'b0000, CYCLE1 = 4'b0001, CYCLE2 = 4'b0010, CYCLE3 = 4'b0011, CYCLE4 = 4'b0100, CYCLE5 = 4'b0101;
     
     // Instruction OpCodes (ORi, SHIFT are 3 bit)
     parameter ADD = 4'b0100, SUB = 4'b0110, NAND = 4'b1000, ORi = 3'b111, LOAD = 4'b0000;
     parameter STORE = 4'b0010, BNZ = 4'b0101, BPZ = 4'b1001, BZ = 4'b1010, SHIFT = 3'b011;
-    parameter SLEFT = 1'b1, SRIGHT = 1'b0;
+    parameter SLEFT = 1'b1, SRIGHT = 1'b0, J = 4'b0001;
+
+    initial begin
+        currState = IDLE;
+    end
 
     // FSM State Codes
     always @ (*) begin
         case(currState)
+            IDLE:       nextState = CYCLE1;
             CYCLE1:     nextState = CYCLE2;
             CYCLE2:     if (done) nextState = CYCLE1;
                         else nextState = CYCLE3;
@@ -320,7 +331,7 @@ module FSM(
                     done = 1;
                 end
 
-                if (instruction == BNZ | instruction == BPZ | instruction == BZ) begin
+                if (instruction == BNZ | instruction == BPZ | instruction == BZ | instruction == J) begin
                     ALU_A = 0; // ALU A <- PC
                     ALU_B = 3'b010; // ALU B <- SE(Imm4)
                     ALUop = 3'b000;
@@ -328,7 +339,7 @@ module FSM(
                         BPZ: if (!N) PCwrite = 1;
                         BZ: if (Z) PCwrite = 1;
                         BNZ: if (!Z) PCwrite = 1;
-                        default: PCwrite = 0;
+                        J: PCwrite = 1;
                     endcase
                     done = 1;
                 end
@@ -369,6 +380,8 @@ module FSM(
                 
         endcase
     end
+
+    assign currCycle = currState;
 endmodule
 
 module memory # (
