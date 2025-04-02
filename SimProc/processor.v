@@ -399,8 +399,13 @@ module memory # (
     reg [7:0] mem [0:255];      // Internal Memory
 
     // Initialization
-    initial if (INIT_FILE) begin
+    integer i;
+    initial begin
+        if (INIT_FILE) begin
         $readmemb(INIT_FILE, mem);
+        for (i = 0; i < 4; i = i + 1) 
+            $display("mem[%0d] = %b", i, mem[i]);
+        end
     end
 
     always @ (posedge CLK) begin

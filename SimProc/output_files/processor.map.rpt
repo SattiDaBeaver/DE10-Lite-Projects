@@ -1,5 +1,5 @@
 Analysis & Synthesis report for processor
-Tue Apr  1 19:14:40 2025
+Tue Apr  1 21:31:34 2025
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -54,7 +54,7 @@ on the Quartus Prime software download page.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Apr  1 19:14:40 2025           ;
+; Analysis & Synthesis Status        ; Successful - Tue Apr  1 21:31:34 2025           ;
 ; Quartus Prime Version              ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
 ; Revision Name                      ; processor                                       ;
 ; Top-level Entity Name              ; processor                                       ;
@@ -177,7 +177,8 @@ on the Quartus Prime software download page.
 ;     Processor 4            ;   0.1%      ;
 ;     Processor 5            ;   0.1%      ;
 ;     Processor 6            ;   0.1%      ;
-;     Processors 7-14        ;   0.0%      ;
+;     Processor 7            ;   0.1%      ;
+;     Processors 8-14        ;   0.1%      ;
 +----------------------------+-------------+
 
 
@@ -447,7 +448,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Tue Apr  1 19:14:31 2025
+    Info: Processing started: Tue Apr  1 21:31:26 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off processor -c processor
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
@@ -456,18 +457,22 @@ Info (12021): Found 10 design units, including 10 entities, in source file proce
     Info (12023): Found entity 2: datapath File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 65
     Info (12023): Found entity 3: FSM File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 212
     Info (12023): Found entity 4: memory File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 387
-    Info (12023): Found entity 5: register_file File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 416
-    Info (12023): Found entity 6: PC File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 465
-    Info (12023): Found entity 7: ALU File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 483
-    Info (12023): Found entity 8: reg_LED File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 512
-    Info (12023): Found entity 9: reg_HEX File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 521
-    Info (12023): Found entity 10: hex7seg File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 532
+    Info (12023): Found entity 5: register_file File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 421
+    Info (12023): Found entity 6: PC File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 470
+    Info (12023): Found entity 7: ALU File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 488
+    Info (12023): Found entity 8: reg_LED File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 517
+    Info (12023): Found entity 9: reg_HEX File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 526
+    Info (12023): Found entity 10: hex7seg File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 537
 Info (12127): Elaborating entity "processor" for the top level hierarchy
 Info (12128): Elaborating entity "datapath" for hierarchy "datapath:DataPath" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 39
 Warning (10034): Output port "currCycle" at processor.v(81) has no driver File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 81
 Info (12128): Elaborating entity "PC" for hierarchy "datapath:DataPath|PC:progCount" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 111
 Info (12128): Elaborating entity "memory" for hierarchy "datapath:DataPath|memory:Memory" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 125
-Warning (10850): Verilog HDL warning at processor.v(403): number of words (2) in memory file does not match the number of elements in the address range [0:255] File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 403
+Warning (10850): Verilog HDL warning at processor.v(405): number of words (2) in memory file does not match the number of elements in the address range [0:255] File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 405
+Info (10648): Verilog HDL Display System Task info at processor.v(407): mem[0] = 00010100 File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 407
+Info (10648): Verilog HDL Display System Task info at processor.v(407): mem[1] = 11110001 File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 407
+Info (10648): Verilog HDL Display System Task info at processor.v(407): mem[2] = ........ File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 407
+Info (10648): Verilog HDL Display System Task info at processor.v(407): mem[3] = ........ File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 407
 Info (12128): Elaborating entity "register_file" for hierarchy "datapath:DataPath|register_file:RF" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 149
 Info (12128): Elaborating entity "ALU" for hierarchy "datapath:DataPath|ALU:ALUx" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 177
 Info (12128): Elaborating entity "FSM" for hierarchy "FSM:FiniteStateMachine" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 45
@@ -476,7 +481,7 @@ Warning (10270): Verilog HDL Case Statement warning at processor.v(276): incompl
 Info (10264): Verilog HDL Case Statement information at processor.v(276): all case item expressions in this case statement are onehot File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 276
 Info (12128): Elaborating entity "reg_LED" for hierarchy "reg_LED:REGLED" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 53
 Info (12128): Elaborating entity "reg_HEX" for hierarchy "reg_HEX:H5" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 55
-Info (12128): Elaborating entity "hex7seg" for hierarchy "reg_HEX:H5|hex7seg:SEG" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 523
+Info (12128): Elaborating entity "hex7seg" for hierarchy "reg_HEX:H5|hex7seg:SEG" File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 528
 Warning (127007): Memory Initialization File or Hexadecimal (Intel-Format) File "C:/Projects/DE10-Lite-Projects/SimProc/db/processor.ram0_memory_5896a733.hdl.mif" contains "don't care" values -- overwriting them with 0s
 Info (276014): Found 1 instances of uninferred RAM logic
     Info (276013): RAM logic "datapath:DataPath|memory:Memory|mem" is uninferred because MIF is not supported for the selected family File: C:/Projects/DE10-Lite-Projects/SimProc/processor.v Line: 399
@@ -513,9 +518,9 @@ Info (21057): Implemented 4082 device resources after synthesis - the final reso
     Info (21061): Implemented 4017 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 28 warnings
     Info: Peak virtual memory: 4885 megabytes
-    Info: Processing ended: Tue Apr  1 19:14:40 2025
-    Info: Elapsed time: 00:00:09
-    Info: Total CPU time (on all processors): 00:00:17
+    Info: Processing ended: Tue Apr  1 21:31:34 2025
+    Info: Elapsed time: 00:00:08
+    Info: Total CPU time (on all processors): 00:00:16
 
 
 +------------------------------------------+
