@@ -13,35 +13,36 @@ module processor (
 	);
 
 
-	wire MemRead, MemWrite;
+	wire N, Z;
 	wire [2:0] ALUop;
 	wire enable;
-    wire [7:0] ADDR, Data_in, Data_out;
+    wire [7:0] A, B, ALUout;
 
-    memory # (.INIT_FILE("machine_code.txt")) MEMORY (
-        .CLK(CLOCK_50),
-        .MemRead(MemRead),
-        .MemWrite(MemWrite),
-        .ADDR(ADDR),
-        .Data_in(Data_in),
-        .Data_out(Data_out)
+    ALU ALU(
+        .ALUop(ALUop),
+        .A(A),
+        .B(B),
+        .N(N),
+        .Z(Z),
+        .ALUout(ALUout)
     );
 
-    assign ADDR = SW[7:0];
-    assign MemRead = ~KEY[0];
-    assign MemWrite = ~KEY[1];
-    assign Data_in = {6'b0, SW[9:8]};
+
+
+    assign ALUop = SW[9:7];
+    assign A = {4'b0, SW[3:0]};
+    assign B = {5'b0, SW[6:4]};
 
     assign enable = 1;
 
-	reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(enable), .Q(SW[9:0]), .LEDR(LEDR[9:0]));
+	reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(enable), .Q({8'b0, N, Z}), .LEDR(LEDR[9:0]));
 	
-	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Data_out[7:4]), .display(HEX5));
-	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Data_out[3:0]), .display(HEX4));
-	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Data_in[7:4]), .display(HEX3));
-	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Data_in[3:0]), .display(HEX2));
-	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ADDR[7:4]), .display(HEX1));
-	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ADDR[3:0]), .display(HEX0));
+	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALUout[7:4]), .display(HEX5));
+	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALUout[3:0]), .display(HEX4));
+	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(0), .display(HEX3));
+	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(0), .display(HEX2));
+	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(B[3:0]), .display(HEX1));
+	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex(A[3:0]), .display(HEX0));
 endmodule
 
 
@@ -403,17 +404,16 @@ module memory # (
 endmodule
 
 module register_file (
-	input                   CLOCK_50,
-	input                   RFWrite,
-	input       [1:0]       regA,
-	input       [1:0]       regB,
-	input       [1:0]       regW,
-	input       [7:0]       dataW,
+	input CLOCK_50,
+	input RFWrite,
+	input [1:0] regA,
+	input [1:0] regB,
+	input [1:0] regW,
+	input [7:0] dataW,
 
-	output reg  [7:0]       dataA,
-	output reg  [7:0]       dataB
+	output reg [7:0] dataA,
+	output reg [7:0] dataB
 	);
-
 	reg [7:0] r0, r1, r2, r3;
 	parameter R0 = 2'b00, R1 = 2'b01, R2 = 2'b10, R3 = 2'b11;
 
@@ -453,10 +453,10 @@ module register_file (
 endmodule
 
 module PC (
-    input                   CLK,
-    input       [7:0]       PCin,
-    input                   PCwrite,
-    output reg  [7:0]       PCout
+    input CLK,
+    input [7:0] PCin,
+    input PCwrite,
+    output reg [7:0] PCout
     );
 
     initial begin
@@ -468,38 +468,6 @@ module PC (
             PCout <= PCin;
         end
     end
-endmodule
-
-module IR (
-    input                   CLK,
-    input       [7:0]       IRin,
-    input                   IRload,
-
-    output      [1:0]       RA,
-    output      [1:0]       RB,
-    output      [3:0]       instruction,
-    output      [7:0]       Imm4SE,
-    output      [7:0]       Imm5ZE,
-    output      [7:0]       Imm2ZE,
-    output      [7:0]       IRout  
-    );
-
-    reg         [7:0]       IReg;
-    
-    always @ (posedge CLK) begin
-        if (IRload) begin
-            IRreg <= IRin;
-        end
-    end
-
-    assign IRout = IRreg;
-    assign RA = IRreg[7:6];
-    assign RB = IRreg[5:4];
-    assign instruction = IR[3:0];
-    assign Imm4SE = {{4{IRreg[7]}}, IR[7:4]};
-    assign Imm5ZE = {3'b000, IR[7:3]};
-    assign Imm2ZE = {6'b000000, IR[4:3]};
-
 endmodule
 
 module ALU(

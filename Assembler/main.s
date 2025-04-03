@@ -1,2 +1,6 @@
 add r0, r1
-j -1
+sub r2, r3
+nand r3, r3
+
+sub r0, r0
+bz -1
