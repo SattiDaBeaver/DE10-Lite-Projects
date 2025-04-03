@@ -13,35 +13,58 @@ module processor (
 	);
 
 
-	wire MemRead, MemWrite;
-	wire [2:0] ALUop;
-	wire enable;
-    wire [7:0] ADDR, Data_in, Data_out;
+	// wire MemRead, MemWrite;
+	// wire enable;
+    // wire [7:0] ADDR, Data_in, Data_out;
 
-    memory # (.INIT_FILE("machine_code.txt")) MEMORY (
-        .CLK(CLOCK_50),
-        .MemRead(MemRead),
-        .MemWrite(MemWrite),
-        .ADDR(ADDR),
-        .Data_in(Data_in),
-        .Data_out(Data_out)
-    );
+    // memory # (.INIT_FILE("machine_code.txt")) MEMORY (
+    //     .CLK(CLOCK_50),
+    //     .MemRead(MemRead),
+    //     .MemWrite(MemWrite),
+    //     .ADDR(ADDR),
+    //     .Data_in(Data_in),
+    //     .Data_out(Data_out)
+    // );
 
-    assign ADDR = SW[7:0];
-    assign MemRead = ~KEY[0];
-    assign MemWrite = ~KEY[1];
-    assign Data_in = {6'b0, SW[9:8]};
+    // assign ADDR = SW[7:0];
+    // assign MemRead = ~KEY[0];
+    // assign MemWrite = ~KEY[1];
+    // assign Data_in = {6'b0, SW[9:8]};
 
+
+    // wire [7:0] IRin, Imm4, Imm5, Imm2, OpCode;
+    // wire [3:0] instruction;
+    // wire [1:0] RA, RB;
+    // wire IRload;
+
+    // IR InstructionRegister (
+    //     .CLK(CLOCK_50),
+    //     .IRin(IRin),
+    //     .IRload(IRload),
+
+    //     .RA(RA),
+    //     .RB(RB),
+    //     .instruction(instruction),
+    //     .Imm4SE(Imm4),
+    //     .Imm5ZE(Imm5),
+    //     .Imm2ZE(Imm2),
+    //     .IRout(OpCode)  
+    // );
+
+
+    assign IRin = SW[7:0];
+    assign IRload = ~KEY[0];
+    
     assign enable = 1;
 
 	reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(enable), .Q(SW[9:0]), .LEDR(LEDR[9:0]));
 	
-	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Data_out[7:4]), .display(HEX5));
-	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Data_out[3:0]), .display(HEX4));
-	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Data_in[7:4]), .display(HEX3));
-	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Data_in[3:0]), .display(HEX2));
-	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ADDR[7:4]), .display(HEX1));
-	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ADDR[3:0]), .display(HEX0));
+	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(OpCode[7:4]), .display(HEX5));
+	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(OpCode[3:0]), .display(HEX4));
+	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Imm4[7:4]), .display(HEX3));
+	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Imm4[3:0]), .display(HEX2));
+	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Imm5[3:0]), .display(HEX1));
+	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Imm2[3:0]), .display(HEX0));
 endmodule
 
 
@@ -484,7 +507,11 @@ module IR (
     output      [7:0]       IRout  
     );
 
-    reg         [7:0]       IReg;
+    reg         [7:0]       IRreg;
+
+    initial begin
+        IRreg = 0;
+    end
     
     always @ (posedge CLK) begin
         if (IRload) begin
@@ -496,10 +523,9 @@ module IR (
     assign RA = IRreg[7:6];
     assign RB = IRreg[5:4];
     assign instruction = IR[3:0];
-    assign Imm4SE = {{4{IRreg[7]}}, IR[7:4]};
-    assign Imm5ZE = {3'b000, IR[7:3]};
-    assign Imm2ZE = {6'b000000, IR[4:3]};
-
+    assign Imm4SE = {{4{IRreg[3]}}, IRreg[7:4]};
+    assign Imm5ZE = {3'b000, IRreg[7:3]};
+    assign Imm2ZE = {6'b000000, IRreg[4:3]};
 endmodule
 
 module ALU(
@@ -527,9 +553,6 @@ module ALU(
     assign N = ALUout[7];
     assign Z = ~(|ALUout);
 endmodule
-
-
-
 
 module reg_LED(input CLOCK_50, input EN, input [9:0] Q, output reg [9:0] LEDR);
 	always @ (posedge CLOCK_50) begin

@@ -19,8 +19,8 @@ int main(void) {
   ORi = 111
   LOAD = 0000
   STORE = 0010
-  BNZ = 0101
-  BPZ = 1001
+  BNZ = 1001
+  BPZ = 0101
   BZ = 1010
   J = 1001
   SHIFT = 011 (left = 1, right = 0)
@@ -93,9 +93,9 @@ string getOpCode(fstream& line) {
     return "0000";
   } else if (OpCode == "store"){
     return "0010";
-  } else if (OpCode == "bnz"){
-    return "0101";
   } else if (OpCode == "bpz"){
+    return "0101";
+  } else if (OpCode == "bnz"){
     return "1001";
   } else if (OpCode == "bz"){
     return "1010";

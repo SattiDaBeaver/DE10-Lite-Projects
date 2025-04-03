@@ -1,5 +1,5 @@
 Analysis & Synthesis report for processor
-Wed Apr  2 13:57:48 2025
+Wed Apr  2 20:48:22 2025
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -14,15 +14,13 @@ Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
   8. Registers Removed During Synthesis
-  9. Removed Registers Triggering Further Register Optimizations
- 10. General Register Statistics
- 11. Parameter Settings for User Entity Instance: memory:MEMORY
- 12. Port Connectivity Checks: "reg_LED:REGLED"
- 13. Port Connectivity Checks: "memory:MEMORY"
- 14. Post-Synthesis Netlist Statistics for Top Partition
- 15. Elapsed Time Per Partition
- 16. Analysis & Synthesis Messages
- 17. Analysis & Synthesis Suppressed Messages
+  9. General Register Statistics
+ 10. Port Connectivity Checks: "reg_LED:REGLED"
+ 11. Port Connectivity Checks: "IR:InstructionRegister"
+ 12. Post-Synthesis Netlist Statistics for Top Partition
+ 13. Elapsed Time Per Partition
+ 14. Analysis & Synthesis Messages
+ 15. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -49,15 +47,15 @@ on the Quartus Prime software download page.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Apr  2 13:57:48 2025           ;
+; Analysis & Synthesis Status        ; Successful - Wed Apr  2 20:48:22 2025           ;
 ; Quartus Prime Version              ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
 ; Revision Name                      ; processor                                       ;
 ; Top-level Entity Name              ; processor                                       ;
 ; Family                             ; MAX 10                                          ;
-; Total logic elements               ; 1,198                                           ;
-;     Total combinational functions  ; 669                                             ;
-;     Dedicated logic registers      ; 569                                             ;
-; Total registers                    ; 569                                             ;
+; Total logic elements               ; 56                                              ;
+;     Total combinational functions  ; 26                                              ;
+;     Dedicated logic registers      ; 56                                              ;
+; Total registers                    ; 56                                              ;
 ; Total pins                         ; 65                                              ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 0                                               ;
@@ -185,20 +183,20 @@ on the Quartus Prime software download page.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 1,198          ;
+; Estimated Total logic elements              ; 56             ;
 ;                                             ;                ;
-; Total combinational functions               ; 669            ;
+; Total combinational functions               ; 26             ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 396            ;
-;     -- 3 input functions                    ; 267            ;
-;     -- <=2 input functions                  ; 6              ;
+;     -- 4 input functions                    ; 21             ;
+;     -- 3 input functions                    ; 0              ;
+;     -- <=2 input functions                  ; 5              ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 669            ;
+;     -- normal mode                          ; 26             ;
 ;     -- arithmetic mode                      ; 0              ;
 ;                                             ;                ;
-; Total registers                             ; 569            ;
-;     -- Dedicated logic registers            ; 569            ;
+; Total registers                             ; 56             ;
+;     -- Dedicated logic registers            ; 56             ;
 ;     -- I/O registers                        ; 0              ;
 ;                                             ;                ;
 ; I/O pins                                    ; 65             ;
@@ -206,1585 +204,43 @@ on the Quartus Prime software download page.
 ; Embedded Multiplier 9-bit elements          ; 0              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 569            ;
-; Total fan-out                               ; 4161           ;
-; Average fan-out                             ; 3.04           ;
+; Maximum fan-out                             ; 56             ;
+; Total fan-out                               ; 325            ;
+; Average fan-out                             ; 1.53           ;
 +---------------------------------------------+----------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                              ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------+-------------+--------------+
-; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name               ; Entity Name ; Library Name ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------+-------------+--------------+
-; |processor                 ; 669 (0)             ; 569 (0)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 65   ; 0            ; 0          ; |processor                        ; processor   ; work         ;
-;    |memory:MEMORY|         ; 637 (637)           ; 525 (525)                 ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|memory:MEMORY          ; memory      ; work         ;
-;    |reg_HEX:H0|            ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H0             ; reg_HEX     ; work         ;
-;       |hex7seg:SEG|        ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H0|hex7seg:SEG ; hex7seg     ; work         ;
-;    |reg_HEX:H1|            ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H1             ; reg_HEX     ; work         ;
-;       |hex7seg:SEG|        ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H1|hex7seg:SEG ; hex7seg     ; work         ;
-;    |reg_HEX:H2|            ; 4 (1)               ; 6 (6)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H2             ; reg_HEX     ; work         ;
-;       |hex7seg:SEG|        ; 3 (3)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H2|hex7seg:SEG ; hex7seg     ; work         ;
-;    |reg_HEX:H4|            ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H4             ; reg_HEX     ; work         ;
-;       |hex7seg:SEG|        ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H4|hex7seg:SEG ; hex7seg     ; work         ;
-;    |reg_HEX:H5|            ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H5             ; reg_HEX     ; work         ;
-;       |hex7seg:SEG|        ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H5|hex7seg:SEG ; hex7seg     ; work         ;
-;    |reg_LED:REGLED|        ; 0 (0)               ; 10 (10)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_LED:REGLED         ; reg_LED     ; work         ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------+-------------+--------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                               ;
++-----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------+-------------+--------------+
+; Compilation Hierarchy Node  ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name               ; Entity Name ; Library Name ;
++-----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------+-------------+--------------+
+; |processor                  ; 26 (0)              ; 56 (0)                    ; 0           ; 0          ; 0            ; 0       ; 0         ; 65   ; 0            ; 0          ; |processor                        ; processor   ; work         ;
+;    |IR:InstructionRegister| ; 0 (0)               ; 8 (8)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|IR:InstructionRegister ; IR          ; work         ;
+;    |reg_HEX:H0|             ; 4 (1)               ; 6 (6)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H0             ; reg_HEX     ; work         ;
+;       |hex7seg:SEG|         ; 3 (3)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H0|hex7seg:SEG ; hex7seg     ; work         ;
+;    |reg_HEX:H1|             ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H1             ; reg_HEX     ; work         ;
+;       |hex7seg:SEG|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H1|hex7seg:SEG ; hex7seg     ; work         ;
+;    |reg_HEX:H2|             ; 0 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H2             ; reg_HEX     ; work         ;
+;    |reg_HEX:H3|             ; 1 (1)               ; 4 (4)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H3             ; reg_HEX     ; work         ;
+;    |reg_HEX:H4|             ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H4             ; reg_HEX     ; work         ;
+;       |hex7seg:SEG|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H4|hex7seg:SEG ; hex7seg     ; work         ;
+;    |reg_HEX:H5|             ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H5             ; reg_HEX     ; work         ;
+;       |hex7seg:SEG|         ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H5|hex7seg:SEG ; hex7seg     ; work         ;
+;    |reg_LED:REGLED|         ; 0 (0)               ; 10 (10)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_LED:REGLED         ; reg_LED     ; work         ;
++-----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------------------+-------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+-----------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                ;
-+------------------------------------------+----------------------------------------+
-; Register name                            ; Reason for Removal                     ;
-+------------------------------------------+----------------------------------------+
-; reg_HEX:H2|display[1]                    ; Stuck at GND due to stuck port data_in ;
-; reg_HEX:H3|display[0..5]                 ; Stuck at GND due to stuck port data_in ;
-; reg_HEX:H3|display[6]                    ; Stuck at VCC due to stuck port data_in ;
-; memory:MEMORY|mem~20                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~28                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~36                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~44                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~52                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~60                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~68                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~76                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~84                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~92                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~100                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~108                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~116                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~124                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~132                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~140                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~148                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~156                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~164                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~172                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~180                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~188                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~196                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~204                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~212                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~220                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~228                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~236                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~244                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~252                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~260                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~268                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~276                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~284                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~292                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~300                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~308                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~316                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~324                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~332                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~340                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~348                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~356                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~364                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~372                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~380                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~388                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~396                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~404                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~412                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~420                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~428                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~436                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~444                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~452                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~460                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~468                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~476                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~484                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~492                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~500                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~508                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~516                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~524                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~532                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~540                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~548                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~556                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~564                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~572                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~580                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~588                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~596                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~604                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~612                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~620                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~628                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~636                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~644                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~652                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~660                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~668                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~676                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~684                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~692                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~700                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~708                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~716                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~724                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~732                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~740                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~748                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~756                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~764                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~772                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~780                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~788                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~796                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~804                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~812                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~820                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~828                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~836                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~844                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~852                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~860                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~868                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~876                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~884                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~892                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~900                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~908                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~916                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~924                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~932                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~940                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~948                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~956                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~964                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~972                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~980                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~988                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~996                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1004                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1012                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1020                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1028                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1036                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1044                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1052                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1060                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1068                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1076                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1084                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1092                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1100                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1108                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1116                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1124                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1132                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1140                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1148                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1156                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1164                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1172                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1180                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1188                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1196                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1204                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1212                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1220                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1228                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1236                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1244                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1252                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1260                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1268                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1276                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1284                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1292                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1300                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1308                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1316                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1324                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1332                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1340                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1348                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1356                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1364                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1372                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1380                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1388                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1396                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1404                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1412                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1420                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1428                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1436                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1444                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1452                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1460                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1468                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1476                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1484                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1492                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1500                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1508                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1516                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1524                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1532                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1540                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1548                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1556                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1564                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1572                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1580                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1588                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1596                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1604                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1612                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1620                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1628                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1636                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1644                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1652                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1660                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1668                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1676                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1684                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1692                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1700                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1708                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1716                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1724                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1732                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1740                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1748                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1756                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1764                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1772                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1780                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1788                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1796                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1804                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1812                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1820                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1828                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1836                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1844                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1852                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1860                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1868                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1876                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1884                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1892                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1900                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1908                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1916                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1924                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1932                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1940                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1948                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1956                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1964                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1972                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1980                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1988                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1996                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2004                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2012                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2020                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2028                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2036                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2044                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~5                      ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~21                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~29                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~37                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~45                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~53                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~61                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~69                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~77                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~85                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~93                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~101                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~109                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~117                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~125                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~133                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~141                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~149                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~157                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~165                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~173                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~181                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~189                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~197                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~205                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~213                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~221                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~229                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~237                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~245                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~253                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~261                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~269                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~277                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~285                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~293                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~301                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~309                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~317                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~325                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~333                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~341                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~349                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~357                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~365                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~373                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~381                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~389                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~397                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~405                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~413                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~421                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~429                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~437                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~445                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~453                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~461                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~469                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~477                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~485                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~493                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~501                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~509                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~517                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~525                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~533                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~541                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~549                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~557                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~565                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~573                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~581                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~589                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~597                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~605                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~613                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~621                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~629                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~637                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~645                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~653                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~661                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~669                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~677                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~685                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~693                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~701                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~709                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~717                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~725                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~733                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~741                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~749                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~757                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~765                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~773                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~781                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~789                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~797                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~805                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~813                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~821                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~829                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~837                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~845                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~853                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~861                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~869                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~877                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~885                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~893                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~901                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~909                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~917                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~925                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~933                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~941                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~949                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~957                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~965                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~973                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~981                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~989                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~997                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1005                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1013                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1021                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1029                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1037                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1045                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1053                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1061                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1069                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1077                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1085                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1093                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1101                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1109                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1117                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1125                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1133                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1141                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1149                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1157                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1165                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1173                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1181                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1189                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1197                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1205                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1213                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1221                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1229                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1237                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1245                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1253                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1261                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1269                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1277                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1285                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1293                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1301                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1309                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1317                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1325                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1333                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1341                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1349                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1357                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1365                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1373                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1381                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1389                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1397                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1405                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1413                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1421                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1429                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1437                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1445                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1453                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1461                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1469                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1477                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1485                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1493                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1501                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1509                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1517                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1525                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1533                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1541                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1549                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1557                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1565                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1573                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1581                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1589                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1597                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1605                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1613                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1621                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1629                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1637                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1645                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1653                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1661                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1669                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1677                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1685                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1693                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1701                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1709                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1717                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1725                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1733                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1741                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1749                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1757                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1765                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1773                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1781                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1789                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1797                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1805                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1813                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1821                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1829                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1837                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1845                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1853                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1861                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1869                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1877                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1885                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1893                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1901                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1909                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1917                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1925                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1933                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1941                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1949                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1957                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1965                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1973                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1981                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1989                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1997                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2005                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2013                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2021                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2029                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2037                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2045                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~6                      ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~22                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~30                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~38                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~46                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~54                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~62                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~70                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~78                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~86                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~94                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~102                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~110                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~118                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~126                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~134                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~142                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~150                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~158                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~166                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~174                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~182                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~190                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~198                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~206                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~214                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~222                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~230                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~238                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~246                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~254                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~262                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~270                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~278                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~286                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~294                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~302                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~310                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~318                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~326                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~334                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~342                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~350                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~358                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~366                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~374                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~382                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~390                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~398                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~406                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~414                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~422                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~430                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~438                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~446                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~454                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~462                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~470                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~478                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~486                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~494                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~502                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~510                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~518                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~526                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~534                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~542                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~550                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~558                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~566                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~574                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~582                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~590                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~598                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~606                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~614                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~622                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~630                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~638                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~646                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~654                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~662                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~670                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~678                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~686                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~694                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~702                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~710                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~718                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~726                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~734                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~742                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~750                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~758                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~766                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~774                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~782                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~790                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~798                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~806                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~814                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~822                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~830                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~838                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~846                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~854                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~862                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~870                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~878                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~886                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~894                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~902                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~910                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~918                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~926                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~934                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~942                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~950                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~958                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~966                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~974                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~982                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~990                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~998                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1006                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1014                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1022                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1030                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1038                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1046                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1054                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1062                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1070                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1078                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1086                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1094                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1102                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1110                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1118                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1126                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1134                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1142                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1150                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1158                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1166                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1174                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1182                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1190                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1198                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1206                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1214                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1222                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1230                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1238                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1246                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1254                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1262                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1270                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1278                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1286                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1294                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1302                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1310                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1318                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1326                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1334                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1342                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1350                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1358                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1366                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1374                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1382                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1390                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1398                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1406                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1414                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1422                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1430                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1438                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1446                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1454                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1462                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1470                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1478                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1486                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1494                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1502                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1510                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1518                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1526                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1534                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1542                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1550                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1558                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1566                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1574                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1582                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1590                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1598                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1606                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1614                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1622                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1630                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1638                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1646                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1654                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1662                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1670                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1678                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1686                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1694                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1702                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1710                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1718                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1726                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1734                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1742                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1750                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1758                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1766                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1774                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1782                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1790                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1798                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1806                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1814                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1822                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1830                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1838                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1846                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1854                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1862                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1870                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1878                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1886                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1894                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1902                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1910                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1918                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1926                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1934                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1942                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1950                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1958                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1966                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1974                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1982                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1990                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1998                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2006                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2014                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2022                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2030                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2038                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2046                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~7                      ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~23                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~31                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~39                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~47                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~55                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~63                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~71                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~79                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~87                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~95                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~103                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~111                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~119                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~127                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~135                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~143                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~151                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~159                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~167                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~175                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~183                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~191                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~199                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~207                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~215                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~223                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~231                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~239                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~247                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~255                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~263                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~271                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~279                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~287                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~295                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~303                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~311                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~319                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~327                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~335                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~343                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~351                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~359                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~367                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~375                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~383                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~391                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~399                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~407                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~415                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~423                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~431                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~439                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~447                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~455                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~463                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~471                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~479                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~487                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~495                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~503                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~511                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~519                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~527                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~535                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~543                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~551                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~559                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~567                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~575                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~583                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~591                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~599                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~607                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~615                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~623                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~631                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~639                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~647                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~655                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~663                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~671                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~679                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~687                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~695                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~703                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~711                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~719                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~727                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~735                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~743                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~751                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~759                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~767                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~775                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~783                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~791                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~799                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~807                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~815                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~823                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~831                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~839                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~847                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~855                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~863                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~871                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~879                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~887                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~895                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~903                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~911                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~919                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~927                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~935                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~943                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~951                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~959                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~967                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~975                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~983                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~991                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~999                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1007                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1015                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1023                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1031                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1039                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1047                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1055                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1063                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1071                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1079                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1087                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1095                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1103                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1111                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1119                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1127                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1135                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1143                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1151                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1159                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1167                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1175                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1183                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1191                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1199                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1207                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1215                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1223                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1231                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1239                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1247                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1255                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1263                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1271                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1279                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1287                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1295                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1303                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1311                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1319                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1327                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1335                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1343                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1351                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1359                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1367                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1375                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1383                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1391                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1399                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1407                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1415                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1423                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1431                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1439                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1447                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1455                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1463                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1471                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1479                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1487                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1495                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1503                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1511                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1519                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1527                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1535                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1543                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1551                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1559                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1567                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1575                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1583                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1591                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1599                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1607                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1615                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1623                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1631                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1639                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1647                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1655                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1663                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1671                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1679                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1687                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1695                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1703                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1711                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1719                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1727                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1735                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1743                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1751                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1759                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1767                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1775                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1783                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1791                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1799                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1807                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1815                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1823                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1831                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1839                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1847                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1855                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1863                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1871                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1879                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1887                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1895                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1903                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1911                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1919                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1927                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1935                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1943                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1951                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1959                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1967                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1975                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1983                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1991                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1999                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2007                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2015                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2023                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2031                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2039                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2047                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~10                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~18                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~26                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~34                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~42                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~50                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~58                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~66                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~74                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~82                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~90                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~98                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~106                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~114                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~122                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~130                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~138                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~146                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~154                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~162                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~170                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~178                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~186                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~194                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~202                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~210                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~218                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~226                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~234                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~242                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~250                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~258                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~266                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~274                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~282                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~290                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~298                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~306                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~314                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~322                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~330                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~338                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~346                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~354                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~362                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~370                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~378                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~386                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~394                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~402                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~410                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~418                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~426                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~434                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~442                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~450                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~458                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~466                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~474                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~482                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~490                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~498                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~506                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~514                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~522                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~530                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~538                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~546                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~554                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~562                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~570                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~578                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~586                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~594                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~602                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~610                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~618                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~626                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~634                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~642                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~650                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~658                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~666                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~674                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~682                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~690                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~698                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~706                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~714                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~722                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~730                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~738                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~746                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~754                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~762                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~770                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~778                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~786                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~794                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~802                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~810                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~818                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~826                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~834                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~842                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~850                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~858                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~866                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~874                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~882                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~890                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~898                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~906                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~914                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~922                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~930                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~938                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~946                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~954                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~962                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~970                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~978                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~986                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~994                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1002                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1010                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1018                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1026                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1034                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1042                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1050                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1058                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1066                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1074                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1082                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1090                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1098                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1106                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1114                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1122                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1130                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1138                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1146                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1154                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1162                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1170                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1178                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1186                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1194                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1202                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1210                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1218                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1226                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1234                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1242                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1250                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1258                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1266                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1274                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1282                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1290                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1298                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1306                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1314                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1322                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1330                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1338                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1346                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1354                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1362                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1370                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1378                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1386                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1394                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1402                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1410                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1418                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1426                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1434                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1442                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1450                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1458                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1466                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1474                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1482                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1490                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1498                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1506                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1514                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1522                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1530                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1538                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1546                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1554                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1562                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1570                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1578                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1586                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1594                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1602                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1610                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1618                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1626                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1634                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1642                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1650                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1658                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1666                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1674                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1682                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1690                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1698                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1706                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1714                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1722                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1730                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1738                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1746                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1754                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1762                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1770                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1778                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1786                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1794                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1802                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1810                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1818                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1826                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1834                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1842                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1850                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1858                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1866                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1874                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1882                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1890                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1898                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1906                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1914                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1922                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1930                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1938                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1946                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1954                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1962                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1970                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1978                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1986                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1994                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2002                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2010                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2018                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2026                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2034                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2042                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~3                      ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~11                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~19                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~27                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~35                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~43                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~51                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~59                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~67                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~75                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~83                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~91                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~99                     ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~107                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~115                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~123                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~131                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~139                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~147                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~155                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~163                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~171                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~179                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~187                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~195                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~203                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~211                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~219                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~227                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~235                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~243                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~251                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~259                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~267                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~275                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~283                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~291                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~299                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~307                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~315                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~323                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~331                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~339                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~347                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~355                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~363                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~371                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~379                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~387                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~395                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~403                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~411                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~419                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~427                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~435                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~443                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~451                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~459                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~467                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~475                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~483                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~491                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~499                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~507                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~515                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~523                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~531                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~539                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~547                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~555                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~563                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~571                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~579                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~587                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~595                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~603                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~611                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~619                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~627                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~635                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~643                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~651                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~659                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~667                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~675                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~683                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~691                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~699                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~707                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~715                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~723                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~731                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~739                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~747                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~755                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~763                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~771                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~779                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~787                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~795                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~803                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~811                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~819                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~827                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~835                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~843                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~851                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~859                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~867                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~875                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~883                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~891                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~899                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~907                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~915                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~923                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~931                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~939                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~947                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~955                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~963                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~971                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~979                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~987                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~995                    ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1003                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1011                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1019                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1027                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1035                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1043                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1051                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1059                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1067                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1075                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1083                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1091                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1099                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1107                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1115                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1123                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1131                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1139                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1147                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1155                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1163                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1171                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1179                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1187                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1195                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1203                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1211                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1219                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1227                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1235                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1243                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1251                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1259                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1267                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1275                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1283                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1291                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1299                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1307                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1315                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1323                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1331                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1339                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1347                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1355                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1363                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1371                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1379                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1387                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1395                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1403                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1411                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1419                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1427                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1435                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1443                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1451                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1459                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1467                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1475                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1483                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1491                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1499                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1507                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1515                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1523                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1531                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1539                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1547                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1555                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1563                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1571                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1579                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1587                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1595                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1603                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1611                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1619                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1627                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1635                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1643                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1651                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1659                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1667                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1675                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1683                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1691                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1699                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1707                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1715                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1723                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1731                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1739                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1747                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1755                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1763                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1771                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1779                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1787                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1795                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1803                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1811                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1819                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1827                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1835                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1843                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1851                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1859                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1867                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1875                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1883                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1891                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1899                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1907                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1915                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1923                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1931                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1939                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1947                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1955                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1963                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1971                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1979                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1987                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~1995                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2003                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2011                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2019                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2027                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2035                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|mem~2043                   ; Stuck at GND due to stuck port data_in ;
-; memory:MEMORY|Data_out[3]                ; Stuck at GND due to stuck port data_in ;
-; Total Number of Removed Registers = 1539 ;                                        ;
-+------------------------------------------+----------------------------------------+
-
-
-+------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                              ;
-+---------------------+---------------------------+----------------------------------------+
-; Register name       ; Reason for Removal        ; Registers Removed due to This Register ;
-+---------------------+---------------------------+----------------------------------------+
-; memory:MEMORY|mem~3 ; Stuck at GND              ; memory:MEMORY|Data_out[3]              ;
-;                     ; due to stuck port data_in ;                                        ;
-+---------------------+---------------------------+----------------------------------------+
++--------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                             ;
++---------------------------------------+----------------------------------------+
+; Register name                         ; Reason for Removal                     ;
++---------------------------------------+----------------------------------------+
+; reg_HEX:H0|display[1]                 ; Stuck at GND due to stuck port data_in ;
+; reg_HEX:H3|display[0,4,5]             ; Stuck at GND due to stuck port data_in ;
+; Total Number of Removed Registers = 4 ;                                        ;
++---------------------------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -1792,24 +248,14 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 569   ;
+; Total registers                              ; 56    ;
 ; Number of registers using Synchronous Clear  ; 0     ;
 ; Number of registers using Synchronous Load   ; 0     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 525   ;
+; Number of registers using Clock Enable       ; 8     ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
-
-
-+------------------------------------------------------------+
-; Parameter Settings for User Entity Instance: memory:MEMORY ;
-+----------------+------------------+------------------------+
-; Parameter Name ; Value            ; Type                   ;
-+----------------+------------------+------------------------+
-; INIT_FILE      ; machine_code.txt ; String                 ;
-+----------------+------------------+------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
 +--------------------------------------------+
@@ -1821,13 +267,17 @@ Note: In order to hide this table in the UI and the text report file, please set
 +------+-------+----------+------------------+
 
 
-+-------------------------------------------------+
-; Port Connectivity Checks: "memory:MEMORY"       ;
-+---------------+-------+----------+--------------+
-; Port          ; Type  ; Severity ; Details      ;
-+---------------+-------+----------+--------------+
-; Data_in[7..2] ; Input ; Info     ; Stuck at GND ;
-+---------------+-------+----------+--------------+
++------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "IR:InstructionRegister"                                                                     ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port         ; Type   ; Severity ; Details                                                                             ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; RA           ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; RB           ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; instruction  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; Imm5ZE[7..4] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; Imm2ZE[7..4] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -1836,19 +286,18 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 65                          ;
-; cycloneiii_ff         ; 569                         ;
-;     ENA               ; 525                         ;
-;     plain             ; 44                          ;
-; cycloneiii_lcell_comb ; 671                         ;
-;     normal            ; 671                         ;
-;         0 data inputs ; 2                           ;
+; cycloneiii_ff         ; 56                          ;
+;     ENA               ; 8                           ;
+;     plain             ; 48                          ;
+; cycloneiii_lcell_comb ; 27                          ;
+;     normal            ; 27                          ;
+;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 2                           ;
-;         2 data inputs ; 4                           ;
-;         3 data inputs ; 267                         ;
-;         4 data inputs ; 396                         ;
+;         2 data inputs ; 3                           ;
+;         4 data inputs ; 21                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 8.00                        ;
-; Average LUT depth     ; 4.82                        ;
+; Max LUT depth         ; 1.00                        ;
+; Average LUT depth     ; 0.36                        ;
 +-----------------------+-----------------------------+
 
 
@@ -1857,7 +306,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:01     ;
+; Top            ; 00:00:00     ;
 +----------------+--------------+
 
 
@@ -1867,57 +316,49 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Wed Apr  2 13:57:41 2025
+    Info: Processing started: Wed Apr  2 20:47:59 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off processor -c processor
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
-Info (12021): Found 10 design units, including 10 entities, in source file processor.v
+Info (12021): Found 11 design units, including 11 entities, in source file processor.v
     Info (12023): Found entity 1: processor File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 1
-    Info (12023): Found entity 2: datapath File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 49
-    Info (12023): Found entity 3: FSM File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 196
-    Info (12023): Found entity 4: memory File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 371
-    Info (12023): Found entity 5: register_file File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 405
-    Info (12023): Found entity 6: PC File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 454
-    Info (12023): Found entity 7: ALU File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 472
-    Info (12023): Found entity 8: reg_LED File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 501
-    Info (12023): Found entity 9: reg_HEX File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 510
-    Info (12023): Found entity 10: hex7seg File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 521
+    Info (12023): Found entity 2: datapath File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 72
+    Info (12023): Found entity 3: FSM File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 219
+    Info (12023): Found entity 4: memory File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 394
+    Info (12023): Found entity 5: register_file File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 428
+    Info (12023): Found entity 6: PC File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 478
+    Info (12023): Found entity 7: IR File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 496
+    Info (12023): Found entity 8: ALU File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 532
+    Info (12023): Found entity 9: reg_LED File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 561
+    Info (12023): Found entity 10: reg_HEX File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 570
+    Info (12023): Found entity 11: hex7seg File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 581
+Warning (10236): Verilog HDL Implicit Net warning at processor.v(58): created implicit net for "enable" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 58
 Info (12127): Elaborating entity "processor" for the top level hierarchy
-Info (12128): Elaborating entity "memory" for hierarchy "memory:MEMORY" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 28
-Warning (10850): Verilog HDL warning at processor.v(389): number of words (2) in memory file does not match the number of elements in the address range [0:255] File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 389
-Info (10648): Verilog HDL Display System Task info at processor.v(391): mem[0] = 00010100 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 391
-Info (10648): Verilog HDL Display System Task info at processor.v(391): mem[1] = 11110001 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 391
-Info (10648): Verilog HDL Display System Task info at processor.v(391): mem[2] = ........ File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 391
-Info (10648): Verilog HDL Display System Task info at processor.v(391): mem[3] = ........ File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 391
-Info (12128): Elaborating entity "reg_LED" for hierarchy "reg_LED:REGLED" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 37
-Info (12128): Elaborating entity "reg_HEX" for hierarchy "reg_HEX:H5" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 39
-Info (12128): Elaborating entity "hex7seg" for hierarchy "reg_HEX:H5|hex7seg:SEG" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 512
-Warning (127007): Memory Initialization File or Hexadecimal (Intel-Format) File "C:/Projects/DE10-Lite-Projects/SimProcV2/db/processor.ram0_memory_5896a733.hdl.mif" contains "don't care" values -- overwriting them with 0s
-Info (276014): Found 1 instances of uninferred RAM logic
-    Info (276013): RAM logic "memory:MEMORY|mem" is uninferred because MIF is not supported for the selected family File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 383
-Warning (127007): Memory Initialization File or Hexadecimal (Intel-Format) File "C:/Projects/DE10-Lite-Projects/SimProcV2/db/processor.ram0_memory_5896a733.hdl.mif" contains "don't care" values -- overwriting them with 0s
+Info (12128): Elaborating entity "IR" for hierarchy "IR:InstructionRegister" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 52
+Warning (10034): Output port "instruction" at processor.v(503) has no driver File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 503
+Info (12128): Elaborating entity "reg_LED" for hierarchy "reg_LED:REGLED" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 60
+Info (12128): Elaborating entity "reg_HEX" for hierarchy "reg_HEX:H5" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 62
+Info (12128): Elaborating entity "hex7seg" for hierarchy "reg_HEX:H5|hex7seg:SEG" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 572
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "HEX3[0]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 8
-    Warning (13410): Pin "HEX3[1]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 8
-    Warning (13410): Pin "HEX3[2]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 8
-    Warning (13410): Pin "HEX3[3]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 8
     Warning (13410): Pin "HEX3[4]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 8
     Warning (13410): Pin "HEX3[5]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 8
-    Warning (13410): Pin "HEX3[6]" is stuck at VCC File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 8
-    Warning (13410): Pin "HEX2[1]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 9
+    Warning (13410): Pin "HEX0[1]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 11
 Info (286030): Timing-Driven Synthesis is running
 Info (144001): Generated suppressed messages file C:/Projects/DE10-Lite-Projects/SimProcV2/output_files/processor.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 1264 device resources after synthesis - the final resource count might be different
+Warning (21074): Design contains 1 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "KEY[1]" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 3
+Info (21057): Implemented 129 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 13 input pins
     Info (21059): Implemented 52 output pins
-    Info (21061): Implemented 1199 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 13 warnings
-    Info: Peak virtual memory: 4867 megabytes
-    Info: Processing ended: Wed Apr  2 13:57:48 2025
-    Info: Elapsed time: 00:00:07
-    Info: Total CPU time (on all processors): 00:00:16
+    Info (21061): Implemented 64 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 10 warnings
+    Info: Peak virtual memory: 4852 megabytes
+    Info: Processing ended: Wed Apr  2 20:48:22 2025
+    Info: Elapsed time: 00:00:23
+    Info: Total CPU time (on all processors): 00:00:15
 
 
 +------------------------------------------+
