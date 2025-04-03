@@ -1,5 +1,5 @@
 Analysis & Synthesis report for processor
-Wed Apr  2 20:48:22 2025
+Thu Apr  3 00:05:19 2025
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -15,12 +15,15 @@ Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
   7. Analysis & Synthesis Resource Utilization by Entity
   8. Registers Removed During Synthesis
   9. General Register Statistics
- 10. Port Connectivity Checks: "reg_LED:REGLED"
- 11. Port Connectivity Checks: "IR:InstructionRegister"
- 12. Post-Synthesis Netlist Statistics for Top Partition
- 13. Elapsed Time Per Partition
- 14. Analysis & Synthesis Messages
- 15. Analysis & Synthesis Suppressed Messages
+ 10. Parameter Settings for User Entity Instance: datapath:DAPATATH|memory:Memory
+ 11. Parameter Settings for User Entity Instance: datapath:DAPATATH|register_file:RegisterFile
+ 12. Parameter Settings for User Entity Instance: datapath:DAPATATH|ALU:ALU
+ 13. Port Connectivity Checks: "reg_LED:REGLED"
+ 14. Port Connectivity Checks: "IR:InstructionRegister"
+ 15. Post-Synthesis Netlist Statistics for Top Partition
+ 16. Elapsed Time Per Partition
+ 17. Analysis & Synthesis Messages
+ 18. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -47,7 +50,7 @@ on the Quartus Prime software download page.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Apr  2 20:48:22 2025           ;
+; Analysis & Synthesis Status        ; Successful - Thu Apr  3 00:05:19 2025           ;
 ; Quartus Prime Version              ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
 ; Revision Name                      ; processor                                       ;
 ; Top-level Entity Name              ; processor                                       ;
@@ -258,6 +261,44 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 
 
++------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:DAPATATH|memory:Memory ;
++----------------+------------------+------------------------------------------+
+; Parameter Name ; Value            ; Type                                     ;
++----------------+------------------+------------------------------------------+
+; INIT_FILE      ; machine_code.txt ; String                                   ;
++----------------+------------------+------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:DAPATATH|register_file:RegisterFile ;
++----------------+-------+------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                             ;
++----------------+-------+------------------------------------------------------------------+
+; R0             ; 00    ; Unsigned Binary                                                  ;
+; R1             ; 01    ; Unsigned Binary                                                  ;
+; R2             ; 10    ; Unsigned Binary                                                  ;
+; R3             ; 11    ; Unsigned Binary                                                  ;
++----------------+-------+------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: datapath:DAPATATH|ALU:ALU ;
++----------------+-------+-----------------------------------------------+
+; Parameter Name ; Value ; Type                                          ;
++----------------+-------+-----------------------------------------------+
+; ADD            ; 000   ; Unsigned Binary                               ;
+; SUB            ; 001   ; Unsigned Binary                               ;
+; OR             ; 010   ; Unsigned Binary                               ;
+; NAND           ; 011   ; Unsigned Binary                               ;
+; ShiftLeft      ; 100   ; Unsigned Binary                               ;
+; ShiftRight     ; 101   ; Unsigned Binary                               ;
++----------------+-------+-----------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
 +--------------------------------------------+
 ; Port Connectivity Checks: "reg_LED:REGLED" ;
 +------+-------+----------+------------------+
@@ -316,29 +357,39 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Wed Apr  2 20:47:59 2025
+    Info: Processing started: Thu Apr  3 00:05:13 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off processor -c processor
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
 Info (12021): Found 11 design units, including 11 entities, in source file processor.v
     Info (12023): Found entity 1: processor File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 1
-    Info (12023): Found entity 2: datapath File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 72
-    Info (12023): Found entity 3: FSM File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 219
-    Info (12023): Found entity 4: memory File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 394
-    Info (12023): Found entity 5: register_file File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 428
-    Info (12023): Found entity 6: PC File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 478
-    Info (12023): Found entity 7: IR File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 496
-    Info (12023): Found entity 8: ALU File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 532
-    Info (12023): Found entity 9: reg_LED File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 561
-    Info (12023): Found entity 10: reg_HEX File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 570
-    Info (12023): Found entity 11: hex7seg File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 581
-Warning (10236): Verilog HDL Implicit Net warning at processor.v(58): created implicit net for "enable" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 58
+    Info (12023): Found entity 2: datapath File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 73
+    Info (12023): Found entity 3: FSM File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 276
+    Info (12023): Found entity 4: memory File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 451
+    Info (12023): Found entity 5: register_file File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 485
+    Info (12023): Found entity 6: PC File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 535
+    Info (12023): Found entity 7: IR File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 553
+    Info (12023): Found entity 8: ALU File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 588
+    Info (12023): Found entity 9: reg_LED File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 614
+    Info (12023): Found entity 10: reg_HEX File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 623
+    Info (12023): Found entity 11: hex7seg File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 634
+Warning (10236): Verilog HDL Implicit Net warning at processor.v(59): created implicit net for "enable" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 59
 Info (12127): Elaborating entity "processor" for the top level hierarchy
 Info (12128): Elaborating entity "IR" for hierarchy "IR:InstructionRegister" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 52
-Warning (10034): Output port "instruction" at processor.v(503) has no driver File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 503
-Info (12128): Elaborating entity "reg_LED" for hierarchy "reg_LED:REGLED" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 60
-Info (12128): Elaborating entity "reg_HEX" for hierarchy "reg_HEX:H5" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 62
-Info (12128): Elaborating entity "hex7seg" for hierarchy "reg_HEX:H5|hex7seg:SEG" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 572
+Warning (10034): Output port "instruction" at processor.v(560) has no driver File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 560
+Info (12128): Elaborating entity "datapath" for hierarchy "datapath:DAPATATH" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 54
+Info (12128): Elaborating entity "PC" for hierarchy "datapath:DAPATATH|PC:ProgramCounter" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 128
+Info (12128): Elaborating entity "memory" for hierarchy "datapath:DAPATATH|memory:Memory" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 148
+Warning (10850): Verilog HDL warning at processor.v(469): number of words (5) in memory file does not match the number of elements in the address range [0:255] File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 469
+Info (10648): Verilog HDL Display System Task info at processor.v(471): mem[0] = 00010100 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 471
+Info (10648): Verilog HDL Display System Task info at processor.v(471): mem[1] = 10110110 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 471
+Info (10648): Verilog HDL Display System Task info at processor.v(471): mem[2] = 11111000 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 471
+Info (10648): Verilog HDL Display System Task info at processor.v(471): mem[3] = 00000110 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 471
+Info (12128): Elaborating entity "register_file" for hierarchy "datapath:DAPATATH|register_file:RegisterFile" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 197
+Info (12128): Elaborating entity "ALU" for hierarchy "datapath:DAPATATH|ALU:ALU" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 251
+Info (12128): Elaborating entity "reg_LED" for hierarchy "reg_LED:REGLED" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 61
+Info (12128): Elaborating entity "reg_HEX" for hierarchy "reg_HEX:H5" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 63
+Info (12128): Elaborating entity "hex7seg" for hierarchy "reg_HEX:H5|hex7seg:SEG" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 625
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "HEX3[0]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 8
     Warning (13410): Pin "HEX3[4]" is stuck at GND File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 8
@@ -354,11 +405,11 @@ Info (21057): Implemented 129 device resources after synthesis - the final resou
     Info (21058): Implemented 13 input pins
     Info (21059): Implemented 52 output pins
     Info (21061): Implemented 64 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 10 warnings
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 11 warnings
     Info: Peak virtual memory: 4852 megabytes
-    Info: Processing ended: Wed Apr  2 20:48:22 2025
-    Info: Elapsed time: 00:00:23
-    Info: Total CPU time (on all processors): 00:00:15
+    Info: Processing ended: Thu Apr  3 00:05:19 2025
+    Info: Elapsed time: 00:00:06
+    Info: Total CPU time (on all processors): 00:00:14
 
 
 +------------------------------------------+

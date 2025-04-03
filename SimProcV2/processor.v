@@ -32,25 +32,26 @@ module processor (
     // assign Data_in = {6'b0, SW[9:8]};
 
 
-    // wire [7:0] IRin, Imm4, Imm5, Imm2, OpCode;
-    // wire [3:0] instruction;
-    // wire [1:0] RA, RB;
-    // wire IRload;
+    wire [7:0] IRin, Imm4, Imm5, Imm2, OpCode;
+    wire [3:0] instruction;
+    wire [1:0] RA, RB;
+    wire IRload;
 
-    // IR InstructionRegister (
-    //     .CLK(CLOCK_50),
-    //     .IRin(IRin),
-    //     .IRload(IRload),
+    IR InstructionRegister (
+        .CLK(CLOCK_50),
+        .IRin(IRin),
+        .IRload(IRload),
 
-    //     .RA(RA),
-    //     .RB(RB),
-    //     .instruction(instruction),
-    //     .Imm4SE(Imm4),
-    //     .Imm5ZE(Imm5),
-    //     .Imm2ZE(Imm2),
-    //     .IRout(OpCode)  
-    // );
+        .RA(RA),
+        .RB(RB),
+        .instruction(instruction),
+        .Imm4SE(Imm4),
+        .Imm5ZE(Imm5),
+        .Imm2ZE(Imm2),
+        .IRout(OpCode)  
+    );
 
+    datapath DAPATATH();
 
     assign IRin = SW[7:0];
     assign IRload = ~KEY[0];
@@ -69,151 +70,207 @@ endmodule
 
 
 
-module datapath(
-    input CLOCK_50,         // CLOCK
-    input PCwrite,          // Program Counter
-    input AddrSel, input MemRead, input MemWrite,   // Memory
-    input IRload, input MDRload,     // Instruction Register and Memory Data Register
-    input RASel, input RFWrite, input RegIn,      // Register File and Register Address
-    input ABLD, input ALU_A, input [2:0] ALU_B,   // ALU and AB load registers/mux
-    input [2:0] ALUop, input FlagWrite, input ALUoutLD,  // ALU and NZ Flag
+module datapath (
+    // Inputs
+    input                   CLOCK_50,
+    input                   PCwrite,
+    input                   AddrSel,
+    input                   MemRead,
+    input                   MemWrite,
+    input                   IRload,
+    input                   MDRload,
+    input                   RASel,
+    input                   RFWrite,
+    input                   ABLD,
+    input                   ALU_A,
+    input       [2:0]       ALU_B,
+    input                   RegIn,
+    input       [2:0]       ALUop,
+    input                   FlagWrite,
+    input                   ALUoutLD,  
 
-    output [7:0] ALUregOut,    // ALU output
-    output [7:0] Aout, output [7:0] Bout,    // Register File A and B
-    output [7:0] OpCode,     // Instruction
-    output reg N, output reg Z,
-    output reg [7:0] muxA, output reg [7:0] muxB,
-    output wire [7:0] PCoutWire,
-    output wire [3:0] currCycle
+    // Outputs
+    output      [3:0]       instruction,
+    output      [7:0]       IRout,
+
+    // Internal Wires/Reg (set as output for debugging)
+    output      [7:0]       ALU_PC,
+    output      [7:0]       PC_Addr,
+    output reg  [7:0]       ADDR,
+    output      [7:0]       MemOut,
+    output      [1:0]       IR_A,
+    output reg  [1:0]       RAmux,
+    output      [1:0]       IR_B,
+    output reg  [7:0]       MDRout,
+    output      [7:0]       Imm4,
+    output      [7:0]       Imm5,
+    output      [7:0]       Imm2,
+    output      [7:0]       dataA,
+    output      [7:0]       dataB,
+    output reg  [7:0]       dataAr,
+    output reg  [7:0]       dataBr,
+    output reg  [7:0]       RegIn_W,
+    output reg  [7:0]       ALU_Ain,
+    output reg  [7:0]       ALU_Bin,
+    output                  ALU_N,
+    output                  ALU_Z,
+    output reg              N,
+    output reg              Z,
+    output reg  [7:0]       ALU_RegIn
     );
 
-    // PC Wires
-    wire [7:0] PCout;
+    // Program Counter
+    PC ProgramCounter (
+        .CLK(CLOCK_50),
+        .PCin(ALU_PC),
+        .PCwrite(PCwrite),
+        .PCout(PC_Addr)
+    );
 
-    // Memory Wires
-    reg [7:0] ADDR;
-    wire [7:0] Data_out;
-
-    // Register File Wires
-    reg [7:0] dataAreg, dataBreg;
-    reg [7:0] dataW;
-    wire [7:0] dataA, dataB;
-
-    // Instruction Register and Memory Data Register
-    reg [7:0] IRout;
-    reg [7:0] MDRout;
-
-    // RA Select wires
-    reg [1:0] RASelOut;
-
-    // A and B Muxes
-    
-
-    // ALU wires
-    wire [7:0] ALUout;
-    reg [7:0] registerALU;
-    wire Nint, Zint;
-
-    // PC
-    PC progCount(.CLK(CLOCK_50), .PCin(ALUout), .PCwrite(PCwrite), .PCout(PCout));
-
-    // AddrSel Mux
+    // Address Select
     always @ (*) begin
         if (AddrSel) begin
-            ADDR = PCout;
+            ADDR = dataBr;
         end
         else begin
-            ADDR = dataBreg;
+            ADDR = PC_Addr;
         end
     end
 
     // Memory
-    memory #(.INIT_FILE("machine_code.txt")) Memory 
-    (.CLK(CLOCK_50), .MemRead(MemRead), .MemWrite(MemWrite), .ADDR(ADDR), .Data_in(dataAreg), .Data_out(Data_out));
+    memory # (.INIT_FILE("machine_code.txt")) Memory (
+        .CLK(CLOCK_50),
+        .MemRead(MemRead),
+        .MemWrite(MemWrite),
+        .ADDR(ADDR),
+        .Data_in(dataAr),
+        .Data_out(MemOut)
+    );
 
-    // Instruction Register and Memory Data Register
+    // Instruction Register
+    IR InstructionRegister (
+        .CLK(CLOCK_50),
+        .IRin(MemOut),
+        .IRload(IRload),
+
+        .RA(IR_A),
+        .RB(IR_B),
+        .instruction(instruction),
+        .Imm4SE(Imm4),
+        .Imm5ZE(Imm5),
+        .Imm2ZE(Imm2),
+        .IRout(IRout)  
+    );
+
+    // Memory Data Register
+    initial begin
+        MDRout = 0;
+    end
+
     always @ (posedge CLOCK_50) begin
-        if (IRload) begin
-            IRout <= Data_out;
-        end
         if (MDRload) begin
-            MDRout <= Data_out;
+            MDRout <= MemOut;
         end
     end
 
-    // RA Select 
+    // RASel Mux
     always @ (*) begin
-        if (RASel == 1'b1) begin
-            RASelOut = 2'b01;
+        if (RASel) begin
+            RAmux = 2'b01;
         end
         else begin
-            RASelOut = IRout[7:6];
+            RAmux = IR_A;
         end
     end
 
-    // Register File 
-    register_file RF (.CLOCK_50(CLOCK_50), .RFWrite(RFWrite), .regA(RASelOut), .regB(IRout[5:4]),
-							.regW(RASelOut), .dataW(dataW), .dataA(dataA), .dataB(dataB));
+    // Register File
+    register_file RegisterFile( 
+        .CLOCK_50(CLOCK_50),
+        .RFWrite(RFWrite),
+        .regA(RAmux),
+        .regB(IR_B),
+        .regW(RAmux),
+        .dataW(RegIn_W),
 
+        .dataA(dataA),
+        .dataB(dataB)
+	);
+
+    // A and B Load Registers
+    initial begin
+        dataAr <= 0;
+        dataBr <= 0;
+    end
     always @ (posedge CLOCK_50) begin
         if (ABLD) begin
-            dataAreg <= dataA;
-            dataBreg <= dataB;
+            dataAr <= dataA;
+            dataBr <= dataB;
         end
     end
-
-    // A and B muxes
-    always @ (*) begin
-        case(ALU_A) 
-            1'b0:       muxA = PCout;
-            1'b1:       muxA = dataAreg;
-        endcase
-
-        case(ALU_B)
-            3'b000:     muxB = dataBreg;
-            3'b001:     muxB = 8'b00000001;
-            3'b010:     muxB = {{4{IRout[7]}}, IRout[7:4]};
-            3'b011:     muxB = {3'b000, IRout[7:3]};
-            3'b100:     muxB = {6'b000000, IRout[4:3]};
-            default:    muxB = dataBreg;
-        endcase
-    end
-
-    // ALU
-
-    ALU ALUx(.ALUop(ALUop), .A(muxA), .B(muxB), .N(Nint), .Z(Zint), .ALUout(ALUout));
-
-    initial begin
-        N = 0;
-        Z = 0;
-    end
-
-    always @ (posedge CLOCK_50) begin
-        if (ALUoutLD) begin
-            registerALU <= ALUout;
-        end
-
-        if (FlagWrite) begin
-            N <= Nint;
-            Z <= Zint;
-        end
-    end 
 
     // RegIn Mux
     always @ (*) begin
         if (RegIn) begin
-            dataW = MDRout;
+            RegIn_W = MDRout;
         end
         else begin
-            dataW = registerALU;
+            RegIn_W = ALU_RegIn;
         end
     end
 
-    assign Aout = muxA;
-    assign Bout = muxB;
-    assign OpCode = IRout;
-    assign ALUregOut = registerALU;
-    assign PCoutWire = PCout;
+    // ALU_A Mux
+    always @ (*) begin
+        if (ALU_A) begin
+            ALU_Ain = dataAr;
+        end
+        else begin
+            ALU_Ain = PC_Addr;
+        end
+    end
+
+    // ALU_B Mux
+    always @ (*) begin
+        case (ALU_B)
+            3'b000:     ALU_Bin = dataBr;
+            3'b001:     ALU_Bin = 8'b00000001;
+            3'b010:     ALU_Bin = Imm4;
+            3'b011:     ALU_Bin = Imm5;
+            3'b100:     ALU_Bin = Imm2;
+            default:    ALU_Bin = 0;
+        endcase
+    end
+
+    // Arithmethic Logic Unit
+    ALU ALU(
+        .ALUop(ALUop),
+        .A(ALU_Ain),
+        .B(ALU_Bin),
+        .N(ALU_N),
+        .Z(ALU_Z),
+        .ALUout(ALU_PC)
+    );
+
+    // ALU out Register
+    initial begin
+        ALU_RegIn = 0;
+    end
+    always @ (posedge CLOCK_50) begin
+        if (ALUoutLD) begin
+            ALU_RegIn <= ALU_PC;
+        end
+    end
+
+    // FlagWrite Register
+    initial begin
+        N = 0;
+        Z = 0;
+    end
+    always @ (posedge CLOCK_50) begin
+        if (FlagWrite) begin
+            N <= ALU_N;
+            Z <= ALU_Z;
+        end
+    end
 endmodule
 
 module FSM(
