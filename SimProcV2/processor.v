@@ -12,73 +12,62 @@ module processor (
 	output [9:0] LEDR 
 	);
 
+    reg                 processorCLOCK;
 
-	// wire MemRead, MemWrite;
-	// wire enable;
-    // wire [7:0] ADDR, Data_in, Data_out;
+    // Control Wires
+    wire                PCwrite, AddrSel, MemRead, MemWrite, IRload, MDRload, RASel, RFWrite;
+    wire                ABLD, ALU_A, RegIn, FlagWrite, ALUoutLD;
+    wire    [2:0]       ALU_B, ALUop;
 
-    // memory # (.INIT_FILE("machine_code.txt")) MEMORY (
-    //     .CLK(CLOCK_50),
-    //     .MemRead(MemRead),
-    //     .MemWrite(MemWrite),
-    //     .ADDR(ADDR),
-    //     .Data_in(Data_in),
-    //     .Data_out(Data_out)
-    // );
+    // Datapath Output / FSM Input
+    wire    [3:0]       instruction;
+    wire    [7:0]       IRout;
+    wire                N, Z;
 
-    // assign ADDR = SW[7:0];
-    // assign MemRead = ~KEY[0];
-    // assign MemWrite = ~KEY[1];
-    // assign Data_in = {6'b0, SW[9:8]};
+    // Datapath Internal Wires
+    wire    [7:0]       ALU_PC, PC_Addr, ADDR, MemOut;
+    wire    [1:0]       IR_A, RAmux, IR_B;
+    wire    [7:0]       MDRout, Imm4, Imm5, Imm2, dataA, dataB, dataAr, dataBr;
+    wire    [7:0]       RegIn_W, ALU_Ain, ALU_Bin, ALU_RegIn;
+    wire                ALU_N, ALU_Z;
 
 
-    wire [7:0] IRin, Imm4, Imm5, Imm2, OpCode;
-    wire [3:0] instruction;
-    wire [1:0] RA, RB;
-    wire IRload;
+    // FSM Internal Wires
+    wire Reset;
+    wire [2:0] currState, nextState;
+    wire done;
 
-    IR InstructionRegister (
-        .CLK(CLOCK_50),
-        .IRin(IRin),
-        .IRload(IRload),
-
-        .RA(RA),
-        .RB(RB),
-        .instruction(instruction),
-        .Imm4SE(Imm4),
-        .Imm5ZE(Imm5),
-        .Imm2ZE(Imm2),
-        .IRout(OpCode)  
-    );
+    // Other Wires
+    wire [9:0] LEDs;
 
     datapath Datapath(
         // Inputs
-        .CLOCK_50(),
-        .PCwrite(),
-        .AddrSel(),
-        .MemRead(),
-        .MemWrite(),
-        .IRload(),
-        .MDRload(),
-        .RASel(),
-        .RFWrite(),
-        .ABLD(),
-        .ALU_A(),
-        .ALU_B(),
-        .RegIn(),
-        .ALUop(),
-        .FlagWrite(),
-        .ALUoutLD(),  
+        .CLOCK_50(processorCLOCK),
+        .PCwrite(PCwrite),
+        .AddrSel(AddrSel),
+        .MemRead(MemRead),
+        .MemWrite(MemWrite),
+        .IRload(IRload),
+        .MDRload(MDRload),
+        .RASel(RASel),
+        .RFWrite(RFWrite),
+        .ABLD(ABLD),
+        .ALU_A(ALU_A),
+        .ALU_B(ALU_B),
+        .RegIn(RegIn),
+        .ALUop(ALUop),
+        .FlagWrite(FlagWrite),
+        .ALUoutLD(ALUoutLD),  
 
         // Outputs
-        .instruction(),
-        .IRout(),
-        .N(),
-        .Z(),
+        .instruction(instruction),
+        .IRout(IRout),
+        .N(N),
+        .Z(Z),
 
         // Internal Wires/Reg (set as output for debugging)
-        .ALU_PC(),
-        .PC_Addr(),
+        .ALU_PC(ALU_PC),
+        .PC_Addr(PC_Addr),
         .ADDR(),
         .MemOut(),
         .IR_A(),
@@ -102,48 +91,65 @@ module processor (
 
     FSM FiniteStateMachine(
         // Inputs
-        .CLOCK_50(),
-        .instruction(),
-        .IRout(),
-        .N(),
-        .Z(),
+        .CLOCK_50(processorCLOCK),
+        .Reset(Reset),
+        .instruction(instruction),
+        .IRout(IRout),
+        .N(N),
+        .Z(Z),
 
         // Outputs
-        .PCwrite(),
-        .AddrSel(),
-        .MemRead(),
-        .MemWrite(),
-        .IRload(),
-        .MDRload(),
-        .RASel(),
-        .RFWrite(),
-        .ABLD(),
-        .ALU_A(),
-        .ALU_B(),
-        .RegIn(),
-        .ALUop(),
-        .FlagWrite(),
-        .ALUoutLD(),  
+        .PCwrite(PCwrite),
+        .AddrSel(AddrSel),
+        .MemRead(MemRead),
+        .MemWrite(MemWrite),
+        .IRload(IRload),
+        .MDRload(MDRload),
+        .RASel(RASel),
+        .RFWrite(RFWrite),
+        .ABLD(ABLD),
+        .ALU_A(ALU_A),
+        .ALU_B(ALU_B),
+        .RegIn(RegIn),
+        .ALUop(ALUop),
+        .FlagWrite(FlagWrite),
+        .ALUoutLD(ALUoutLD),  
 
         // Internal Wires/Reg (set as output for debugging)
-        .currState(),
-        .nextState(),
-        .done()
+        .currState(currState),
+        .nextState(nextState),
+        .done(done)
     );
 
-    assign IRin = SW[7:0];
-    assign IRload = ~KEY[0];
-    
-    assign enable = 1;
+    // CLOCK Divider
 
-	reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(enable), .Q(SW[9:0]), .LEDR(LEDR[9:0]));
+    reg     [31:0]      counter;
+
+    always @ (posedge CLOCK_50) begin
+        if (Reset) begin
+            counter <= 0;
+        end
+        else if (counter >= 25000000) begin
+            counter <= 0;
+            processorCLOCK = ~processorCLOCK;
+        end
+        else begin  
+            counter <= counter + 1;
+        end
+    end
+    
+    assign Reset = ~KEY[1];
+    assign enable = 1;
+    assign LEDs = {N, Z, 7'b0, done};
+
+	reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(enable), .Q(LEDs), .LEDR(LEDR[9:0]));
 	
-	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(OpCode[7:4]), .display(HEX5));
-	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(OpCode[3:0]), .display(HEX4));
-	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Imm4[7:4]), .display(HEX3));
-	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Imm4[3:0]), .display(HEX2));
-	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Imm5[3:0]), .display(HEX1));
-	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex(Imm2[3:0]), .display(HEX0));
+	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_PC[7:4]), .display(HEX5));
+	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_PC[3:0]), .display(HEX4));
+	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(IRout[7:4]), .display(HEX3));
+	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(IRout[3:0]), .display(HEX2));
+	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PC_Addr[3:0]), .display(HEX1));
+	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex({1'b0, currState[2:0]}), .display(HEX0));
 endmodule
 
 
@@ -276,8 +282,8 @@ module datapath (
 
     // A and B Load Registers
     initial begin
-        dataAr <= 0;
-        dataBr <= 0;
+        dataAr = 0;
+        dataBr = 0;
     end
     always @ (posedge CLOCK_50) begin
         if (ABLD) begin
@@ -354,6 +360,7 @@ endmodule
 module FSM (
     // Inputs
     input                   CLOCK_50,
+    input                   Reset,
     input       [3:0]       instruction,
     input       [7:0]       IRout,
     input                   N,
@@ -386,43 +393,27 @@ module FSM (
     
     // Instruction OpCodes (ORi, SHIFT are 3 bit)
     parameter ADD = 4'b0100, SUB = 4'b0110, NAND = 4'b1000, ORi = 3'b111, LOAD = 4'b0000;
-    parameter STORE = 4'b0010, BNZ = 4'b0101, BPZ = 4'b1001, BZ = 4'b1010, SHIFT = 3'b011;
+    parameter STORE = 4'b0010, BNZ = 4'b1001, BPZ = 4'b0101, BZ = 4'b1010, SHIFT = 3'b011;
     parameter SLEFT = 1'b1, SRIGHT = 1'b0, J = 4'b0001;
 
     initial begin
         currState = IDLE;
     end
 
-    // FSM State Codes
-    always @ (*) begin
-        case(currState)
-            IDLE:                   nextState = CYCLE1;
-            CYCLE1:                 nextState = CYCLE2;
-            CYCLE2:                 nextState = CYCLE3;
-            CYCLE3:     if (done)   nextState = CYCLE1;
-                        else        nextState = CYCLE4;
-            CYCLE4:     if (done)   nextState = CYCLE1;
-                        else        nextState = CYCLE5;
-            CYCLE5:                 nextState = CYCLE1;
-            default:                nextState = CYCLE1;
-        endcase
-    end
-
-    // FSM Flip Flops
-
-    always @ (posedge CLOCK_50) begin
-        currState <= nextState;
-    end
-
     // Output Logic
     always @ (*) begin
+
         PCwrite = 0;  AddrSel = 0;  MemRead = 0;  
         MemWrite = 0;  IRload = 0;  MDRload = 0;     
         RASel = 0;  RFWrite = 0;  RegIn = 0;
         ABLD = 0;  ALU_A = 0;  ALU_B = 0; 
         ALUop = 0;  FlagWrite = 0;  ALUoutLD = 0;
         done = 0;
+
+        nextState = currState;
+
         case(currState)
+            IDLE: nextState = CYCLE1;
             CYCLE1: begin
                     // IR <- Mem(PC)
                     AddrSel = 1;
@@ -434,26 +425,32 @@ module FSM (
                     ALU_B = 3'b001;
                     ALUop = 0;
                     PCwrite = 1;
+
+                    nextState = CYCLE2;
             end
 
             CYCLE2: begin
                     // regA <- IR[7:6], A/B <- RF DataA/B 
                     RASel = 0;
                     ABLD = 1;
+
+                    nextState = CYCLE3;
             end
 
             CYCLE3: begin
                 if (instruction == ADD | instruction == SUB | instruction == NAND) begin
                     ALU_A = 1;       // Select reg A
                     ALU_B = 3'b000;  // Select reg B
-                    ALUoutLD = 1;
-                    FlagWrite = 1;
                     case (instruction) 
                         ADD: ALUop = 3'b000;
                         SUB: ALUop = 3'b001;
                         NAND: ALUop = 3'b011;
                         default: ALUop = 3'b000;
                     endcase
+                    ALUoutLD = 1;
+                    FlagWrite = 1;
+
+                    nextState = CYCLE4;
                 end 
 
                 if (instruction[2:0] == SHIFT) begin
@@ -466,18 +463,24 @@ module FSM (
                         SRIGHT: ALUop = 3'b101;
                         default: ALUop = 3'b100;
                     endcase
+
+                    nextState = CYCLE4;
                 end 
 
                 if (instruction == LOAD) begin
                     AddrSel = 0;    // Select B to be address
                     MDRload = 1;    // Output of memory to MDR
                     MemRead = 1;    // Read memory
+
+                    nextState = CYCLE4;
                 end
 
                 if (instruction == STORE) begin
                     AddrSel = 0;    // Select B to be address
                     MemWrite = 1;    // Write to memory
                     done = 1;
+
+                    nextState = CYCLE4;
                 end
 
                 if (instruction == BNZ | instruction == BPZ | instruction == BZ | instruction == J) begin
@@ -490,11 +493,15 @@ module FSM (
                         BNZ: if (!Z) PCwrite = 1;
                         J: PCwrite = 1;
                     endcase
+
                     done = 1;
+                    nextState = IDLE;
                 end
 
                 if (instruction[2:0] == ORi) begin
                     RASel = 1; // RA <- 2'b01
+
+                    nextState = CYCLE4;
                 end
 
             end
@@ -503,13 +510,17 @@ module FSM (
                 if (instruction == ADD | instruction == SUB | instruction == NAND | instruction[2:0] == SHIFT) begin
                     RegIn = 0;      // dataW <- ALU
                     RFWrite = 1;
+
                     done = 1;
+                    nextState = IDLE;
                 end 
 
                 if (instruction == LOAD) begin
                     RegIn = 1;      // dataW <- MDR
                     RFWrite = 1;
+
                     done = 1;
+                    nextState = IDLE;
                 end
 
                 if (instruction[2:0] == ORi) begin
@@ -518,21 +529,34 @@ module FSM (
                     ALUoutLD = 1;
                     FlagWrite = 1;
                     ALUop = 3'b010;
+
+                    nextState = CYCLE5;
                 end
             end 
 
             CYCLE5: begin // only for ORi
                 RegIn = 0;      // dataW <- ALU
                 RFWrite = 1;
+
                 done = 1;
+                nextState = IDLE;
             end
                 
-            default: ;
-
+            default: nextState = currState;
         endcase
     end
 
-    assign currCycle = currState;
+    // FSM Flip Flops
+
+    always @ (posedge CLOCK_50) begin
+        if (Reset) begin
+            currState <= IDLE;
+        end
+        else begin
+            currState <= nextState;
+        end
+    end
+
 endmodule
 
 module memory # (
@@ -554,7 +578,7 @@ module memory # (
     initial begin
         if (INIT_FILE) begin
         $readmemb(INIT_FILE, mem);
-        for (i = 0; i < 4; i = i + 1) 
+        for (i = 0; i < 16; i = i + 1) 
             $display("mem[%0d] = %b", i, mem[i]);
         end
     end
@@ -652,10 +676,6 @@ module IR (
     );
 
     reg         [7:0]       IRreg;
-
-    initial begin
-        IRreg = 0;
-    end
     
     always @ (posedge CLK) begin
         if (IRload) begin

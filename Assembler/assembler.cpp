@@ -22,7 +22,7 @@ int main(void) {
   BNZ = 1001
   BPZ = 0101
   BZ = 1010
-  J = 1001
+  J = 0001
   SHIFT = 011 (left = 1, right = 0)
   */
 
