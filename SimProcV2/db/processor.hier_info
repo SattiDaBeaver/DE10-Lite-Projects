@@ -133,7 +133,7 @@ IRout[6] <= IRreg[6].DB_MAX_OUTPUT_PORT_TYPE
 IRout[7] <= IRreg[7].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|processor|datapath:DAPATATH
+|processor|datapath:Datapath
 CLOCK_50 => CLOCK_50.IN4
 PCwrite => PCwrite.IN1
 AddrSel => ADDR.OUTPUTSELECT
@@ -239,6 +239,8 @@ IRout[4] <= IR:InstructionRegister.IRout
 IRout[5] <= IR:InstructionRegister.IRout
 IRout[6] <= IR:InstructionRegister.IRout
 IRout[7] <= IR:InstructionRegister.IRout
+N <= N~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Z <= Z~reg0.DB_MAX_OUTPUT_PORT_TYPE
 ALU_PC[0] <= ALU_PC[0].DB_MAX_OUTPUT_PORT_TYPE
 ALU_PC[1] <= ALU_PC[1].DB_MAX_OUTPUT_PORT_TYPE
 ALU_PC[2] <= ALU_PC[2].DB_MAX_OUTPUT_PORT_TYPE
@@ -367,8 +369,6 @@ ALU_Bin[6] <= ALU_Bin[6].DB_MAX_OUTPUT_PORT_TYPE
 ALU_Bin[7] <= ALU_Bin[7].DB_MAX_OUTPUT_PORT_TYPE
 ALU_N <= ALU:ALU.N
 ALU_Z <= ALU:ALU.Z
-N <= N~reg0.DB_MAX_OUTPUT_PORT_TYPE
-Z <= Z~reg0.DB_MAX_OUTPUT_PORT_TYPE
 ALU_RegIn[0] <= ALU_RegIn[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 ALU_RegIn[1] <= ALU_RegIn[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 ALU_RegIn[2] <= ALU_RegIn[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
@@ -379,7 +379,7 @@ ALU_RegIn[6] <= ALU_RegIn[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 ALU_RegIn[7] <= ALU_RegIn[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|processor|datapath:DAPATATH|PC:ProgramCounter
+|processor|datapath:Datapath|PC:ProgramCounter
 CLK => PCout[0]~reg0.CLK
 CLK => PCout[1]~reg0.CLK
 CLK => PCout[2]~reg0.CLK
@@ -414,7 +414,7 @@ PCout[6] <= PCout[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 PCout[7] <= PCout[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|processor|datapath:DAPATATH|memory:Memory
+|processor|datapath:Datapath|memory:Memory
 CLK => mem.we_a.CLK
 CLK => mem.waddr_a[7].CLK
 CLK => mem.waddr_a[6].CLK
@@ -509,7 +509,7 @@ Data_out[6] <= Data_out[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 Data_out[7] <= Data_out[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|processor|datapath:DAPATATH|IR:InstructionRegister
+|processor|datapath:Datapath|IR:InstructionRegister
 CLK => IRreg[0].CLK
 CLK => IRreg[1].CLK
 CLK => IRreg[2].CLK
@@ -576,7 +576,7 @@ IRout[6] <= IRreg[6].DB_MAX_OUTPUT_PORT_TYPE
 IRout[7] <= IRreg[7].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|processor|datapath:DAPATATH|register_file:RegisterFile
+|processor|datapath:Datapath|register_file:RegisterFile
 CLOCK_50 => r0[0].CLK
 CLOCK_50 => r0[1].CLK
 CLOCK_50 => r0[2].CLK
@@ -725,7 +725,7 @@ dataB[6] <= Mux9.DB_MAX_OUTPUT_PORT_TYPE
 dataB[7] <= Mux8.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|processor|datapath:DAPATATH|ALU:ALU
+|processor|datapath:Datapath|ALU:ALU
 ALUop[0] => Mux0.IN10
 ALUop[0] => Mux1.IN10
 ALUop[0] => Mux2.IN10
@@ -856,6 +856,99 @@ ALUout[4] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
 ALUout[5] <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
 ALUout[6] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
 ALUout[7] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|processor|FSM:FiniteStateMachine
+CLOCK_50 => currState[0]~reg0.CLK
+CLOCK_50 => currState[1]~reg0.CLK
+CLOCK_50 => currState[2]~reg0.CLK
+instruction[0] => Decoder0.IN3
+instruction[0] => Mux2.IN18
+instruction[0] => Equal0.IN3
+instruction[0] => Equal1.IN3
+instruction[0] => Equal2.IN1
+instruction[0] => Equal3.IN1
+instruction[0] => Equal4.IN3
+instruction[0] => Equal5.IN0
+instruction[0] => Equal6.IN2
+instruction[0] => Equal7.IN3
+instruction[0] => Equal8.IN3
+instruction[0] => Equal9.IN3
+instruction[0] => Equal10.IN1
+instruction[1] => Decoder0.IN2
+instruction[1] => Mux2.IN17
+instruction[1] => Equal0.IN2
+instruction[1] => Equal1.IN0
+instruction[1] => Equal2.IN3
+instruction[1] => Equal3.IN3
+instruction[1] => Equal4.IN1
+instruction[1] => Equal5.IN3
+instruction[1] => Equal6.IN1
+instruction[1] => Equal7.IN2
+instruction[1] => Equal8.IN1
+instruction[1] => Equal9.IN2
+instruction[1] => Equal10.IN0
+instruction[2] => Decoder0.IN1
+instruction[2] => Mux2.IN16
+instruction[2] => Equal0.IN1
+instruction[2] => Equal1.IN2
+instruction[2] => Equal2.IN0
+instruction[2] => Equal3.IN2
+instruction[2] => Equal4.IN2
+instruction[2] => Equal5.IN2
+instruction[2] => Equal6.IN0
+instruction[2] => Equal7.IN0
+instruction[2] => Equal8.IN0
+instruction[2] => Equal9.IN1
+instruction[2] => Equal10.IN2
+instruction[3] => Decoder0.IN0
+instruction[3] => Mux2.IN15
+instruction[3] => Equal0.IN0
+instruction[3] => Equal1.IN1
+instruction[3] => Equal2.IN2
+instruction[3] => Equal3.IN0
+instruction[3] => Equal4.IN0
+instruction[3] => Equal5.IN1
+instruction[3] => Equal7.IN1
+instruction[3] => Equal8.IN2
+instruction[3] => Equal9.IN0
+IRout[0] => ~NO_FANOUT~
+IRout[1] => ~NO_FANOUT~
+IRout[2] => ~NO_FANOUT~
+IRout[3] => ~NO_FANOUT~
+IRout[4] => ~NO_FANOUT~
+IRout[5] => Decoder1.IN0
+IRout[6] => ~NO_FANOUT~
+IRout[7] => ~NO_FANOUT~
+N => Mux2.IN13
+Z => Mux2.IN19
+Z => Mux2.IN14
+PCwrite <= Mux12.DB_MAX_OUTPUT_PORT_TYPE
+AddrSel <= Decoder2.DB_MAX_OUTPUT_PORT_TYPE
+MemRead <= Mux11.DB_MAX_OUTPUT_PORT_TYPE
+MemWrite <= MemWrite.DB_MAX_OUTPUT_PORT_TYPE
+IRload <= Decoder2.DB_MAX_OUTPUT_PORT_TYPE
+MDRload <= MDRload.DB_MAX_OUTPUT_PORT_TYPE
+RASel <= RASel.DB_MAX_OUTPUT_PORT_TYPE
+RFWrite <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
+ABLD <= Decoder2.DB_MAX_OUTPUT_PORT_TYPE
+ALU_A <= Mux5.DB_MAX_OUTPUT_PORT_TYPE
+ALU_B[0] <= Mux7.DB_MAX_OUTPUT_PORT_TYPE
+ALU_B[1] <= Mux6.DB_MAX_OUTPUT_PORT_TYPE
+ALU_B[2] <= ALU_B.DB_MAX_OUTPUT_PORT_TYPE
+RegIn <= RegIn.DB_MAX_OUTPUT_PORT_TYPE
+ALUop[0] <= ALUop.DB_MAX_OUTPUT_PORT_TYPE
+ALUop[1] <= Mux10.DB_MAX_OUTPUT_PORT_TYPE
+ALUop[2] <= ALUop.DB_MAX_OUTPUT_PORT_TYPE
+FlagWrite <= Mux9.DB_MAX_OUTPUT_PORT_TYPE
+ALUoutLD <= Mux8.DB_MAX_OUTPUT_PORT_TYPE
+currState[0] <= currState[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+currState[1] <= currState[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+currState[2] <= currState[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+nextState[0] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
+nextState[1] <= nextState.DB_MAX_OUTPUT_PORT_TYPE
+nextState[2] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+done <= Mux4.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |processor|reg_LED:REGLED

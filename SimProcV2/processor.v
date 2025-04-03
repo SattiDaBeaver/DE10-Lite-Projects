@@ -51,7 +51,85 @@ module processor (
         .IRout(OpCode)  
     );
 
-    datapath DAPATATH();
+    datapath Datapath(
+        // Inputs
+        .CLOCK_50(),
+        .PCwrite(),
+        .AddrSel(),
+        .MemRead(),
+        .MemWrite(),
+        .IRload(),
+        .MDRload(),
+        .RASel(),
+        .RFWrite(),
+        .ABLD(),
+        .ALU_A(),
+        .ALU_B(),
+        .RegIn(),
+        .ALUop(),
+        .FlagWrite(),
+        .ALUoutLD(),  
+
+        // Outputs
+        .instruction(),
+        .IRout(),
+        .N(),
+        .Z(),
+
+        // Internal Wires/Reg (set as output for debugging)
+        .ALU_PC(),
+        .PC_Addr(),
+        .ADDR(),
+        .MemOut(),
+        .IR_A(),
+        .RAmux(),
+        .IR_B(),
+        .MDRout(),
+        .Imm4(),
+        .Imm5(),
+        .Imm2(),
+        .dataA(),
+        .dataB(),
+        .dataAr(),
+        .dataBr(),
+        .RegIn_W(),
+        .ALU_Ain(),
+        .ALU_Bin(),
+        .ALU_N(),
+        .ALU_Z(),
+        .ALU_RegIn()
+    );
+
+    FSM FiniteStateMachine(
+        // Inputs
+        .CLOCK_50(),
+        .instruction(),
+        .IRout(),
+        .N(),
+        .Z(),
+
+        // Outputs
+        .PCwrite(),
+        .AddrSel(),
+        .MemRead(),
+        .MemWrite(),
+        .IRload(),
+        .MDRload(),
+        .RASel(),
+        .RFWrite(),
+        .ABLD(),
+        .ALU_A(),
+        .ALU_B(),
+        .RegIn(),
+        .ALUop(),
+        .FlagWrite(),
+        .ALUoutLD(),  
+
+        // Internal Wires/Reg (set as output for debugging)
+        .currState(),
+        .nextState(),
+        .done()
+    );
 
     assign IRin = SW[7:0];
     assign IRload = ~KEY[0];
@@ -92,6 +170,8 @@ module datapath (
     // Outputs
     output      [3:0]       instruction,
     output      [7:0]       IRout,
+    output reg              N,
+    output reg              Z,
 
     // Internal Wires/Reg (set as output for debugging)
     output      [7:0]       ALU_PC,
@@ -114,8 +194,6 @@ module datapath (
     output reg  [7:0]       ALU_Bin,
     output                  ALU_N,
     output                  ALU_Z,
-    output reg              N,
-    output reg              Z,
     output reg  [7:0]       ALU_RegIn
     );
 
@@ -273,30 +351,38 @@ module datapath (
     end
 endmodule
 
-module FSM(
-    input CLOCK_50,         // CLOCK
+module FSM (
+    // Inputs
+    input                   CLOCK_50,
+    input       [3:0]       instruction,
+    input       [7:0]       IRout,
+    input                   N,
+    input                   Z,
 
-    input [7:0] ALUregOut,    // ALU input
-    input [7:0] Aout, input [7:0] Bout,    // Register File A and B
-    input [7:0] OpCode,     // Instruction
-    input N, input Z,
+    // Outputs
+    output reg              PCwrite,
+    output reg              AddrSel,
+    output reg              MemRead,
+    output reg              MemWrite,
+    output reg              IRload,
+    output reg              MDRload,
+    output reg              RASel,
+    output reg              RFWrite,
+    output reg              ABLD,
+    output reg              ALU_A,
+    output reg  [2:0]       ALU_B,
+    output reg              RegIn,
+    output reg  [2:0]       ALUop,
+    output reg              FlagWrite,
+    output reg              ALUoutLD,  
 
-    output reg PCwrite,          // Program Counter
-    output reg AddrSel, output reg MemRead, output reg MemWrite,   // Memory
-    output reg IRload, output reg MDRload,     // Instruction Register and Memory Data Register
-    output reg RASel, output reg RFWrite, output reg RegIn,      // Register File and Register Address
-    output reg ABLD, output reg ALU_A, output reg [2:0] ALU_B,   // ALU and AB load registers/mux
-    output reg [2:0] ALUop, output reg FlagWrite, output reg ALUoutLD,  // ALU and NZ Flag
-    output [3:0] currCycle
-	);
+    // Internal Wires/Reg (set as output for debugging)
+    output reg  [2:0]       currState,
+    output reg  [2:0]       nextState,
+    output reg              done
+    );
 
-    reg [3:0] currState, nextState;
-    reg done;
-    wire [3:0] instruction;
-
-    assign instruction = OpCode[3:0];
-
-    parameter IDLE = 4'b0000, CYCLE1 = 4'b0001, CYCLE2 = 4'b0010, CYCLE3 = 4'b0011, CYCLE4 = 4'b0100, CYCLE5 = 4'b0101;
+    parameter IDLE = 3'b000, CYCLE1 = 3'b001, CYCLE2 = 3'b010, CYCLE3 = 3'b011, CYCLE4 = 3'b100, CYCLE5 = 3'b101;
     
     // Instruction OpCodes (ORi, SHIFT are 3 bit)
     parameter ADD = 4'b0100, SUB = 4'b0110, NAND = 4'b1000, ORi = 3'b111, LOAD = 4'b0000;
@@ -310,16 +396,15 @@ module FSM(
     // FSM State Codes
     always @ (*) begin
         case(currState)
-            IDLE:       nextState = CYCLE1;
-            CYCLE1:     nextState = CYCLE2;
-            CYCLE2:     if (done) nextState = CYCLE1;
-                        else nextState = CYCLE3;
-            CYCLE3:     if (done) nextState = CYCLE1;
-                        else nextState = CYCLE4;
-            CYCLE4:     if (done) nextState = CYCLE1;
-                        else nextState = CYCLE5;
-            CYCLE5:     nextState = CYCLE1;
-            default:    nextState = CYCLE1;
+            IDLE:                   nextState = CYCLE1;
+            CYCLE1:                 nextState = CYCLE2;
+            CYCLE2:                 nextState = CYCLE3;
+            CYCLE3:     if (done)   nextState = CYCLE1;
+                        else        nextState = CYCLE4;
+            CYCLE4:     if (done)   nextState = CYCLE1;
+                        else        nextState = CYCLE5;
+            CYCLE5:                 nextState = CYCLE1;
+            default:                nextState = CYCLE1;
         endcase
     end
 
@@ -376,7 +461,7 @@ module FSM(
                     ALU_B = 3'b100;  // ALU B <- ZE(Imm2)
                     ALUoutLD = 1;
                     FlagWrite = 1;
-                    case (OpCode[5]) 
+                    case (IRout[5]) 
                         SLEFT: ALUop = 3'b100;
                         SRIGHT: ALUop = 3'b101;
                         default: ALUop = 3'b100;
@@ -442,6 +527,8 @@ module FSM(
                 done = 1;
             end
                 
+            default: ;
+
         endcase
     end
 
