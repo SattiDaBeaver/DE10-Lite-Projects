@@ -2,40 +2,40 @@
 Timing Analyzer Summary
 ------------------------------------------------------------
 
+Type  : Slow 1200mV 85C Model Setup 'processorCLOCK'
+Slack : -9.598
+TNS   : -12720.882
+
 Type  : Slow 1200mV 85C Model Setup 'CLOCK_50'
 Slack : -4.277
-TNS   : -184.392
-
-Type  : Slow 1200mV 85C Model Setup 'processorCLOCK'
-Slack : -2.283
-TNS   : -94.566
+TNS   : -176.732
 
 Type  : Slow 1200mV 85C Model Hold 'processorCLOCK'
-Slack : 0.347
+Slack : 0.340
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'CLOCK_50'
-Slack : 0.630
+Slack : 0.628
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK_50'
 Slack : -3.000
-TNS   : -109.628
+TNS   : -116.643
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'processorCLOCK'
 Slack : -1.403
-TNS   : -82.777
-
-Type  : Slow 1200mV 0C Model Setup 'CLOCK_50'
-Slack : -3.892
-TNS   : -163.211
+TNS   : -2991.196
 
 Type  : Slow 1200mV 0C Model Setup 'processorCLOCK'
-Slack : -1.963
-TNS   : -82.074
+Slack : -8.752
+TNS   : -11576.037
+
+Type  : Slow 1200mV 0C Model Setup 'CLOCK_50'
+Slack : -3.875
+TNS   : -155.274
 
 Type  : Slow 1200mV 0C Model Hold 'processorCLOCK'
-Slack : 0.312
+Slack : 0.307
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'CLOCK_50'
@@ -44,34 +44,34 @@ TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
 Slack : -3.000
-TNS   : -109.628
+TNS   : -116.643
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'processorCLOCK'
 Slack : -1.403
-TNS   : -82.777
-
-Type  : Fast 1200mV 0C Model Setup 'CLOCK_50'
-Slack : -1.308
-TNS   : -36.534
+TNS   : -2991.196
 
 Type  : Fast 1200mV 0C Model Setup 'processorCLOCK'
-Slack : -0.353
-TNS   : -10.083
+Slack : -3.738
+TNS   : -4655.704
+
+Type  : Fast 1200mV 0C Model Setup 'CLOCK_50'
+Slack : -1.270
+TNS   : -29.896
 
 Type  : Fast 1200mV 0C Model Hold 'processorCLOCK'
-Slack : 0.152
+Slack : 0.148
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'CLOCK_50'
-Slack : 0.223
+Slack : 0.227
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
 Slack : -3.000
-TNS   : -81.633
+TNS   : -86.942
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'processorCLOCK'
 Slack : -1.000
-TNS   : -59.000
+TNS   : -2132.000
 
 ------------------------------------------------------------

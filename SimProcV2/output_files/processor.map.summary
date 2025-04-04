@@ -1,12 +1,12 @@
-Analysis & Synthesis Status : Successful - Thu Apr  3 17:06:05 2025
+Analysis & Synthesis Status : Successful - Fri Apr  4 00:30:27 2025
 Quartus Prime Version : 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 Revision Name : processor
 Top-level Entity Name : processor
 Family : MAX 10
-Total logic elements : 175
-    Total combinational functions : 145
-    Dedicated logic registers : 135
-Total registers : 135
+Total logic elements : 4,053
+    Total combinational functions : 1,989
+    Dedicated logic registers : 2,213
+Total registers : 2213
 Total pins : 65
 Total virtual pins : 0
 Total memory bits : 0

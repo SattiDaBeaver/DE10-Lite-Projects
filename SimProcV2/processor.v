@@ -68,13 +68,13 @@ module processor (
         // Internal Wires/Reg (set as output for debugging)
         .ALU_PC(ALU_PC),
         .PC_Addr(PC_Addr),
-        .ADDR(),
-        .MemOut(),
+        .ADDR(ADDR),
+        .MemOut(MemOut),
         .IR_A(),
         .RAmux(),
         .IR_B(),
         .MDRout(),
-        .Imm4(),
+        .Imm4(Imm4),
         .Imm5(),
         .Imm2(),
         .dataA(),
@@ -129,7 +129,7 @@ module processor (
         if (Reset) begin
             counter <= 0;
         end
-        else if (counter >= 25000000) begin
+        else if (counter >= 10000000) begin
             counter <= 0;
             processorCLOCK = ~processorCLOCK;
         end
@@ -140,15 +140,15 @@ module processor (
     
     assign Reset = ~KEY[1];
     assign enable = 1;
-    assign LEDs = {N, Z, 7'b0, done};
+    assign LEDs = {N, Z, MemRead, MemWrite, IRload, 4'b0, done};
 
 	reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(enable), .Q(LEDs), .LEDR(LEDR[9:0]));
 	
-	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_PC[7:4]), .display(HEX5));
-	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_PC[3:0]), .display(HEX4));
+	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PC_Addr[7:4]), .display(HEX5));
+	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PC_Addr[3:0]), .display(HEX4));
 	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(IRout[7:4]), .display(HEX3));
 	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(IRout[3:0]), .display(HEX2));
-	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PC_Addr[3:0]), .display(HEX1));
+	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALUop[2:0]), .display(HEX1));
 	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex({1'b0, currState[2:0]}), .display(HEX0));
 endmodule
 
@@ -214,10 +214,10 @@ module datapath (
     // Address Select
     always @ (*) begin
         if (AddrSel) begin
-            ADDR = dataBr;
+            ADDR = PC_Addr;
         end
         else begin
-            ADDR = PC_Addr;
+            ADDR = dataBr;
         end
     end
 
@@ -413,7 +413,12 @@ module FSM (
         nextState = currState;
 
         case(currState)
-            IDLE: nextState = CYCLE1;
+            IDLE: begin
+                MemRead = 1;
+                AddrSel = 1;
+                nextState = CYCLE1;
+            end
+
             CYCLE1: begin
                     // IR <- Mem(PC)
                     AddrSel = 1;
@@ -423,7 +428,7 @@ module FSM (
                     // PC <- PC + 1
                     ALU_A = 0;
                     ALU_B = 3'b001;
-                    ALUop = 0;
+                    ALUop = 3'b000;
                     PCwrite = 1;
 
                     nextState = CYCLE2;
@@ -495,7 +500,7 @@ module FSM (
                     endcase
 
                     done = 1;
-                    nextState = IDLE;
+                    nextState = CYCLE1;
                 end
 
                 if (instruction[2:0] == ORi) begin
@@ -512,7 +517,7 @@ module FSM (
                     RFWrite = 1;
 
                     done = 1;
-                    nextState = IDLE;
+                    nextState = CYCLE1;
                 end 
 
                 if (instruction == LOAD) begin
@@ -520,7 +525,7 @@ module FSM (
                     RFWrite = 1;
 
                     done = 1;
-                    nextState = IDLE;
+                    nextState = CYCLE1;
                 end
 
                 if (instruction[2:0] == ORi) begin
@@ -539,7 +544,7 @@ module FSM (
                 RFWrite = 1;
 
                 done = 1;
-                nextState = IDLE;
+                nextState =CYCLE1;
             end
                 
             default: nextState = currState;
@@ -587,8 +592,14 @@ module memory # (
         if (MemWrite) begin
             mem[ADDR] <= Data_in;
         end
-        else if (MemRead) begin
-            Data_out <= mem[ADDR];
+    end
+
+    always @ (*) begin
+        if (MemRead) begin
+            Data_out = mem[ADDR];
+        end
+        else begin
+            Data_out = 0;
         end
     end
 endmodule
@@ -686,8 +697,8 @@ module IR (
     assign IRout = IRreg;
     assign RA = IRreg[7:6];
     assign RB = IRreg[5:4];
-    assign instruction = IR[3:0];
-    assign Imm4SE = {{4{IRreg[3]}}, IRreg[7:4]};
+    assign instruction = IRreg[3:0];
+    assign Imm4SE = {{4{IRreg[7]}}, IRreg[7:4]};
     assign Imm5ZE = {3'b000, IRreg[7:3]};
     assign Imm2ZE = {6'b000000, IRreg[4:3]};
 endmodule

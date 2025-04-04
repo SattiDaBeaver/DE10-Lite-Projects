@@ -9,6 +9,7 @@ using namespace std;
 string getOpCode(fstream& line);
 string getRegAB(fstream& line);
 string getImm4(fstream& line);
+string getImm5(fstream& line);
 
 int main(void) {
   // Opcodes
@@ -53,14 +54,25 @@ int main(void) {
       }
       instruction = regAB + OpCode;
     }
+
     // Branch and Jumps
-    if (OpCode == "0101" || OpCode == "1001" || OpCode == "1010" || OpCode == "0001"){
+    else if (OpCode == "0101" || OpCode == "1001" || OpCode == "1010" || OpCode == "0001"){
       string Imm4 = getImm4(inFile);
       if (Imm4 == ""){
         cout << "Invalid Integer on line " << line << endl;
         return -1;
       }
       instruction = Imm4 + OpCode;
+    }
+
+    // OR Immediate
+    else if (OpCode == "111"){
+      string Imm5 = getImm5(inFile);
+      if (Imm5 == ""){
+        cout << "Invalid Integer on line " << line << endl;
+        return -1;
+      }
+      instruction = Imm5 + OpCode;
     }
 
     outFile << instruction << endl;
@@ -164,6 +176,18 @@ string getImm4(fstream& line) {
     return "";
   }
   return bitset<4>(Imm4).to_string();
+}
+
+string getImm5(fstream& line) {
+  unsigned int Imm5;
+  line >> Imm5;
+  if (line.fail()){
+    return "";
+  }
+  if (Imm5 > 31){
+    return "";
+  }
+  return bitset<5>(Imm5).to_string();
 }
 
 

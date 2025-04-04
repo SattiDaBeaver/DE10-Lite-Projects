@@ -1,6 +1,7 @@
-add r0, r1
-sub r2, r3
-nand r3, r3
+ori 23
+add r2, r1
+ori 9
+add r3, r1
+sub r3, r2
 
-sub r0, r0
-j -5
+j -6
