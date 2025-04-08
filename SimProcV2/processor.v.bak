@@ -129,7 +129,7 @@ module processor (
         if (Reset) begin
             counter <= 0;
         end
-        else if (counter >= 500000) begin
+        else if (counter >= 10000000) begin
             counter <= 0;
             processorCLOCK = ~processorCLOCK;
         end

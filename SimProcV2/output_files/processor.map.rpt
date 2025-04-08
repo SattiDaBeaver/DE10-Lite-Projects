@@ -1,5 +1,5 @@
 Analysis & Synthesis report for processor
-Fri Apr  4 00:30:27 2025
+Fri Apr  4 19:22:04 2025
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -55,7 +55,7 @@ on the Quartus Prime software download page.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Apr  4 00:30:27 2025           ;
+; Analysis & Synthesis Status        ; Successful - Fri Apr  4 19:22:04 2025           ;
 ; Quartus Prime Version              ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
 ; Revision Name                      ; processor                                       ;
 ; Top-level Entity Name              ; processor                                       ;
@@ -179,7 +179,8 @@ on the Quartus Prime software download page.
 ;     Processor 5            ;   0.1%      ;
 ;     Processor 6            ;   0.1%      ;
 ;     Processor 7            ;   0.1%      ;
-;     Processors 8-14        ;   0.1%      ;
+;     Processor 8            ;   0.1%      ;
+;     Processors 9-14        ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -201,9 +202,9 @@ on the Quartus Prime software download page.
 ;                                             ;                ;
 ; Total combinational functions               ; 1989           ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 1582           ;
+;     -- 4 input functions                    ; 1583           ;
 ;     -- 3 input functions                    ; 326            ;
-;     -- <=2 input functions                  ; 81             ;
+;     -- <=2 input functions                  ; 80             ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
 ;     -- normal mode                          ; 1944           ;
@@ -219,7 +220,7 @@ on the Quartus Prime software download page.
 ;                                             ;                ;
 ; Maximum fan-out node                        ; processorCLOCK ;
 ; Maximum fan-out                             ; 2133           ;
-; Total fan-out                               ; 14141          ;
+; Total fan-out                               ; 14143          ;
 ; Average fan-out                             ; 3.26           ;
 +---------------------------------------------+----------------+
 
@@ -447,12 +448,12 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     normal            ; 1945                        ;
 ;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 28                          ;
-;         2 data inputs ; 22                          ;
+;         2 data inputs ; 21                          ;
 ;         3 data inputs ; 312                         ;
-;         4 data inputs ; 1582                        ;
+;         4 data inputs ; 1583                        ;
 ;                       ;                             ;
 ; Max LUT depth         ; 13.00                       ;
-; Average LUT depth     ; 7.06                        ;
+; Average LUT depth     ; 7.05                        ;
 +-----------------------+-----------------------------+
 
 
@@ -461,7 +462,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:02     ;
+; Top            ; 00:00:03     ;
 +----------------+--------------+
 
 
@@ -471,7 +472,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Fri Apr  4 00:30:18 2025
+    Info: Processing started: Fri Apr  4 19:21:54 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off processor -c processor
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
@@ -549,9 +550,9 @@ Info (21057): Implemented 4147 device resources after synthesis - the final reso
     Info (21061): Implemented 4082 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 24 warnings
     Info: Peak virtual memory: 4885 megabytes
-    Info: Processing ended: Fri Apr  4 00:30:27 2025
-    Info: Elapsed time: 00:00:09
-    Info: Total CPU time (on all processors): 00:00:17
+    Info: Processing ended: Fri Apr  4 19:22:04 2025
+    Info: Elapsed time: 00:00:10
+    Info: Total CPU time (on all processors): 00:00:19
 
 
 +------------------------------------------+

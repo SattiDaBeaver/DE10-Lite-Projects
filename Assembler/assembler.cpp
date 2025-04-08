@@ -10,6 +10,9 @@ string getOpCode(fstream& line);
 string getRegAB(fstream& line);
 string getImm4(fstream& line);
 string getImm5(fstream& line);
+string getImm2(fstream& line);
+string getLR(fstream& line);
+string getRegA(fstream& line);
 
 int main(void) {
   // Opcodes
@@ -45,8 +48,9 @@ int main(void) {
       return -1;
     }
 
-    // Add Sub NAND
-    if (OpCode == "0100" || OpCode == "0110" || OpCode == "1000"){
+    // Add Sub NAND Load Store
+    // INSTR Ra, Rb
+    if (OpCode == "0100" || OpCode == "0110" || OpCode == "1000" || OpCode == "0010" || OpCode == "0000"){
       string regAB = getRegAB(inFile);
       if (regAB == ""){
         cout << "Invalid Register Reference on line " << line << endl;
@@ -56,6 +60,7 @@ int main(void) {
     }
 
     // Branch and Jumps
+    // INSTR Imm4
     else if (OpCode == "0101" || OpCode == "1001" || OpCode == "1010" || OpCode == "0001"){
       string Imm4 = getImm4(inFile);
       if (Imm4 == ""){
@@ -66,6 +71,7 @@ int main(void) {
     }
 
     // OR Immediate
+    // ORi Imm5
     else if (OpCode == "111"){
       string Imm5 = getImm5(inFile);
       if (Imm5 == ""){
@@ -73,6 +79,24 @@ int main(void) {
         return -1;
       }
       instruction = Imm5 + OpCode;
+    }
+
+    // Shift Left/Right
+    // Shift L/R 
+    else if (OpCode == "011"){
+      string shift = getLR(inFile);
+      string regA = getRegA(inFile);
+      string Imm2 = getImm2(inFile);
+      if (shift == ""){
+        cout << "Invalid Character on line " << line << endl;
+        return -1;
+      }
+      if (Imm2 == ""){
+        cout << "Invalid Integer on line " << line << endl;
+        return -1;
+      }
+
+      instruction = regA + shift + Imm2 + OpCode;
     }
 
     outFile << instruction << endl;
@@ -111,10 +135,8 @@ string getOpCode(fstream& line) {
     return "1001";
   } else if (OpCode == "bz"){
     return "1010";
-  } else if (OpCode == "shiftl"){
-    return "1011";
-  } else if (OpCode == "bz"){
-    return "0011";
+  } else if (OpCode == "shift"){
+    return "011";
   } else if (OpCode == "j"){
   return "0001";
   }
@@ -190,6 +212,58 @@ string getImm5(fstream& line) {
   return bitset<5>(Imm5).to_string();
 }
 
+string getImm2(fstream& line){
+  unsigned int Imm2;
+  line >> Imm2;
+  if (line.fail()){
+    return "";
+  }
+  if (Imm2 > 3){
+    return "";
+  }
+  return bitset<2>(Imm2).to_string();
+}
 
+string getLR(fstream& line){
+  char shift;
+  line >> shift;
+  if (line.fail()){
+    return "";
+  }
+
+  shift = tolower(shift);
+
+  if (shift == 'l'){
+    return "1";
+  }
+  else if (shift == 'r'){
+    return "0";
+  }
+  return "";
+}
+
+string getRegA(fstream& line) {
+  string RA;
+  string registers = "";
+
+  line >> RA;
+  if (line.fail()){
+    return "";
+  }
+
+  if (RA == "r0,"){
+    registers.append("00");
+  } else if (RA == "r1,"){
+    registers.append("01");
+  } else if (RA == "r2,"){
+    registers.append("10");
+  } else if (RA == "r3,"){
+    registers.append("11");
+  }
+  else {
+    return "";
+  }
+  return registers;
+}
 
 
