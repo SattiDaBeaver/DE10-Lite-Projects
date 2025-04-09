@@ -28,7 +28,7 @@ module processor (
     wire    [7:0]       ALU_PC, PC_Addr, ADDR, MemOut;
     wire    [1:0]       IR_A, RAmux, IR_B;
     wire    [7:0]       MDRout, Imm4, Imm5, Imm2, dataA, dataB, dataAr, dataBr;
-    wire    [7:0]       RegIn_W, ALU_Ain, ALU_Bin, ALU_RegIn, IOmemADDR, IOmemData;
+    wire    [7:0]       RegIn_W, ALU_Ain, ALU_Bin, ALU_RegIn;
     wire                ALU_N, ALU_Z;
 
 
@@ -76,32 +76,20 @@ module processor (
         .MDRout(),
         .Imm4(Imm4),
         .Imm5(),
-        .Imm2(Imm2),
+        .Imm2(),
         .dataA(),
         .dataB(),
         .dataAr(),
         .dataBr(),
         .RegIn_W(),
         .ALU_Ain(),
-        .ALU_Bin(ALU_Bin),
+        .ALU_Bin(),
         .ALU_N(),
         .ALU_Z(),
-        .ALU_RegIn(ALU_RegIn),
-
-        .IOmemADDR(IOmemADDR),
-        .IOmemData(),
+        .ALU_RegIn(),
 
         // Memory Mapped I/O
-        .SW(),
-        .KEYs(),
-        
-        //.LEDs(LEDR),
-        .HEX0(),
-        .HEX1(),
-        .HEX2(),
-        .HEX3(),
-        .HEX4(),
-        .HEX5()
+        .LEDs()
     );
 
     FSM FiniteStateMachine(
@@ -144,7 +132,7 @@ module processor (
         if (Reset) begin
             counter <= 0;
         end
-        else if (counter >= 4000000) begin
+        else if (counter >= 1000000) begin
             counter <= 0;
             processorCLOCK = ~processorCLOCK;
         end
@@ -161,10 +149,10 @@ module processor (
 	
 	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PC_Addr[7:4]), .display(HEX5));
 	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PC_Addr[3:0]), .display(HEX4));
-	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_RegIn[7:4]), .display(HEX3));
-	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_RegIn[3:0]), .display(HEX2));
-	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_Bin[7:4]), .display(HEX1));
-	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_Bin[3:0]), .display(HEX0));
+	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(IRout[7:4]), .display(HEX3));
+	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(IRout[3:0]), .display(HEX2));
+	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALUop[2:0]), .display(HEX1));
+	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex({1'b0, currState[2:0]}), .display(HEX0));
 endmodule
 
 
@@ -198,7 +186,7 @@ module datapath (
     output      [7:0]       ALU_PC,
     output      [7:0]       PC_Addr,
     output reg  [7:0]       ADDR,
-    output reg  [7:0]       MemOut,
+    output      [7:0]       MemOut,
     output      [1:0]       IR_A,
     output reg  [1:0]       RAmux,
     output      [1:0]       IR_B,
@@ -217,32 +205,9 @@ module datapath (
     output                  ALU_Z,
     output reg  [7:0]       ALU_RegIn,
 
-    output reg  [7:0]       IOmemADDR,
-    output reg  [7:0]       IOdataIn,
-    output      [7:0]       IOdataOut,
-    output reg              IOmemRead,
-    output reg              IOmemWrite,
-
-    output reg  [7:0]       ActualMemADDR,
-    output reg  [7:0]       ActualDataIn,
-    output      [7:0]       ActualDataOut,
-    output reg              ActualMemRead,
-    output reg              ActualMemWrite,
-
     // Memory Mapped I/O
-    input       [9:0]       SW,
-    input       [9:0]       KEYs,
-
-    output      [9:0]       LEDs,
-    output      [6:0]       HEX0,
-    output      [6:0]       HEX1,
-    output      [6:0]       HEX2,
-    output      [6:0]       HEX3,
-    output      [6:0]       HEX4,
-    output      [6:0]       HEX5
+    output      [9:0]       LEDs
     );
-
-
 
     // Program Counter
     PC ProgramCounter (
@@ -262,68 +227,17 @@ module datapath (
         end
     end
 
-
-    // Memory Mapped I/O
-
-    always @ (*) begin
-        if (ADDR >= 8'hB0) begin
-            IOmemADDR = ADDR;
-            IOdataIn = dataAr;
-            IOmemRead = MemRead;
-            IOmemWrite = MemWrite;
-
-            ActualMemADDR = 8'b0;
-            ActualDataIn = 8'b0;
-            ActualMemRead = 0;
-            ActualMemWrite = 0;
-
-            MemOut = IOdataOut;
-        end
-        else begin
-            IOmemADDR = 8'b0;
-            IOdataIn = 8'b0;
-            IOmemRead = 0;
-            IOmemWrite = 0;
-
-            ActualMemADDR = ADDR;
-            ActualDataIn = dataAr;
-            ActualMemRead = MemRead;
-            ActualMemWrite = MemWrite;
-
-            MemOut = ActualDataOut;
-        end
-    end
-
-    MMIO memoryMap(
-    // Memory Mapped I/O
-    .CLK(CLOCK_50),
-    .ADDR(IOmemADDR),
-    .DataIn(IOdataIn),
-    .DataOut(IOdataOut),
-    .MemRead(IOmemRead),
-    .MemWrite(IOmemWrite),
-
-    .SW(SW),
-    .KEYs(KEYs),
-
-    .LEDs(LEDs),
-    .HEX0(HEX0),
-    .HEX1(HEX1),
-    .HEX2(HEX2),
-    .HEX3(HEX3),
-    .HEX4(HEX4),
-    .HEX5(HEX5),
-    );
-
     // Memory
     memory # (.INIT_FILE("machine_code.txt")) Memory (
         .CLK(CLOCK_50),
-        .MemRead(ActualMemRead),
-        .MemWrite(ActualMemWrite),
-        .ADDR(ActualMemADDR),
-        .Data_in(ActualDataIn),
-        .Data_out(ActualDataOut)
-    );
+        .MemRead(MemRead),
+        .MemWrite(MemWrite),
+        .ADDR(ADDR),
+        .Data_in(dataAr),
+        .Data_out(MemOut),
+
+        .LEDs(LEDs)
+    );  
 
     // Instruction Register
     IR InstructionRegister (
@@ -451,57 +365,6 @@ module datapath (
     end
 endmodule
 
-module MMIO (
-    // Memory Mapped I/O
-    input                   CLK,
-    input       [7:0]       ADDR,
-    input       [7:0]       DataIn,
-    output reg  [7:0]       DataOut,
-    input                   MemRead,
-    input                   MemWrite,
-
-    input       [9:0]       SW,
-    input       [9:0]       KEYs,
-
-    output reg  [9:0]       LEDs,
-    output reg  [6:0]       HEX0,
-    output reg  [6:0]       HEX1,
-    output reg  [6:0]       HEX2,
-    output reg  [6:0]       HEX3,
-    output reg  [6:0]       HEX4,
-    output reg  [6:0]       HEX5
-    );
-
-    initial begin
-        LEDs = 0;
-    end
-
-    always @ (posedge CLK) begin
-        case (ADDR)
-            8'hB0:      if (MemWrite) begin
-                            LEDs[7:0] <= DataIn;
-                        end
-            8'hB1:      if (MemWrite) begin
-                            LEDs[9:8] <= DataIn[1:0];
-                        end
-        endcase
-
-    end
-
-    always @ (*) begin
-        case (ADDR)
-            8'hB0:      if (MemRead) begin
-                            DataOut = LEDs[7:0];
-                        end
-            8'hB1:      if (MemRead) begin
-                            DataOut = {6'b000000, LEDs[9:8]};
-                        end
-            default:        DataOut = 8'b0;
-        endcase
-    end
-endmodule
-
-
 module FSM (
     // Inputs
     input                   CLOCK_50,
@@ -603,21 +466,21 @@ module FSM (
                     nextState = CYCLE4;
                 end 
 
-                else if (instruction[2:0] == SHIFT) begin
+                if (instruction[2:0] == SHIFT) begin
                     ALU_A = 1;       // Select reg A
                     ALU_B = 3'b100;  // ALU B <- ZE(Imm2)
+                    ALUoutLD = 1;
+                    FlagWrite = 1;
                     case (IRout[5]) 
                         SLEFT: ALUop = 3'b100;
                         SRIGHT: ALUop = 3'b101;
                         default: ALUop = 3'b100;
                     endcase
-                    ALUoutLD = 1;
-                    FlagWrite = 1;
 
                     nextState = CYCLE4;
                 end 
 
-                else if (instruction == LOAD) begin
+                if (instruction == LOAD) begin
                     AddrSel = 0;    // Select B to be address
                     MDRload = 1;    // Output of memory to MDR
                     MemRead = 1;    // Read memory
@@ -625,7 +488,7 @@ module FSM (
                     nextState = CYCLE4;
                 end
 
-                else if (instruction == STORE) begin
+                if (instruction == STORE) begin
                     AddrSel = 0;    // Select B to be address
                     MemWrite = 1;    // Write to memory
                     done = 1;
@@ -633,7 +496,7 @@ module FSM (
                     nextState = CYCLE1;
                 end
 
-                else if (instruction == BNZ | instruction == BPZ | instruction == BZ | instruction == J) begin
+                if (instruction == BNZ | instruction == BPZ | instruction == BZ | instruction == J) begin
                     ALU_A = 0; // ALU A <- PC
                     ALU_B = 3'b010; // ALU B <- SE(Imm4)
                     ALUop = 3'b000;
@@ -648,9 +511,8 @@ module FSM (
                     nextState = CYCLE1;
                 end
 
-                else if (instruction[2:0] == ORi) begin
+                if (instruction[2:0] == ORi) begin
                     RASel = 1; // RA <- 2'b01
-                    ABLD = 1;
 
                     nextState = CYCLE4;
                 end
@@ -666,7 +528,7 @@ module FSM (
                     nextState = CYCLE1;
                 end 
 
-                else if (instruction == LOAD) begin
+                if (instruction == LOAD) begin
                     RegIn = 1;      // dataW <- MDR
                     RFWrite = 1;
 
@@ -674,7 +536,7 @@ module FSM (
                     nextState = CYCLE1;
                 end
 
-                else if (instruction[2:0] == ORi) begin
+                if (instruction[2:0] == ORi) begin
                     ALU_A = 1;       // Select reg A
                     ALU_B = 3'b011;  // ALU B <- ZE(Imm5)
                     ALUoutLD = 1;
@@ -690,7 +552,7 @@ module FSM (
                 RFWrite = 1;
 
                 done = 1;
-                nextState = CYCLE1;
+                nextState =CYCLE1;
             end
                 
             default: nextState = currState;
@@ -707,8 +569,8 @@ module FSM (
             currState <= nextState;
         end
     end
-endmodule
 
+endmodule
 
 module memory # (
     // Parameters
@@ -720,7 +582,10 @@ module memory # (
     input       [7:0]       ADDR,
     input       [7:0]       Data_in,
 
-    output reg  [7:0]       Data_out
+    output reg  [7:0]       Data_out,
+
+    // Memory Mapped I/O
+    output      [9:0]       LEDs
     );
 
     reg [7:0] mem [0:255];      // Internal Memory
@@ -749,8 +614,9 @@ module memory # (
             Data_out = 0;
         end
     end
-endmodule
 
+    assign LEDs = {mem[8'hB1][1:0], mem[8'hB0][7:0]};
+endmodule
 
 module register_file (
 	input                   CLOCK_50,
@@ -802,7 +668,6 @@ module register_file (
 	end
 endmodule
 
-
 module PC (
     input                   CLK,
     input       [7:0]       PCin,
@@ -820,7 +685,6 @@ module PC (
         end
     end
 endmodule
-
 
 module IR (
     input                   CLK,
@@ -853,7 +717,6 @@ module IR (
     assign Imm2ZE = {6'b000000, IRreg[4:3]};
 endmodule
 
-
 module ALU(
     input       [2:0]       ALUop,
     input       [7:0]       A,
@@ -863,24 +726,22 @@ module ALU(
     output reg  [7:0]       ALUout
     );
 
-    parameter ADD = 3'b000, SUB = 3'b001, OR = 3'b010, NAND = 3'b011, SHL = 3'b100, SHR = 3'b101;
+    parameter ADD = 3'b000, SUB = 3'b001, OR = 3'b010, NAND = 3'b011, ShiftLeft = 3'b100, ShiftRight = 3'b101;
     always @ (*) begin
         case(ALUop) 
             ADD:        ALUout = A + B;
             SUB:        ALUout = A - B;
             OR:         ALUout = A | B;
             NAND:       ALUout = ~(A & B);
-            SHL:        ALUout = A << B[1:0];
-
-            SHR:        ALUout = A >> B[1:0];
-            default:    ALUout = 8'h07;
+            ShiftLeft:  ALUout = A << B;
+            ShiftRight: ALUout = A >> B;
+            default:    ALUout = 8'b0;
         endcase
     end
 
     assign N = ALUout[7];
     assign Z = ~(|ALUout);
 endmodule
-
 
 module reg_LED(input CLOCK_50, input EN, input [9:0] Q, output reg [9:0] LEDR);
 	always @ (posedge CLOCK_50) begin
@@ -890,7 +751,6 @@ module reg_LED(input CLOCK_50, input EN, input [9:0] Q, output reg [9:0] LEDR);
 			LEDR <= LEDR;
 	end
 endmodule
-
 
 module reg_HEX(input CLOCK_50, input EN, input [3:0] hex, output reg [6:0] display);
 	wire [6:0] data;
@@ -902,7 +762,6 @@ module reg_HEX(input CLOCK_50, input EN, input [3:0] hex, output reg [6:0] displ
 			display <= display;
 	end
 endmodule	
-
 
 module hex7seg (hex, display);
     input [3:0] hex;

@@ -3,19 +3,27 @@ Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow 1200mV 85C Model Setup 'processorCLOCK'
-Slack : -8.423
-TNS   : -11345.330
+Slack : -10.570
+TNS   : -8939.387
 
 Type  : Slow 1200mV 85C Model Setup 'CLOCK_50'
-Slack : -4.286
-TNS   : -197.770
+Slack : -7.207
+TNS   : -246.239
+
+Type  : Slow 1200mV 85C Model Setup 'FSM:FiniteStateMachine|currState[0]'
+Slack : -4.441
+TNS   : -29.796
+
+Type  : Slow 1200mV 85C Model Hold 'FSM:FiniteStateMachine|currState[0]'
+Slack : -0.733
+TNS   : -0.974
 
 Type  : Slow 1200mV 85C Model Hold 'processorCLOCK'
-Slack : 0.341
+Slack : 0.378
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'CLOCK_50'
-Slack : 0.608
+Slack : 0.609
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK_50'
@@ -24,18 +32,30 @@ TNS   : -116.643
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'processorCLOCK'
 Slack : -1.403
-TNS   : -2991.196
+TNS   : -2107.306
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'FSM:FiniteStateMachine|currState[0]'
+Slack : 0.431
+TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Setup 'processorCLOCK'
-Slack : -7.764
-TNS   : -10312.092
+Slack : -9.732
+TNS   : -8250.474
 
 Type  : Slow 1200mV 0C Model Setup 'CLOCK_50'
-Slack : -3.921
-TNS   : -177.140
+Slack : -6.703
+TNS   : -223.656
+
+Type  : Slow 1200mV 0C Model Setup 'FSM:FiniteStateMachine|currState[0]'
+Slack : -4.252
+TNS   : -29.253
+
+Type  : Slow 1200mV 0C Model Hold 'FSM:FiniteStateMachine|currState[0]'
+Slack : -0.499
+TNS   : -0.574
 
 Type  : Slow 1200mV 0C Model Hold 'processorCLOCK'
-Slack : 0.307
+Slack : 0.339
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'CLOCK_50'
@@ -48,30 +68,46 @@ TNS   : -116.643
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'processorCLOCK'
 Slack : -1.403
-TNS   : -2991.196
+TNS   : -2107.306
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'FSM:FiniteStateMachine|currState[0]'
+Slack : 0.331
+TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Setup 'processorCLOCK'
-Slack : -3.264
-TNS   : -4085.438
+Slack : -4.349
+TNS   : -3059.332
 
 Type  : Fast 1200mV 0C Model Setup 'CLOCK_50'
-Slack : -1.292
-TNS   : -39.826
+Slack : -2.789
+TNS   : -60.135
+
+Type  : Fast 1200mV 0C Model Setup 'FSM:FiniteStateMachine|currState[0]'
+Slack : -1.375
+TNS   : -9.113
+
+Type  : Fast 1200mV 0C Model Hold 'FSM:FiniteStateMachine|currState[0]'
+Slack : -0.269
+TNS   : -0.436
 
 Type  : Fast 1200mV 0C Model Hold 'processorCLOCK'
-Slack : 0.149
+Slack : 0.166
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'CLOCK_50'
-Slack : 0.232
+Slack : 0.186
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
 Slack : -3.000
-TNS   : -87.341
+TNS   : -86.874
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'processorCLOCK'
 Slack : -1.000
-TNS   : -2132.000
+TNS   : -1502.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'FSM:FiniteStateMachine|currState[0]'
+Slack : 0.213
+TNS   : 0.000
 
 ------------------------------------------------------------
