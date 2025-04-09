@@ -82,7 +82,7 @@ module processor (
         .dataAr(),
         .dataBr(),
         .RegIn_W(),
-        .ALU_Ain(),
+        .ALU_Ain(ALU_Ain),
         .ALU_Bin(ALU_Bin),
         .ALU_N(),
         .ALU_Z(),
@@ -95,7 +95,7 @@ module processor (
         .SW(),
         .KEYs(),
         
-        //.LEDs(LEDR),
+        .LEDs(LEDR),
         .HEX0(),
         .HEX1(),
         .HEX2(),
@@ -144,9 +144,9 @@ module processor (
         if (Reset) begin
             counter <= 0;
         end
-        else if (counter >= 4000000) begin
+        else if (counter >= 1000000) begin
             counter <= 0;
-            processorCLOCK = ~processorCLOCK;
+            processorCLOCK <= ~processorCLOCK;
         end
         else begin  
             counter <= counter + 1;
@@ -157,14 +157,14 @@ module processor (
     assign enable = 1;
     assign LEDs = {N, Z, MemRead, MemWrite, IRload, 4'b0, done};
 
-	reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(enable), .Q(LEDs), .LEDR(LEDR[9:0]));
+	// reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(enable), .Q(LEDs), .LEDR(LEDR[9:0]));
 	
 	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PC_Addr[7:4]), .display(HEX5));
 	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PC_Addr[3:0]), .display(HEX4));
-	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_RegIn[7:4]), .display(HEX3));
-	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_RegIn[3:0]), .display(HEX2));
-	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_Bin[7:4]), .display(HEX1));
-	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_Bin[3:0]), .display(HEX0));
+	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_PC[7:4]), .display(HEX3));
+	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_PC[3:0]), .display(HEX2));
+	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(0), .display(HEX1));
+	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex({1'b0, currState[2:0]}), .display(HEX0));
 endmodule
 
 
@@ -354,7 +354,7 @@ module datapath (
     // RASel Mux
     always @ (*) begin
         if (RASel) begin
-            RAmux = 2'b01;
+            RAmux = 0;
         end
         else begin
             RAmux = IR_A;
@@ -686,6 +686,7 @@ module FSM (
             end 
 
             CYCLE5: begin // only for ORi
+                RASel = 1;
                 RegIn = 0;      // dataW <- ALU
                 RFWrite = 1;
 

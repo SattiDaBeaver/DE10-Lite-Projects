@@ -1,5 +1,4 @@
-Warning (10268): Verilog HDL information at processor.v(143): always construct contains both blocking and non-blocking assignments File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 143
-Info (10281): Verilog HDL Declaration information at processor.v(767): object "r0" differs only in case from object "R0" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 767
-Info (10281): Verilog HDL Declaration information at processor.v(767): object "r1" differs only in case from object "R1" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 767
-Info (10281): Verilog HDL Declaration information at processor.v(767): object "r2" differs only in case from object "R2" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 767
-Info (10281): Verilog HDL Declaration information at processor.v(767): object "r3" differs only in case from object "R3" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 767
+Info (10281): Verilog HDL Declaration information at processor.v(768): object "r0" differs only in case from object "R0" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 768
+Info (10281): Verilog HDL Declaration information at processor.v(768): object "r1" differs only in case from object "R1" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 768
+Info (10281): Verilog HDL Declaration information at processor.v(768): object "r2" differs only in case from object "R2" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 768
+Info (10281): Verilog HDL Declaration information at processor.v(768): object "r3" differs only in case from object "R3" in the same scope File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 768
