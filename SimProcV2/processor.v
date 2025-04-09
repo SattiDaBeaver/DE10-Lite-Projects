@@ -485,7 +485,7 @@ module FSM (
                     MemWrite = 1;    // Write to memory
                     done = 1;
 
-                    nextState = CYCLE4;
+                    nextState = CYCLE1;
                 end
 
                 if (instruction == BNZ | instruction == BPZ | instruction == BZ | instruction == J) begin

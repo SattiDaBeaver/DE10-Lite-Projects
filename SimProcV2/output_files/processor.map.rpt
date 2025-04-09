@@ -1,5 +1,5 @@
 Analysis & Synthesis report for processor
-Fri Apr  4 19:22:04 2025
+Tue Apr  8 20:54:12 2025
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -55,13 +55,13 @@ on the Quartus Prime software download page.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Apr  4 19:22:04 2025           ;
+; Analysis & Synthesis Status        ; Successful - Tue Apr  8 20:54:12 2025           ;
 ; Quartus Prime Version              ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
 ; Revision Name                      ; processor                                       ;
 ; Top-level Entity Name              ; processor                                       ;
 ; Family                             ; MAX 10                                          ;
-; Total logic elements               ; 4,053                                           ;
-;     Total combinational functions  ; 1,989                                           ;
+; Total logic elements               ; 4,052                                           ;
+;     Total combinational functions  ; 1,997                                           ;
 ;     Dedicated logic registers      ; 2,213                                           ;
 ; Total registers                    ; 2213                                            ;
 ; Total pins                         ; 65                                              ;
@@ -198,16 +198,16 @@ on the Quartus Prime software download page.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimated Total logic elements              ; 4,053          ;
+; Estimated Total logic elements              ; 4,052          ;
 ;                                             ;                ;
-; Total combinational functions               ; 1989           ;
+; Total combinational functions               ; 1997           ;
 ; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 1583           ;
-;     -- 3 input functions                    ; 326            ;
-;     -- <=2 input functions                  ; 80             ;
+;     -- 4 input functions                    ; 1585           ;
+;     -- 3 input functions                    ; 329            ;
+;     -- <=2 input functions                  ; 83             ;
 ;                                             ;                ;
 ; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 1944           ;
+;     -- normal mode                          ; 1952           ;
 ;     -- arithmetic mode                      ; 45             ;
 ;                                             ;                ;
 ; Total registers                             ; 2213           ;
@@ -220,7 +220,7 @@ on the Quartus Prime software download page.
 ;                                             ;                ;
 ; Maximum fan-out node                        ; processorCLOCK ;
 ; Maximum fan-out                             ; 2133           ;
-; Total fan-out                               ; 14143          ;
+; Total fan-out                               ; 14157          ;
 ; Average fan-out                             ; 3.26           ;
 +---------------------------------------------+----------------+
 
@@ -230,18 +230,18 @@ on the Quartus Prime software download page.
 +------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------------------------------------------+---------------+--------------+
 ; Compilation Hierarchy Node         ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                     ; Entity Name   ; Library Name ;
 +------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------------------------------------------+---------------+--------------+
-; |processor                         ; 1989 (43)           ; 2213 (33)                 ; 0           ; 0          ; 0            ; 0       ; 0         ; 65   ; 0            ; 0          ; |processor                                              ; processor     ; work         ;
-;    |FSM:FiniteStateMachine|        ; 45 (45)             ; 3 (3)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|FSM:FiniteStateMachine                       ; FSM           ; work         ;
-;    |datapath:Datapath|             ; 1859 (45)           ; 2129 (33)                 ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:Datapath                            ; datapath      ; work         ;
+; |processor                         ; 1997 (43)           ; 2213 (33)                 ; 0           ; 0          ; 0            ; 0       ; 0         ; 65   ; 0            ; 0          ; |processor                                              ; processor     ; work         ;
+;    |FSM:FiniteStateMachine|        ; 47 (47)             ; 3 (3)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|FSM:FiniteStateMachine                       ; FSM           ; work         ;
+;    |datapath:Datapath|             ; 1867 (44)           ; 2129 (33)                 ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:Datapath                            ; datapath      ; work         ;
 ;       |ALU:ALU|                    ; 95 (95)             ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:Datapath|ALU:ALU                    ; ALU           ; work         ;
 ;       |IR:InstructionRegister|     ; 0 (0)               ; 8 (8)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:Datapath|IR:InstructionRegister     ; IR            ; work         ;
 ;       |PC:ProgramCounter|          ; 0 (0)               ; 8 (8)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:Datapath|PC:ProgramCounter          ; PC            ; work         ;
-;       |memory:Memory|              ; 1683 (1683)         ; 2048 (2048)               ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:Datapath|memory:Memory              ; memory        ; work         ;
+;       |memory:Memory|              ; 1692 (1692)         ; 2048 (2048)               ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:Datapath|memory:Memory              ; memory        ; work         ;
 ;       |register_file:RegisterFile| ; 36 (36)             ; 32 (32)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|datapath:Datapath|register_file:RegisterFile ; register_file ; work         ;
 ;    |reg_HEX:H0|                    ; 6 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H0                                   ; reg_HEX       ; work         ;
 ;       |hex7seg:SEG|                ; 6 (6)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H0|hex7seg:SEG                       ; hex7seg       ; work         ;
-;    |reg_HEX:H1|                    ; 8 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H1                                   ; reg_HEX       ; work         ;
-;       |hex7seg:SEG|                ; 8 (8)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H1|hex7seg:SEG                       ; hex7seg       ; work         ;
+;    |reg_HEX:H1|                    ; 6 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H1                                   ; reg_HEX       ; work         ;
+;       |hex7seg:SEG|                ; 6 (6)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H1|hex7seg:SEG                       ; hex7seg       ; work         ;
 ;    |reg_HEX:H2|                    ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H2                                   ; reg_HEX       ; work         ;
 ;       |hex7seg:SEG|                ; 7 (7)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H2|hex7seg:SEG                       ; hex7seg       ; work         ;
 ;    |reg_HEX:H3|                    ; 7 (0)               ; 7 (7)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |processor|reg_HEX:H3                                   ; reg_HEX       ; work         ;
@@ -289,7 +289,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |processor|datapath:Datapath|dataBr[7]         ;
 ; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |processor|datapath:Datapath|dataAr[0]         ;
 ; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |processor|counter[12]                         ;
-; 27:1               ; 2 bits    ; 36 LEs        ; 20 LEs               ; 16 LEs                 ; Yes        ; |processor|FSM:FiniteStateMachine|currState[0] ;
+; 27:1               ; 2 bits    ; 36 LEs        ; 26 LEs               ; 10 LEs                 ; Yes        ; |processor|FSM:FiniteStateMachine|currState[0] ;
 ; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |processor|FSM:FiniteStateMachine|Mux10        ;
 ; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |processor|datapath:Datapath|Mux3              ;
 ; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |processor|datapath:Datapath|Mux5              ;
@@ -441,19 +441,19 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     ENA               ; 2129                        ;
 ;     SCLR              ; 33                          ;
 ;     plain             ; 51                          ;
-; cycloneiii_lcell_comb ; 1990                        ;
+; cycloneiii_lcell_comb ; 1998                        ;
 ;     arith             ; 45                          ;
 ;         2 data inputs ; 31                          ;
 ;         3 data inputs ; 14                          ;
-;     normal            ; 1945                        ;
+;     normal            ; 1953                        ;
 ;         0 data inputs ; 1                           ;
-;         1 data inputs ; 28                          ;
-;         2 data inputs ; 21                          ;
-;         3 data inputs ; 312                         ;
-;         4 data inputs ; 1583                        ;
+;         1 data inputs ; 37                          ;
+;         2 data inputs ; 15                          ;
+;         3 data inputs ; 315                         ;
+;         4 data inputs ; 1585                        ;
 ;                       ;                             ;
-; Max LUT depth         ; 13.00                       ;
-; Average LUT depth     ; 7.05                        ;
+; Max LUT depth         ; 12.00                       ;
+; Average LUT depth     ; 7.01                        ;
 +-----------------------+-----------------------------+
 
 
@@ -472,7 +472,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Fri Apr  4 19:21:54 2025
+    Info: Processing started: Tue Apr  8 20:54:02 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off processor -c processor
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 14 of the 14 processors detected
@@ -493,16 +493,16 @@ Info (12127): Elaborating entity "processor" for the top level hierarchy
 Info (12128): Elaborating entity "datapath" for hierarchy "datapath:Datapath" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 90
 Info (12128): Elaborating entity "PC" for hierarchy "datapath:Datapath|PC:ProgramCounter" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 212
 Info (12128): Elaborating entity "memory" for hierarchy "datapath:Datapath|memory:Memory" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 232
-Warning (10850): Verilog HDL warning at processor.v(585): number of words (6) in memory file does not match the number of elements in the address range [0:255] File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 585
-Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[0] = 10111111 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
-Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[1] = 10010100 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
-Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[2] = 01001111 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
-Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[3] = 11010100 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
-Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[4] = 11100110 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
-Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[5] = 10100001 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
-Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[6] = ........ File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
-Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[7] = ........ File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
-Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[8] = ........ File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
+Warning (10850): Verilog HDL warning at processor.v(585): number of words (9) in memory file does not match the number of elements in the address range [0:255] File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 585
+Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[0] = 01010011 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
+Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[1] = 10000000 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
+Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[2] = 11010010 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
+Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[3] = 10111111 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
+Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[4] = 10010100 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
+Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[5] = 01001111 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
+Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[6] = 11010100 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
+Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[7] = 11100110 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
+Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[8] = 10100001 File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
 Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[9] = ........ File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
 Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[10] = ........ File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
 Info (10648): Verilog HDL Display System Task info at processor.v(587): mem[11] = ........ File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 587
@@ -544,15 +544,15 @@ Warning (21074): Design contains 11 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "SW[8]" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 2
     Warning (15610): No output dependent on input pin "SW[9]" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 2
     Warning (15610): No output dependent on input pin "KEY[0]" File: C:/Projects/DE10-Lite-Projects/SimProcV2/processor.v Line: 3
-Info (21057): Implemented 4147 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 4146 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 13 input pins
     Info (21059): Implemented 52 output pins
-    Info (21061): Implemented 4082 logic cells
+    Info (21061): Implemented 4081 logic cells
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 24 warnings
     Info: Peak virtual memory: 4885 megabytes
-    Info: Processing ended: Fri Apr  4 19:22:04 2025
-    Info: Elapsed time: 00:00:10
-    Info: Total CPU time (on all processors): 00:00:19
+    Info: Processing ended: Tue Apr  8 20:54:13 2025
+    Info: Elapsed time: 00:00:11
+    Info: Total CPU time (on all processors): 00:00:20
 
 
 +------------------------------------------+
