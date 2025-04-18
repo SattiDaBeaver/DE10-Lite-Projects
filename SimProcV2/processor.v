@@ -95,13 +95,13 @@ module processor (
         .SW(),
         .KEYs(),
         
-        .LEDs(LEDR),
-        .HEX0(),
-        .HEX1(),
-        .HEX2(),
-        .HEX3(),
-        .HEX4(),
-        .HEX5()
+        // .LEDs(LEDR),
+        .HEX0(HEX0),
+        .HEX1(HEX1),
+        .HEX2(HEX2),
+        .HEX3(HEX3),
+        .HEX4(HEX4),
+        .HEX5(HEX5)
     );
 
     FSM FiniteStateMachine(
@@ -144,7 +144,7 @@ module processor (
         if (Reset) begin
             counter <= 0;
         end
-        else if (counter >= 1000000) begin
+        else if (counter >= 10000) begin
             counter <= 0;
             processorCLOCK <= ~processorCLOCK;
         end
@@ -157,14 +157,14 @@ module processor (
     assign enable = 1;
     assign LEDs = {N, Z, MemRead, MemWrite, IRload, 4'b0, done};
 
-	// reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(enable), .Q(LEDs), .LEDR(LEDR[9:0]));
+	reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(enable), .Q(LEDs), .LEDR(LEDR[9:0]));
 	
-	reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PC_Addr[7:4]), .display(HEX5));
-	reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PC_Addr[3:0]), .display(HEX4));
-	reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_PC[7:4]), .display(HEX3));
-	reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_PC[3:0]), .display(HEX2));
-	reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(0), .display(HEX1));
-	reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex({1'b0, currState[2:0]}), .display(HEX0));
+	// reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PC_Addr[7:4]), .display(HEX5));
+	// reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PC_Addr[3:0]), .display(HEX4));
+	// reg_HEX H3(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_PC[7:4]), .display(HEX3));
+	// reg_HEX H2(.CLOCK_50(CLOCK_50), .EN(enable), .hex(ALU_PC[3:0]), .display(HEX2));
+	// reg_HEX H1(.CLOCK_50(CLOCK_50), .EN(enable), .hex(0), .display(HEX1));
+	// reg_HEX H0(.CLOCK_50(CLOCK_50), .EN(enable), .hex({1'b0, currState[2:0]}), .display(HEX0));
 endmodule
 
 
@@ -464,16 +464,31 @@ module MMIO (
     input       [9:0]       KEYs,
 
     output reg  [9:0]       LEDs,
-    output reg  [6:0]       HEX0,
-    output reg  [6:0]       HEX1,
-    output reg  [6:0]       HEX2,
-    output reg  [6:0]       HEX3,
-    output reg  [6:0]       HEX4,
-    output reg  [6:0]       HEX5
+    output      [6:0]       HEX0,
+    output      [6:0]       HEX1,
+    output      [6:0]       HEX2,
+    output      [6:0]       HEX3,
+    output      [6:0]       HEX4,
+    output      [6:0]       HEX5
     );
+
+    reg_HEX H0(.CLOCK_50(CLK), .EN(1'b1), .hex(HEXdata0), .display(HEX0));
+    reg_HEX H1(.CLOCK_50(CLK), .EN(1'b1), .hex(HEXdata1), .display(HEX1));
+    reg_HEX H2(.CLOCK_50(CLK), .EN(1'b1), .hex(HEXdata2), .display(HEX2));
+    reg_HEX H3(.CLOCK_50(CLK), .EN(1'b1), .hex(HEXdata3), .display(HEX3));
+    reg_HEX H4(.CLOCK_50(CLK), .EN(1'b1), .hex(HEXdata4), .display(HEX4));
+    reg_HEX H5(.CLOCK_50(CLK), .EN(1'b1), .hex(HEXdata5), .display(HEX5));
+
+    reg [:0] HEXdata0, HEXdata1, HEXdata2, HEXdata3, HEXdata4, HEXdata5;
 
     initial begin
         LEDs = 0;
+        HEXdata0 = 0;
+        HEXdata1 = 0;
+        HEXdata2 = 0;
+        HEXdata3 = 0;
+        HEXdata4 = 0;
+        HEXdata5 = 0;
     end
 
     always @ (posedge CLK) begin
@@ -484,8 +499,19 @@ module MMIO (
             8'hB1:      if (MemWrite) begin
                             LEDs[9:8] <= DataIn[1:0];
                         end
+            8'hC0:      if (MemWrite) begin
+                            HEXdata1 <= DataIn[7:4];
+                            HEXdata0 <= DataIn[3:0];
+                        end
+            8'hC1:      if (MemWrite) begin
+                            HEXdata3 <= DataIn[7:4];
+                            HEXdata2 <= DataIn[3:0];
+                        end 
+            8'hC2:      if (MemWrite) begin
+                            HEXdata5 <= DataIn[7:4];
+                            HEXdata4 <= DataIn[3:0];
+            end 
         endcase
-
     end
 
     always @ (*) begin
@@ -495,6 +521,15 @@ module MMIO (
                         end
             8'hB1:      if (MemRead) begin
                             DataOut = {6'b000000, LEDs[9:8]};
+                        end
+            8'hC0:      if (MemRead) begin
+                            DataOut = {HEXdata1, HEXdata0};
+                        end
+            8'hC1:      if (MemRead) begin
+                            DataOut = {HEXdata3, HEXdata2};
+                        end
+            8'hC2:      if (MemRead) begin
+                            DataOut = {HEXdata5, HEXdata4};
                         end
             default:        DataOut = 8'b0;
         endcase
