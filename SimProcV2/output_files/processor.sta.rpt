@@ -1,5 +1,5 @@
 Timing Analyzer report for processor
-Fri Apr 18 02:19:37 2025
+Fri Apr 18 02:44:35 2025
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -92,15 +92,15 @@ on the Quartus Prime software download page.
 ; Number detected on machine ; 20          ;
 ; Maximum allowed            ; 14          ;
 ;                            ;             ;
-; Average used               ; 2.89        ;
+; Average used               ; 2.84        ;
 ; Maximum used               ; 14          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
 ;     Processor 2            ;  17.4%      ;
-;     Processor 3            ;  17.2%      ;
-;     Processor 4            ;  16.7%      ;
-;     Processors 5-14        ;  13.8%      ;
+;     Processor 3            ;  16.9%      ;
+;     Processor 4            ;  16.6%      ;
+;     Processors 5-14        ;  13.3%      ;
 +----------------------------+-------------+
 
 
@@ -120,8 +120,8 @@ on the Quartus Prime software download page.
 +------------+-----------------+----------------+------+
 ; Fmax       ; Restricted Fmax ; Clock Name     ; Note ;
 +------------+-----------------+----------------+------+
-; 77.47 MHz  ; 77.47 MHz       ; processorCLOCK ;      ;
-; 166.39 MHz ; 166.39 MHz      ; CLOCK_50       ;      ;
+; 86.54 MHz  ; 86.54 MHz       ; processorCLOCK ;      ;
+; 157.21 MHz ; 157.21 MHz      ; CLOCK_50       ;      ;
 +------------+-----------------+----------------+------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
@@ -131,9 +131,9 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +-------------------------------------+---------+---------------+
 ; Clock                               ; Slack   ; End Point TNS ;
 +-------------------------------------+---------+---------------+
-; processorCLOCK                      ; -11.909 ; -10975.285    ;
-; FSM:FiniteStateMachine|currState[0] ; -5.776  ; -43.900       ;
-; CLOCK_50                            ; -5.184  ; -141.268      ;
+; processorCLOCK                      ; -10.556 ; -9441.173     ;
+; CLOCK_50                            ; -5.361  ; -121.470      ;
+; FSM:FiniteStateMachine|currState[0] ; -3.249  ; -24.754       ;
 +-------------------------------------+---------+---------------+
 
 
@@ -142,9 +142,9 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +-------------------------------------+--------+---------------+
 ; Clock                               ; Slack  ; End Point TNS ;
 +-------------------------------------+--------+---------------+
-; CLOCK_50                            ; -1.933 ; -1.933        ;
-; processorCLOCK                      ; -0.828 ; -2.245        ;
-; FSM:FiniteStateMachine|currState[0] ; 0.257  ; 0.000         ;
+; FSM:FiniteStateMachine|currState[0] ; -0.904 ; -0.904        ;
+; processorCLOCK                      ; 0.212  ; 0.000         ;
+; CLOCK_50                            ; 0.609  ; 0.000         ;
 +-------------------------------------+--------+---------------+
 
 
@@ -165,9 +165,9 @@ No paths to report.
 +-------------------------------------+--------+---------------+
 ; Clock                               ; Slack  ; End Point TNS ;
 +-------------------------------------+--------+---------------+
-; CLOCK_50                            ; -3.000 ; -57.717       ;
+; CLOCK_50                            ; -3.000 ; -49.299       ;
 ; processorCLOCK                      ; -1.403 ; -2199.904     ;
-; FSM:FiniteStateMachine|currState[0] ; 0.378  ; 0.000         ;
+; FSM:FiniteStateMachine|currState[0] ; 0.374  ; 0.000         ;
 +-------------------------------------+--------+---------------+
 
 
@@ -182,21 +182,21 @@ No synchronizer chains to report.
 +------------+-----------------+----------------+------+
 ; Fmax       ; Restricted Fmax ; Clock Name     ; Note ;
 +------------+-----------------+----------------+------+
-; 83.22 MHz  ; 83.22 MHz       ; processorCLOCK ;      ;
-; 179.57 MHz ; 179.57 MHz      ; CLOCK_50       ;      ;
+; 93.25 MHz  ; 93.25 MHz       ; processorCLOCK ;      ;
+; 169.15 MHz ; 169.15 MHz      ; CLOCK_50       ;      ;
 +------------+-----------------+----------------+------+
 This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
 
-+---------------------------------------------------------------+
-; Slow 1200mV 0C Model Setup Summary                            ;
-+-------------------------------------+---------+---------------+
-; Clock                               ; Slack   ; End Point TNS ;
-+-------------------------------------+---------+---------------+
-; processorCLOCK                      ; -11.016 ; -10167.045    ;
-; FSM:FiniteStateMachine|currState[0] ; -5.604  ; -42.639       ;
-; CLOCK_50                            ; -4.794  ; -128.084      ;
-+-------------------------------------+---------+---------------+
++--------------------------------------------------------------+
+; Slow 1200mV 0C Model Setup Summary                           ;
++-------------------------------------+--------+---------------+
+; Clock                               ; Slack  ; End Point TNS ;
++-------------------------------------+--------+---------------+
+; processorCLOCK                      ; -9.724 ; -8829.185     ;
+; CLOCK_50                            ; -4.912 ; -110.430      ;
+; FSM:FiniteStateMachine|currState[0] ; -3.288 ; -24.839       ;
++-------------------------------------+--------+---------------+
 
 
 +--------------------------------------------------------------+
@@ -204,9 +204,9 @@ This panel reports FMAX for every clock in the design, regardless of the user-sp
 +-------------------------------------+--------+---------------+
 ; Clock                               ; Slack  ; End Point TNS ;
 +-------------------------------------+--------+---------------+
-; CLOCK_50                            ; -1.755 ; -1.755        ;
-; processorCLOCK                      ; -0.807 ; -2.160        ;
-; FSM:FiniteStateMachine|currState[0] ; 0.397  ; 0.000         ;
+; FSM:FiniteStateMachine|currState[0] ; -0.636 ; -0.636        ;
+; processorCLOCK                      ; 0.200  ; 0.000         ;
+; CLOCK_50                            ; 0.565  ; 0.000         ;
 +-------------------------------------+--------+---------------+
 
 
@@ -227,9 +227,9 @@ No paths to report.
 +-------------------------------------+--------+---------------+
 ; Clock                               ; Slack  ; End Point TNS ;
 +-------------------------------------+--------+---------------+
-; CLOCK_50                            ; -3.000 ; -57.717       ;
+; CLOCK_50                            ; -3.000 ; -49.299       ;
 ; processorCLOCK                      ; -1.403 ; -2199.904     ;
-; FSM:FiniteStateMachine|currState[0] ; 0.381  ; 0.000         ;
+; FSM:FiniteStateMachine|currState[0] ; 0.326  ; 0.000         ;
 +-------------------------------------+--------+---------------+
 
 
@@ -244,9 +244,9 @@ No synchronizer chains to report.
 +-------------------------------------+--------+---------------+
 ; Clock                               ; Slack  ; End Point TNS ;
 +-------------------------------------+--------+---------------+
-; processorCLOCK                      ; -4.620 ; -3979.880     ;
-; FSM:FiniteStateMachine|currState[0] ; -2.091 ; -15.728       ;
-; CLOCK_50                            ; -1.757 ; -38.667       ;
+; processorCLOCK                      ; -4.347 ; -3475.232     ;
+; CLOCK_50                            ; -1.779 ; -30.765       ;
+; FSM:FiniteStateMachine|currState[0] ; -0.923 ; -6.460        ;
 +-------------------------------------+--------+---------------+
 
 
@@ -255,9 +255,9 @@ No synchronizer chains to report.
 +-------------------------------------+--------+---------------+
 ; Clock                               ; Slack  ; End Point TNS ;
 +-------------------------------------+--------+---------------+
-; CLOCK_50                            ; -1.109 ; -1.109        ;
-; processorCLOCK                      ; -0.571 ; -1.518        ;
-; FSM:FiniteStateMachine|currState[0] ; -0.046 ; -0.089        ;
+; FSM:FiniteStateMachine|currState[0] ; -0.466 ; -0.710        ;
+; processorCLOCK                      ; -0.332 ; -0.426        ;
+; CLOCK_50                            ; 0.232  ; 0.000         ;
 +-------------------------------------+--------+---------------+
 
 
@@ -278,9 +278,9 @@ No paths to report.
 +-------------------------------------+--------+---------------+
 ; Clock                               ; Slack  ; End Point TNS ;
 +-------------------------------------+--------+---------------+
-; CLOCK_50                            ; -3.000 ; -43.403       ;
+; CLOCK_50                            ; -3.000 ; -37.114       ;
 ; processorCLOCK                      ; -1.000 ; -1568.000     ;
-; FSM:FiniteStateMachine|currState[0] ; 0.205  ; 0.000         ;
+; FSM:FiniteStateMachine|currState[0] ; 0.162  ; 0.000         ;
 +-------------------------------------+--------+---------------+
 
 
@@ -290,20 +290,20 @@ No paths to report.
 No synchronizer chains to report.
 
 
-+-------------------------------------------------------------------------------------------------------+
-; Multicorner Timing Analysis Summary                                                                   ;
-+--------------------------------------+------------+--------+----------+---------+---------------------+
-; Clock                                ; Setup      ; Hold   ; Recovery ; Removal ; Minimum Pulse Width ;
-+--------------------------------------+------------+--------+----------+---------+---------------------+
-; Worst-case Slack                     ; -11.909    ; -1.933 ; N/A      ; N/A     ; -3.000              ;
-;  CLOCK_50                            ; -5.184     ; -1.933 ; N/A      ; N/A     ; -3.000              ;
-;  FSM:FiniteStateMachine|currState[0] ; -5.776     ; -0.046 ; N/A      ; N/A     ; 0.205               ;
-;  processorCLOCK                      ; -11.909    ; -0.828 ; N/A      ; N/A     ; -1.403              ;
-; Design-wide TNS                      ; -11160.453 ; -4.178 ; 0.0      ; 0.0     ; -2257.621           ;
-;  CLOCK_50                            ; -141.268   ; -1.933 ; N/A      ; N/A     ; -57.717             ;
-;  FSM:FiniteStateMachine|currState[0] ; -43.900    ; -0.089 ; N/A      ; N/A     ; 0.000               ;
-;  processorCLOCK                      ; -10975.285 ; -2.245 ; N/A      ; N/A     ; -2199.904           ;
-+--------------------------------------+------------+--------+----------+---------+---------------------+
++------------------------------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                                                  ;
++--------------------------------------+-----------+--------+----------+---------+---------------------+
+; Clock                                ; Setup     ; Hold   ; Recovery ; Removal ; Minimum Pulse Width ;
++--------------------------------------+-----------+--------+----------+---------+---------------------+
+; Worst-case Slack                     ; -10.556   ; -0.904 ; N/A      ; N/A     ; -3.000              ;
+;  CLOCK_50                            ; -5.361    ; 0.232  ; N/A      ; N/A     ; -3.000              ;
+;  FSM:FiniteStateMachine|currState[0] ; -3.288    ; -0.904 ; N/A      ; N/A     ; 0.162               ;
+;  processorCLOCK                      ; -10.556   ; -0.332 ; N/A      ; N/A     ; -1.403              ;
+; Design-wide TNS                      ; -9587.397 ; -1.136 ; 0.0      ; 0.0     ; -2249.203           ;
+;  CLOCK_50                            ; -121.470  ; 0.000  ; N/A      ; N/A     ; -49.299             ;
+;  FSM:FiniteStateMachine|currState[0] ; -24.839   ; -0.904 ; N/A      ; N/A     ; 0.000               ;
+;  processorCLOCK                      ; -9441.173 ; -0.426 ; N/A      ; N/A     ; -2199.904           ;
++--------------------------------------+-----------+--------+----------+---------+---------------------+
 
 
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -383,8 +383,8 @@ No synchronizer chains to report.
 ; SW[8]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; SW[9]               ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; KEY[0]              ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
-; CLOCK_50            ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; KEY[1]              ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; CLOCK_50            ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
 ; ~ALTERA_TMS~        ; 2.5 V Schmitt Trigger ; 2000 ps         ; 2000 ps         ;
 ; ~ALTERA_TCK~        ; 2.5 V Schmitt Trigger ; 2000 ps         ; 2000 ps         ;
 ; ~ALTERA_TDI~        ; 2.5 V Schmitt Trigger ; 2000 ps         ; 2000 ps         ;
@@ -584,11 +584,10 @@ No synchronizer chains to report.
 ; From Clock                          ; To Clock                            ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
 +-------------------------------------+-------------------------------------+----------+----------+----------+----------+
 ; CLOCK_50                            ; CLOCK_50                            ; 1452     ; 0        ; 0        ; 0        ;
-; FSM:FiniteStateMachine|currState[0] ; CLOCK_50                            ; 5        ; 5        ; 0        ; 0        ;
-; processorCLOCK                      ; CLOCK_50                            ; 32       ; 1        ; 0        ; 0        ;
-; processorCLOCK                      ; FSM:FiniteStateMachine|currState[0] ; 0        ; 0        ; 1342     ; 0        ;
-; FSM:FiniteStateMachine|currState[0] ; processorCLOCK                      ; 5416     ; 5432     ; 0        ; 0        ;
-; processorCLOCK                      ; processorCLOCK                      ; 274025   ; 0        ; 0        ; 0        ;
+; processorCLOCK                      ; CLOCK_50                            ; 1        ; 1        ; 0        ; 0        ;
+; processorCLOCK                      ; FSM:FiniteStateMachine|currState[0] ; 0        ; 0        ; 1350     ; 0        ;
+; FSM:FiniteStateMachine|currState[0] ; processorCLOCK                      ; 5403     ; 5419     ; 0        ; 0        ;
+; processorCLOCK                      ; processorCLOCK                      ; 273261   ; 0        ; 0        ; 0        ;
 +-------------------------------------+-------------------------------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -599,11 +598,10 @@ Entries labeled "false path" only account for clock-to-clock false paths and not
 ; From Clock                          ; To Clock                            ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
 +-------------------------------------+-------------------------------------+----------+----------+----------+----------+
 ; CLOCK_50                            ; CLOCK_50                            ; 1452     ; 0        ; 0        ; 0        ;
-; FSM:FiniteStateMachine|currState[0] ; CLOCK_50                            ; 5        ; 5        ; 0        ; 0        ;
-; processorCLOCK                      ; CLOCK_50                            ; 32       ; 1        ; 0        ; 0        ;
-; processorCLOCK                      ; FSM:FiniteStateMachine|currState[0] ; 0        ; 0        ; 1342     ; 0        ;
-; FSM:FiniteStateMachine|currState[0] ; processorCLOCK                      ; 5416     ; 5432     ; 0        ; 0        ;
-; processorCLOCK                      ; processorCLOCK                      ; 274025   ; 0        ; 0        ; 0        ;
+; processorCLOCK                      ; CLOCK_50                            ; 1        ; 1        ; 0        ; 0        ;
+; processorCLOCK                      ; FSM:FiniteStateMachine|currState[0] ; 0        ; 0        ; 1350     ; 0        ;
+; FSM:FiniteStateMachine|currState[0] ; processorCLOCK                      ; 5403     ; 5419     ; 0        ; 0        ;
+; processorCLOCK                      ; processorCLOCK                      ; 273261   ; 0        ; 0        ; 0        ;
 +-------------------------------------+-------------------------------------+----------+----------+----------+----------+
 Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
@@ -629,8 +627,8 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; Unconstrained Clocks            ; 0     ; 0    ;
 ; Unconstrained Input Ports       ; 1     ; 1    ;
 ; Unconstrained Input Port Paths  ; 36    ; 36   ;
-; Unconstrained Output Ports      ; 48    ; 48   ;
-; Unconstrained Output Port Paths ; 48    ; 48   ;
+; Unconstrained Output Ports      ; 52    ; 52   ;
+; Unconstrained Output Port Paths ; 52    ; 52   ;
 +---------------------------------+-------+------+
 
 
@@ -702,6 +700,10 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; HEX5[5]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; HEX5[6]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[0]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LEDR[1]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LEDR[2]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LEDR[3]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LEDR[4]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[5]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[6]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[7]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
@@ -767,6 +769,10 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 ; HEX5[5]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; HEX5[6]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[0]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LEDR[1]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LEDR[2]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LEDR[3]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LEDR[4]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[5]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[6]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
 ; LEDR[7]     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
@@ -781,7 +787,7 @@ No non-DPA dedicated SERDES Receiver circuitry present in device or used in desi
 Info: *******************************************************************
 Info: Running Quartus Prime Timing Analyzer
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Fri Apr 18 02:19:35 2025
+    Info: Processing started: Fri Apr 18 02:44:33 2025
 Info: Command: quartus_sta processor -c processor
 Info: qsta_default_script.tcl version: #1
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
@@ -801,79 +807,79 @@ Info: Found TIMING_ANALYZER_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
 Info: Analyzing Slow 1200mV 85C Model
 Info: Can't run Report Timing Closure Recommendations. The current device family is not supported.
 Critical Warning (332148): Timing requirements not met
-Info (332146): Worst-case setup slack is -11.909
+Info (332146): Worst-case setup slack is -10.556
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):   -11.909          -10975.285 processorCLOCK 
-    Info (332119):    -5.776             -43.900 FSM:FiniteStateMachine|currState[0] 
-    Info (332119):    -5.184            -141.268 CLOCK_50 
-Info (332146): Worst-case hold slack is -1.933
+    Info (332119):   -10.556           -9441.173 processorCLOCK 
+    Info (332119):    -5.361            -121.470 CLOCK_50 
+    Info (332119):    -3.249             -24.754 FSM:FiniteStateMachine|currState[0] 
+Info (332146): Worst-case hold slack is -0.904
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -1.933              -1.933 CLOCK_50 
-    Info (332119):    -0.828              -2.245 processorCLOCK 
-    Info (332119):     0.257               0.000 FSM:FiniteStateMachine|currState[0] 
+    Info (332119):    -0.904              -0.904 FSM:FiniteStateMachine|currState[0] 
+    Info (332119):     0.212               0.000 processorCLOCK 
+    Info (332119):     0.609               0.000 CLOCK_50 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
 Info (332146): Worst-case minimum pulse width slack is -3.000
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -3.000             -57.717 CLOCK_50 
+    Info (332119):    -3.000             -49.299 CLOCK_50 
     Info (332119):    -1.403           -2199.904 processorCLOCK 
-    Info (332119):     0.378               0.000 FSM:FiniteStateMachine|currState[0] 
+    Info (332119):     0.374               0.000 FSM:FiniteStateMachine|currState[0] 
 Info: Analyzing Slow 1200mV 0C Model
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
 Critical Warning (332148): Timing requirements not met
-Info (332146): Worst-case setup slack is -11.016
+Info (332146): Worst-case setup slack is -9.724
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):   -11.016          -10167.045 processorCLOCK 
-    Info (332119):    -5.604             -42.639 FSM:FiniteStateMachine|currState[0] 
-    Info (332119):    -4.794            -128.084 CLOCK_50 
-Info (332146): Worst-case hold slack is -1.755
+    Info (332119):    -9.724           -8829.185 processorCLOCK 
+    Info (332119):    -4.912            -110.430 CLOCK_50 
+    Info (332119):    -3.288             -24.839 FSM:FiniteStateMachine|currState[0] 
+Info (332146): Worst-case hold slack is -0.636
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -1.755              -1.755 CLOCK_50 
-    Info (332119):    -0.807              -2.160 processorCLOCK 
-    Info (332119):     0.397               0.000 FSM:FiniteStateMachine|currState[0] 
+    Info (332119):    -0.636              -0.636 FSM:FiniteStateMachine|currState[0] 
+    Info (332119):     0.200               0.000 processorCLOCK 
+    Info (332119):     0.565               0.000 CLOCK_50 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
 Info (332146): Worst-case minimum pulse width slack is -3.000
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -3.000             -57.717 CLOCK_50 
+    Info (332119):    -3.000             -49.299 CLOCK_50 
     Info (332119):    -1.403           -2199.904 processorCLOCK 
-    Info (332119):     0.381               0.000 FSM:FiniteStateMachine|currState[0] 
+    Info (332119):     0.326               0.000 FSM:FiniteStateMachine|currState[0] 
 Info: Analyzing Fast 1200mV 0C Model
 Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
 Critical Warning (332148): Timing requirements not met
-Info (332146): Worst-case setup slack is -4.620
+Info (332146): Worst-case setup slack is -4.347
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -4.620           -3979.880 processorCLOCK 
-    Info (332119):    -2.091             -15.728 FSM:FiniteStateMachine|currState[0] 
-    Info (332119):    -1.757             -38.667 CLOCK_50 
-Info (332146): Worst-case hold slack is -1.109
+    Info (332119):    -4.347           -3475.232 processorCLOCK 
+    Info (332119):    -1.779             -30.765 CLOCK_50 
+    Info (332119):    -0.923              -6.460 FSM:FiniteStateMachine|currState[0] 
+Info (332146): Worst-case hold slack is -0.466
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -1.109              -1.109 CLOCK_50 
-    Info (332119):    -0.571              -1.518 processorCLOCK 
-    Info (332119):    -0.046              -0.089 FSM:FiniteStateMachine|currState[0] 
+    Info (332119):    -0.466              -0.710 FSM:FiniteStateMachine|currState[0] 
+    Info (332119):    -0.332              -0.426 processorCLOCK 
+    Info (332119):     0.232               0.000 CLOCK_50 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
 Info (332146): Worst-case minimum pulse width slack is -3.000
     Info (332119):     Slack       End Point TNS Clock 
     Info (332119): ========= =================== =====================
-    Info (332119):    -3.000             -43.403 CLOCK_50 
+    Info (332119):    -3.000             -37.114 CLOCK_50 
     Info (332119):    -1.000           -1568.000 processorCLOCK 
-    Info (332119):     0.205               0.000 FSM:FiniteStateMachine|currState[0] 
+    Info (332119):     0.162               0.000 FSM:FiniteStateMachine|currState[0] 
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus Prime Timing Analyzer was successful. 0 errors, 6 warnings
     Info: Peak virtual memory: 5012 megabytes
-    Info: Processing ended: Fri Apr 18 02:19:37 2025
+    Info: Processing ended: Fri Apr 18 02:44:35 2025
     Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:06
 

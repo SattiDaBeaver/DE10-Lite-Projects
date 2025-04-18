@@ -19,8 +19,8 @@ add r0, r2
 load r3, r0
 add r3, r2
 store r3, r0
+bz 2
 sub r0, r2
-bz 1
 j -8
 
 add r0, r2
@@ -28,4 +28,4 @@ load r3, r0
 add r3, r2
 store r3, r0
 sub r0, r2
-j -7
+j -8

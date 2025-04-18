@@ -95,7 +95,7 @@ module processor (
         .SW(),
         .KEYs(),
         
-        // .LEDs(LEDR),
+        .LEDs(LEDR),
         .HEX0(HEX0),
         .HEX1(HEX1),
         .HEX2(HEX2),
@@ -144,7 +144,7 @@ module processor (
         if (Reset) begin
             counter <= 0;
         end
-        else if (counter >= 10000) begin
+        else if (counter >= 50000) begin
             counter <= 0;
             processorCLOCK <= ~processorCLOCK;
         end
@@ -157,7 +157,7 @@ module processor (
     assign enable = 1;
     assign LEDs = {N, Z, MemRead, MemWrite, IRload, 4'b0, done};
 
-	reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(enable), .Q(LEDs), .LEDR(LEDR[9:0]));
+	// reg_LED REGLED (.CLOCK_50(CLOCK_50), .EN(enable), .Q(LEDs), .LEDR(LEDR[9:0]));
 	
 	// reg_HEX H5(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PC_Addr[7:4]), .display(HEX5));
 	// reg_HEX H4(.CLOCK_50(CLOCK_50), .EN(enable), .hex(PC_Addr[3:0]), .display(HEX4));
@@ -479,7 +479,7 @@ module MMIO (
     reg_HEX H4(.CLOCK_50(CLK), .EN(1'b1), .hex(HEXdata4), .display(HEX4));
     reg_HEX H5(.CLOCK_50(CLK), .EN(1'b1), .hex(HEXdata5), .display(HEX5));
 
-    reg [:0] HEXdata0, HEXdata1, HEXdata2, HEXdata3, HEXdata4, HEXdata5;
+    reg [3:0] HEXdata0, HEXdata1, HEXdata2, HEXdata3, HEXdata4, HEXdata5;
 
     initial begin
         LEDs = 0;
